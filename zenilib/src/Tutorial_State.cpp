@@ -18,7 +18,10 @@ using namespace Zeni;
 Tutorial_State::Tutorial_State()
 : m_time_passed(0.0f),
 m_max_time_step(1.0f / 20.0f), // make the largest physics step 1/20 of a second
-m_max_time_steps(10.0f) // allow no more than 10 physics steps per frame
+m_max_time_steps(10.0f), // allow no more than 10 physics steps per frame
+turn_transition(false),
+transition_angle(0.0f),
+current_turn(0)
 {
   set_pausable(true);
 }
@@ -46,12 +49,21 @@ void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 			m_controls.left = event.type == SDL_KEYDOWN;
 			break;
 
-    case SDLK_s:
+        case SDLK_s:
 			m_controls.down = event.type == SDL_KEYDOWN;
 			break;
 
 		case SDLK_d:
 			m_controls.right = event.type == SDL_KEYDOWN;
+			break;
+
+		case SDLK_e:
+			// debugging: (for testing out the board-turning animation)
+			if ( event.type == SDL_KEYDOWN )
+			{
+			  current_turn = (current_turn+1)%2;
+			  turn_transition = true;
+			}
 			break;
 
 		default:
@@ -107,6 +119,43 @@ void Tutorial_State::perform_logic() {
   while(m_time_passed > m_max_time_step) {
     m_time_passed -= m_max_time_step;
     step(m_max_time_step);
+  }
+
+  // move the camera from one side of the board to the other
+  if ( turn_transition )
+  {
+	transition_angle += m_time_passed * 2.0f;
+
+	m_player.camera.position.x = -BOARD_DIST_X*cos(transition_angle) + BOARD_DIST_X;
+	m_player.camera.position.y = -BOARD_DIST_X*sin(transition_angle);
+
+	m_player.camera.look_at(BOARD_CENTER);
+
+	// it is the first player's turn, so stop at angle == 0 (or 2pi)
+	if ( current_turn == 0 )
+	{
+	  if ( 2.0f*pi - transition_angle < ANGLE_EPSILON )
+	  {
+	    transition_angle = 0.0f;
+		turn_transition = false;
+
+		m_player.camera.position.x = 0.0f;
+		m_player.camera.position.y = 0.0f;
+		m_player.camera.look_at(BOARD_CENTER);
+	  }
+	}
+	else // it is the second player's turn, so stop at angle pi
+	{
+	  if ( pi - transition_angle < ANGLE_EPSILON )
+	  {
+		transition_angle = pi;
+		turn_transition = false;
+
+		m_player.camera.position.x = 200.0f;
+		m_player.camera.position.y = 0.0f;
+		m_player.camera.look_at(BOARD_CENTER);
+	  }
+	}
   }
 
   /* Simple physics update
