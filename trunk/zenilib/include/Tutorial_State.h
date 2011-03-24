@@ -7,6 +7,7 @@
 #ifndef TUTORIAL_STATE_H
 #define TUTORIAL_STATE_H
 
+#include "wiimote_state.h"
 #include <Zeni/Camera.h>
 #include <Zeni/Game.h>
 #include <Zeni/Timer.h>
@@ -20,7 +21,11 @@ const Zeni::Point3f BOARD_CENTER(BOARD_DIST_X,0.0f,0.0f);
 
 const float ANGLE_EPSILON = .01f;
 
+#ifdef _MACOSX
 class Tutorial_State : public Zeni::Gamestate_Base {
+#else
+class Tutorial_State : public Wiimote_Game_State{
+#endif
   struct Space_Rectangle {
     Space_Rectangle()
       : position(BOARD_DIST_X, 40.0f, 20.0f), // top left point
