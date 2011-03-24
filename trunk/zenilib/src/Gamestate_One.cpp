@@ -67,7 +67,7 @@ namespace Zeni {
  
     Game &gr = get_Game();
     gr.pop_state();
-    gr.push_state(new Title_State<Tutorial_State, Instructions_State>("Zenilib:\nExample 3"));
+    gr.push_state(new Title_State<Tutorial_State, Instructions_State>("Wii Connect 4"));
   }
 
 }
