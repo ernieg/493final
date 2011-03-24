@@ -187,7 +187,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/NODEFAULTLIB:msvcrt %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_image.lib;SDL_net.lib;SDL_ttf.lib;lib3ds-2_0.lib;cg.lib;d3d9.lib;d3dx9.lib;cgD3D9.lib;opengl32.lib;glew32.lib;glu32.lib;cgGL.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Advapi32.lib;SHFolder.lib;Shell32.lib;User32.lib;Zenilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_image.lib;SDL_net.lib;SDL_ttf.lib;wiiuse.lib;lib3ds-2_0.lib;cg.lib;d3d9.lib;d3dx9.lib;cgD3D9.lib;opengl32.lib;glew32.lib;glu32.lib;cgGL.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Advapi32.lib;SHFolder.lib;Shell32.lib;User32.lib;Zenilib.lib;wiiuse.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(Platform)\zenilib_d\;..\lib;..\lib_win;$(DXSDK_Dir)Lib\x86;$(ProgramFiles)\OpenAL 1.1 SDK\libs\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -289,7 +289,7 @@
       <DisableSpecificWarnings>4005;4986;4297;4312;4505;4311;4711;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_image.lib;SDL_net.lib;SDL_ttf.lib;lib3ds-2_0.lib;cg.lib;d3d9.lib;d3dx9.lib;cgD3D9.lib;opengl32.lib;glew32.lib;glu32.lib;cgGL.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Advapi32.lib;SHFolder.lib;Shell32.lib;User32.lib;Zenilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_image.lib;SDL_net.lib;SDL_ttf.lib;wiiuse.lib;wiiuse.lib;lib3ds-2_0.lib;cg.lib;d3d9.lib;d3dx9.lib;cgD3D9.lib;opengl32.lib;glew32.lib;glu32.lib;cgGL.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Advapi32.lib;SHFolder.lib;Shell32.lib;User32.lib;Zenilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(Platform)\zenilib\;..\lib;..\lib_win;$(DXSDK_Dir)Lib\x86;$(ProgramFiles)\OpenAL 1.1 SDK\libs\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
@@ -396,7 +396,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/NODEFAULTLIB:msvcrt %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_image.lib;SDL_net.lib;SDL_ttf.lib;lib3ds-2_0.lib;cg.lib;d3d9.lib;d3dx9.lib;cgD3D9.lib;opengl32.lib;glew32.lib;glu32.lib;cgGL.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Advapi32.lib;SHFolder.lib;Shell32.lib;User32.lib;Zenilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_image.lib;SDL_net.lib;SDL_ttf.lib;wiiuse.lib;lib3ds-2_0.lib;cg.lib;d3d9.lib;d3dx9.lib;cgD3D9.lib;opengl32.lib;glew32.lib;glu32.lib;cgGL.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Advapi32.lib;SHFolder.lib;Shell32.lib;User32.lib;Zenilib.lib;wiiuse.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(Platform)\zenilib_d\;..\lib;..\lib_win;$(DXSDK_Dir)Lib\x86;$(ProgramFiles)\OpenAL 1.1 SDK\libs\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -500,7 +500,7 @@
       <DisableSpecificWarnings>4005;4986;4297;4312;4505;4311;4711;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_image.lib;SDL_net.lib;SDL_ttf.lib;lib3ds-2_0.lib;cg.lib;d3d9.lib;d3dx9.lib;cgD3D9.lib;opengl32.lib;glew32.lib;glu32.lib;cgGL.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Advapi32.lib;SHFolder.lib;Shell32.lib;User32.lib;Zenilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_image.lib;SDL_net.lib;SDL_ttf.lib;wiiuse.lib;lib3ds-2_0.lib;wiiuse.lib;cg.lib;d3d9.lib;d3dx9.lib;cgD3D9.lib;opengl32.lib;glew32.lib;glu32.lib;cgGL.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;Advapi32.lib;SHFolder.lib;Shell32.lib;User32.lib;Zenilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(Platform)\zenilib\;..\lib;..\lib_win;$(DXSDK_Dir)Lib\x86;$(ProgramFiles)\OpenAL 1.1 SDK\libs\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
@@ -613,8 +613,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\src\Tutorial_State.cpp" />
+    <ClCompile Include="..\src\wiimote_state.cpp" />
+    <ClCompile Include="..\src\zenilib.cxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Tutorial_State.h" />
+    <ClInclude Include="..\include\wiimote_events.h" />
+    <ClInclude Include="..\include\wiimote_state.h" />
+    <ClInclude Include="..\include\wiiuse.h" />
     <ClInclude Include="..\include\zenilib.h" />
   </ItemGroup>
   <ItemGroup>
