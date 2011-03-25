@@ -188,6 +188,7 @@ void Tutorial_State::step(const float &time_step) {
 void Tutorial_State::render() {
   Video &vr = get_Video();
 
+  m_player.camera.far_clip = 2000.0f;
   vr.set_3d(m_player.camera);
 
   Vertex3f_Texture p0(m_rect.position,                             Point2f(0.0f, 0.0f));
@@ -197,7 +198,78 @@ void Tutorial_State::render() {
   Material material("logo");
 
 	Quadrilateral<Vertex3f_Texture> quad(p0, p1, p2, p3);
-  quad.fax_Material(&material);
+    quad.fax_Material(&material);
 
 	vr.render(quad);
+
+	// skybox
+	Vector3f v_f(1.0f, 0.0f, 0.0f);
+    Vector3f v_u(0.0f, 0.0f, 1.0f);
+    Vector3f v_l(0.0f, 1.0f, 0.0f);
+
+	Point2f texture_a(0.0f, 0.0f);
+	Point2f texture_b(0.0f, 1.0f);
+	Point2f texture_c(1.0f, 1.0f);
+	Point2f texture_d(1.0f, 0.0f);
+
+	Point3f skybox_p0 = m_player.camera.position + SKYBOX_DIST*(v_f + v_u + v_l);
+	Point3f skybox_p1 = m_player.camera.position + SKYBOX_DIST*(v_f - v_u + v_l);
+	Point3f skybox_p2 = m_player.camera.position + SKYBOX_DIST*(v_f - v_u - v_l);
+	Point3f skybox_p3 = m_player.camera.position + SKYBOX_DIST*(v_f + v_u - v_l);
+	Point3f skybox_p4 = m_player.camera.position + SKYBOX_DIST*(-v_f - v_u + v_l);
+	Point3f skybox_p5 = m_player.camera.position + SKYBOX_DIST*(-v_f + v_u + v_l);
+	Point3f skybox_p6 = m_player.camera.position + SKYBOX_DIST*(-v_f - v_u - v_l);
+	Point3f skybox_p7 = m_player.camera.position + SKYBOX_DIST*(-v_f + v_u - v_l);
+
+	Vertex3f_Texture a_p0(skybox_p0, texture_a);
+    Vertex3f_Texture a_p1(skybox_p1, texture_b);
+    Vertex3f_Texture a_p2(skybox_p2, texture_c); 
+    Vertex3f_Texture a_p3(skybox_p3, texture_d);
+
+	Vertex3f_Texture b_p5(skybox_p5, texture_a);
+	Vertex3f_Texture b_p4(skybox_p4, texture_b);
+	Vertex3f_Texture b_p1(skybox_p1, texture_c);
+	Vertex3f_Texture b_p0(skybox_p0, texture_d);
+
+	Vertex3f_Texture c_p7(skybox_p7, texture_a);
+	Vertex3f_Texture c_p6(skybox_p6, texture_b);
+	Vertex3f_Texture c_p4(skybox_p4, texture_c);
+	Vertex3f_Texture c_p5(skybox_p5, texture_d);
+	
+	Vertex3f_Texture d_p3(skybox_p3, texture_a);
+	Vertex3f_Texture d_p2(skybox_p2, texture_b);
+	Vertex3f_Texture d_p6(skybox_p6, texture_c);
+	Vertex3f_Texture d_p7(skybox_p7, texture_d);
+
+	Vertex3f_Texture e_p0(skybox_p0, texture_a);
+	Vertex3f_Texture e_p3(skybox_p3, texture_b);
+	Vertex3f_Texture e_p7(skybox_p7, texture_c);
+	Vertex3f_Texture e_p5(skybox_p5, texture_d);
+
+	Vertex3f_Texture f_p1(skybox_p1, texture_a);
+	Vertex3f_Texture f_p4(skybox_p4, texture_b);
+	Vertex3f_Texture f_p6(skybox_p6, texture_c);
+	Vertex3f_Texture f_p2(skybox_p2, texture_d);
+	
+    Material skybox_material("skybox");
+
+	Quadrilateral<Vertex3f_Texture> quad_a(a_p0, a_p1, a_p2, a_p3);
+	Quadrilateral<Vertex3f_Texture> quad_b(b_p5, b_p4, b_p1, b_p0);
+	Quadrilateral<Vertex3f_Texture> quad_c(c_p7, c_p6, c_p4, c_p5);
+	Quadrilateral<Vertex3f_Texture> quad_d(d_p3, d_p2, d_p6, d_p7);
+	Quadrilateral<Vertex3f_Texture> quad_e(e_p0, e_p3, e_p7, e_p5);
+	Quadrilateral<Vertex3f_Texture> quad_f(f_p1, f_p4, f_p6, f_p2);
+    quad_a.fax_Material(&skybox_material);
+	quad_b.fax_Material(&skybox_material);
+	quad_c.fax_Material(&skybox_material);
+	quad_d.fax_Material(&skybox_material);
+	quad_e.fax_Material(&skybox_material);
+	quad_f.fax_Material(&skybox_material);
+
+	vr.render(quad_a);
+	vr.render(quad_b);
+	vr.render(quad_c);
+	vr.render(quad_d);
+	vr.render(quad_e);
+	vr.render(quad_f);
 }
