@@ -56,7 +56,7 @@ namespace Zeni {
     get_Textures();
     get_Fonts();
     get_Sounds();
-    get_Video().set_title("Zenilib Example 3");
+    get_Video().set_title("Wii Connect Four");
   }
 
   Gamestate_One::~Gamestate_One() {
@@ -67,7 +67,7 @@ namespace Zeni {
  
     Game &gr = get_Game();
     gr.pop_state();
-    gr.push_state(new Title_State<Tutorial_State, Instructions_State>("Wii Connect 4"));
+    gr.push_state(new Title_State<Tutorial_State, Instructions_State>("Wii Connect Four"));
   }
 
 }
