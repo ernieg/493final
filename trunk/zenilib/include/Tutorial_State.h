@@ -14,6 +14,9 @@
 #include <Zeni/Video.h>
 #include <Zeni/Vector3f.h>
 
+// distance from the camera to the skybox
+const float SKYBOX_DIST = 1000.0f;
+
 // distance from the game board to the camera.
 // the camera is at the origin initially (player 0)
 const float BOARD_DIST_X = 100.0f;
