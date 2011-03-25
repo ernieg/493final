@@ -124,7 +124,7 @@ void Tutorial_State::perform_logic() {
   // move the camera from one side of the board to the other
   if ( turn_transition )
   {
-	transition_angle += m_time_passed * 2.0f;
+	transition_angle += m_time_passed * (-0.5f * cos(2.0f * transition_angle) + 0.6f) * 4.0f;
 
 	m_player.camera.position.x = -BOARD_DIST_X*cos(transition_angle) + BOARD_DIST_X;
 	m_player.camera.position.y = -BOARD_DIST_X*sin(transition_angle);
