@@ -12,12 +12,23 @@ Keep in mind that the values given in this file by default are
 not terribly useful.  You should choose a Color name for each 
 element in your game to enable easy skinning.
 -->
+
+<!--
+These are the color values from the actual Connect 4 box. However, they look a little drab in-game
+    <alpha>1.0</alpha>
+    <red>0.3372549</red>
+    <green>0.5647059</green>
+    <blue>0.7921569</blue>
+    
+red=0.0, green=0.5, blue=1.0 seems to look pretty good.
+-->
+
 <Colors>
   <system_font>
     <alpha>1.0</alpha>
-    <red>1.0</red>
-    <green>1.0</green>
-    <blue>0.0</blue>
+    <red>0.0</red>
+    <green>0.5</green>
+    <blue>1.0</blue>
   </system_font>
   <console_foreground>
     <alpha>0.8</alpha>
@@ -57,9 +68,9 @@ element in your game to enable easy skinning.
   </configurator_bg>
   <default_button_bg_normal>
     <alpha>1.0</alpha>
-    <red>1.0</red>
-    <green>1.0</green>
-    <blue>0.0</blue>
+    <red>0.0</red>
+    <green>0.5</green>
+    <blue>1.0</blue>
   </default_button_bg_normal>
   <default_button_bg_clicked>
     <alpha>1.0</alpha>
