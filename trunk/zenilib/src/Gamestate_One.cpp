@@ -57,6 +57,11 @@ namespace Zeni {
     get_Fonts();
     get_Sounds();
     get_Video().set_title("Wii Connect Four");
+
+	get_Sound().set_BGM("music/bg_music_1.ogg");
+	get_Sound().set_BGM_looping(true);
+	get_Sound().set_BGM_gain(0.5f);
+	get_Sound().play_BGM();
   }
 
   Gamestate_One::~Gamestate_One() {
