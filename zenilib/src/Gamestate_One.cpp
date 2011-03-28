@@ -19,8 +19,10 @@ class Instructions_State : public Gamestate_Base {
 public:
   Instructions_State()
     : tb(Point2f(), Point2f(800.0f, 600.0f), "system_36_800x600",
-    "This game uses WASD keys in addition to mouse input. "
-    "It shows how to render a very simple 3D scene.", Color())
+	"HOW TO PLAY:\n\n"
+	"The first player to line up four chips vertically, horizontally, or diagonally wins the game.\n\n"
+	"CONTROLS:\n\n"
+	"Move the Wiimote until your chip is in the correct column, then press the B button to drop it.\n", Color())
   {
     tb.give_BG_Renderer(new Widget_Renderer_Color(get_Colors()["black"]));
   }
