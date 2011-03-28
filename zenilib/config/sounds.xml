@@ -27,4 +27,7 @@ HOWTO:  To convert between types, or to downmix to mono,
     <filepath>sfx/sound.ogg</filepath>
   </token>
   -->
+  <bg_music_1>
+    <filepath>music/bg_music_1.ogg</filepath>
+  </bg_music_1>
 </Sounds>
