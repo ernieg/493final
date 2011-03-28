@@ -30,4 +30,16 @@ HOWTO:  To convert between types, or to downmix to mono,
   <bg_music_1>
     <filepath>music/bg_music_1.ogg</filepath>
   </bg_music_1>
+  <beep_1>
+    <filepath>sfx/beep_1.ogg</filepath>
+  </beep_1>
+  <beep_2>
+    <filepath>sfx/beep_2.ogg</filepath>
+  </beep_2>
+  <coin_drop_1>
+    <filepath>sfx/coin_drop_1.ogg</filepath>
+  </coin_drop_1>
+  <coin_drop_2>
+    <filepath>sfx/coin_drop_2.ogg</filepath>
+  </coin_drop_2>
 </Sounds>
