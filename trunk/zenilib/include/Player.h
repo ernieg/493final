@@ -11,6 +11,6 @@ public:
 
 private:
 	int playerIndex; // zero-indexed
-}
+};
 
 #endif
