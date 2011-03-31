@@ -579,6 +579,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Board.cpp" />
     <ClCompile Include="..\src\Coin.cpp" />
+    <ClCompile Include="..\src\GameModel.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\Gamestate_One.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug SCU|Win32'">true</ExcludedFromBuild>
