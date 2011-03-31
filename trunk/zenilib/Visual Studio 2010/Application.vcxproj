@@ -618,6 +618,11 @@
     <ClCompile Include="..\src\zenilib.cxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Board.h" />
+    <ClInclude Include="..\include\Coin.h" />
+    <ClInclude Include="..\include\GameModel.h" />
+    <ClInclude Include="..\include\GameObject.h" />
+    <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Tutorial_State.h" />
     <ClInclude Include="..\include\wiimote_events.h" />
     <ClInclude Include="..\include\wiimote_state.h" />
