@@ -16,6 +16,6 @@ public:
 private:
 	std::vector<Player*> players;
 	Board board;
-}
+};
 
 #endif

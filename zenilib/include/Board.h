@@ -12,8 +12,12 @@ public:
 	void reset();
 	void render();
 
+	Board(int numRows_ = 6, int numCols_ = 7);
+
 private:
-	std::vector< std::vector<Coin*> > board;
-}
+	std::vector< std::vector<Coin*> > board; // board[i][j] is null if the slot at row i, col j is empty
+	int numRows;
+	int numCols;
+};
 
 #endif // BOARD_H
