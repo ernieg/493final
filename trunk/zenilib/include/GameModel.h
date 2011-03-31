@@ -3,19 +3,26 @@
 
 #include <zenilib.h>
 #include "Board.h"
-#include "Player.h"
+class Player;
 
-class GameModel
-{
+class GameModel {
+    // Get reference to only instance;
+    friend GameModel & getGameModel();
+    GameModel();
+
+    // undefined
+    GameModel(const GameModel &);
+    GameModel & operator=(const GameModel &);
 public:
 	Player* getPlayer(int playerIndex);
 	Board* getBoard();
-	GameModel* getGameModel();
 	void reset();
 
 private:
 	std::vector<Player*> players;
 	Board board;
 };
+
+GameModel & getGameModel();
 
 #endif
