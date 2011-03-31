@@ -15,9 +15,19 @@ public:
 	Board(int numRows_ = 6, int numCols_ = 7);
 
 private:
+	// returns the player index of the coin in this slot
+	// or -1 if the slot is empty
+	// or -2 if the slot is off the board
+	int ownerOfSlot(int row, int col);
+
 	std::vector< std::vector<Coin*> > board; // board[i][j] is null if the slot at row i, col j is empty
+										     // the bottom left corner is board[0][0]
 	int numRows;
 	int numCols;
+	int numCoins; // number of coins on the board
+
+	int recentRow; // the row that most recently had a coin put in it, or -1 for the start of the game
+	int recentColumn; // the column that most recently had a coin put in it, or -1 for the start of the game
 };
 
 #endif // BOARD_H
