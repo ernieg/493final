@@ -73,7 +73,7 @@ void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 }
 
 void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
-  Camera &camera = m_player.camera;
+  /*Camera &camera = m_player.camera;
 
   camera.turn_left_xy(-event.xrel / m_player.mouse_scale.i);
 	
@@ -83,14 +83,27 @@ void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
 
 	camera.adjust_pitch(event.yrel / m_player.mouse_scale.j);
 
-  /* Restore the backup vectors if flipped over
-   * (if the up vector is pointing down)
-   *
-   * Note that we want to be sure not to freeze a player 
-   * who is already flipped (for whatever reason).
-   */
+  // Restore the backup vectors if flipped over
+  // (if the up vector is pointing down)
+  //
+  // Note that we want to be sure not to freeze a player 
+  // who is already flipped (for whatever reason).
+   
 	if(camera.get_up().k < 0.0f && prev_up.k >= 0.0f)
-    camera.orientation = prev_orientation;
+    camera.orientation = prev_orientation;*/
+
+	float yMovement = event.xrel / 100.0f;
+	float zMovement = -event.yrel / 100.0f;
+
+	yMovement *= (current_turn == 0 ) ? -1.0f : 1.0f;
+
+	Point3f oldPos(getGameModel().getCurrentCoin()->getPosition());
+
+	Point3f newPos = oldPos + Point3f(0.0f, yMovement, zMovement);
+
+	// check for collisions between the board and the coin here
+
+	getGameModel().getCurrentCoin()->setPosition(newPos);
 }
 
 void Tutorial_State::perform_logic() {

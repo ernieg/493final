@@ -1,5 +1,5 @@
 #include "zenilib.h"
-#include "Coin.h"
+#include "Board.h"
 #include "GameModel.h"
 
 Coin::Coin(int playerIndex_)
@@ -18,7 +18,7 @@ Coin::Coin(int playerIndex_)
 	}
 
 	// put the coin in a default position
-	GameObject::setPosition(Zeni::Point3f(100.0f,50.0f,50.0f));
+	GameObject::setPosition(Zeni::Point3f(BOARD_DIST_X,50.0f,50.0f));
 }
 
 void Coin::render()
