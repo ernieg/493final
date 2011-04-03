@@ -16,11 +16,18 @@ class GameModel {
 public:
 	Player* getPlayer(int playerIndex);
 	Board* getBoard();
+	Coin* getCurrentCoin();
+	void makeNewCurrentCoin(int playerIndex);
 	void reset();
+	Zeni::Model* getPlayerZeroModel();
+	Zeni::Model* getPlayerOneModel();
 
 private:
 	std::vector<Player*> players;
-	Board board;
+	Board* board;
+	Coin* currentCoin; // the coin about to be put on the board
+	Zeni::Model* playerZeroModel; // the two coin models
+	Zeni::Model* playerOneModel;
 };
 
 GameModel & getGameModel();

@@ -13,14 +13,12 @@
 #include <Zeni/Timer.h>
 #include <Zeni/Video.h>
 #include <Zeni/Vector3f.h>
+#include "GameModel.h"
 
 // distance from the camera to the skybox
 const float SKYBOX_DIST = 1000.0f;
 
-// distance from the game board to the camera.
-// the camera is at the origin initially (player 0)
-const float BOARD_DIST_X = 100.0f;
-const Zeni::Point3f BOARD_CENTER(BOARD_DIST_X,0.0f,0.0f);
+
 
 const float ANGLE_EPSILON = .01f;
 
@@ -47,6 +45,7 @@ class Tutorial_State : public Wiimote_Game_State{
       : max_velocity(20.0f, 20.0f, 0.0f),
       mouse_scale(128.0f, 128.0f, 0.0f)
     {
+		
     }
 
     Zeni::Camera camera;

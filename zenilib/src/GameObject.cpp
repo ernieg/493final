@@ -50,3 +50,8 @@ void GameObject::setModel(Zeni::Model* model_)
 {
 	model = model_;
 }
+
+void GameObject::render()
+{
+
+}

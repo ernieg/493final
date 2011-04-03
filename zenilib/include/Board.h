@@ -3,6 +3,10 @@
 
 #include "Coin.h"
 
+// distance from the game board to the camera.
+// the camera is at the origin initially (player 0)
+const float BOARD_DIST_X = 100.0f;
+const Zeni::Point3f BOARD_CENTER(BOARD_DIST_X,0.0f,0.0f);
 
 class Board : public GameObject
 {

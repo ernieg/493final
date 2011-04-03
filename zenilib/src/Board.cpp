@@ -21,6 +21,19 @@ Board::Board(int numRows_, int numCols_)
 			board[i][j] = NULL;
 		}
 	}
+
+	// make the model
+	// change this when the model has been repositioned !!
+	Zeni::Model* board_model = new Zeni::Model("models/boardStandard.3DS");
+	
+	board_model->set_translate(BOARD_CENTER + Zeni::Point3f(0.0f,25.0f,0.0f));
+	board_model->set_rotate(-Zeni::pi/2.0f,Zeni::Vector3f(0.0f,0.0f,1.0f));
+	board_model->set_scale(Zeni::Vector3f(7.0f,7.0f,7.0f));
+	
+	GameObject::setModel(board_model);
+
+
+
 }
 
 bool Board::putCoin(Coin* coin, int column)
@@ -44,6 +57,8 @@ bool Board::putCoin(Coin* coin, int column)
 	// no empty slots in this column
 	return false;
 }
+
+// no a simple checkWin() as well!
 
 int Board::checkWin()
 {
@@ -118,7 +133,19 @@ void Board::reset()
 
 void Board::render()
 {
+	GameObject::getModel()->render();
 
+	// need to render all the coins in the board as well
+	for (int i = 0; i < numRows; i++)
+	{
+		for (int j = 0; j < numCols; j++)
+		{
+			if ( board[i][j] != NULL )
+			{
+				board[i][j]->render();
+			}
+		}
+	}
 }
 
 int Board::ownerOfSlot(int row, int col)

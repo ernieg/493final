@@ -12,8 +12,6 @@ public:
 	int getPlayerIndex();
 
 private:
-	static Zeni::Model* PlayerZeroModel;
-	static Zeni::Model* PlayerOneModel;
 	int playerIndex; // playerIndex of the Player who owns the coin
 };
 
