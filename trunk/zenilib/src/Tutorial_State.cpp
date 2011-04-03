@@ -24,6 +24,7 @@ transition_angle(0.0f),
 current_turn(0)
 {
   set_pausable(true);
+  getGameModel().makeNewCurrentCoin(0);
 }
 
 Tutorial_State::~Tutorial_State() {
@@ -158,6 +159,8 @@ void Tutorial_State::perform_logic() {
 	}
   }
 
+
+
   /* Simple physics update
    *
    * This type of update could be the only update you do if you 
@@ -272,4 +275,10 @@ void Tutorial_State::render() {
 	vr.render(quad_d);
 	vr.render(quad_e);
 	vr.render(quad_f);
+
+	// render the board (and all the coins in it)
+	getGameModel().getBoard()->render();
+
+	// render the current coin (the one being moved around by the player)
+	getGameModel().getCurrentCoin()->render();
 }

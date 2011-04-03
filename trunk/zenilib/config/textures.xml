@@ -34,4 +34,20 @@ The following things are unsupported:
     <filepath>textures/skybox.png</filepath>
     <tile>0</tile>
   </skybox>
+  <REDCHIP.PNG>
+    <filepath>textures/redChip.png</filepath>
+    <tile>0</tile>
+  </REDCHIP.PNG>
+  <REDEDGE.PNG>
+    <filepath>textures/redEdge.png</filepath>
+    <tile>0</tile>
+  </REDEDGE.PNG>
+  <GREENCHIP.PNG>
+    <filepath>textures/greenChip.png</filepath>
+    <tile>0</tile>
+  </GREENCHIP.PNG>
+  <GREENEDGE.PNG>
+    <filepath>textures/greenEdge.png</filepath>
+    <tile>0</tile>
+  </GREENEDGE.PNG>
 </Textures>

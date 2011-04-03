@@ -9,6 +9,8 @@ public:
 
 	Player(int playerIndex_);
 
+	int getPlayerIndex();
+
 private:
 	int playerIndex; // zero-indexed
 };
