@@ -42,12 +42,12 @@ The following things are unsupported:
     <filepath>textures/redEdge.png</filepath>
     <tile>0</tile>
   </REDEDGE.PNG>
-  <GREENCHIP.PNG>
+  <GREENCHI.PNG>
     <filepath>textures/greenChip.png</filepath>
     <tile>0</tile>
-  </GREENCHIP.PNG>
-  <GREENEDGE.PNG>
+  </GREENCHI.PNG>
+  <GREENEDG.PNG>
     <filepath>textures/greenEdge.png</filepath>
     <tile>0</tile>
-  </GREENEDGE.PNG>
+  </GREENEDG.PNG>
 </Textures>
