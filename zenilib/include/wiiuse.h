@@ -44,7 +44,9 @@
 	#include <windows.h>
 #else
 	/* nix */
+#ifndef _MACOSX
 	#include <bluetooth/bluetooth.h>
+#endif
 #endif
 
 #ifdef WIIUSE_INTERNAL_H_INCLUDED
@@ -533,7 +535,9 @@ typedef struct wiimote_t {
 	WCONST int unid;						/**< user specified id						*/
 
 	#ifndef WIN32
+#ifndef _MACOSX
 		WCONST bdaddr_t bdaddr;				/**< bt address								*/
+#endif
 		WCONST char bdaddr_str[18];			/**< readable bt address					*/
 		WCONST int out_sock;				/**< output socket							*/
 		WCONST int in_sock;					/**< input socket 							*/

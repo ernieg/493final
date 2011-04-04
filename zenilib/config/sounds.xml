@@ -42,4 +42,7 @@ HOWTO:  To convert between types, or to downmix to mono,
   <coin_drop_2>
     <filepath>sfx/coin_drop_2.ogg</filepath>
   </coin_drop_2>
+  <beep>
+    <filepath>music/beep.ogg</filepath>
+  </beep>
 </Sounds>
