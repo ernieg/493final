@@ -25,6 +25,9 @@ current_turn(0)
 {
   set_pausable(true);
   getGameModel().makeNewCurrentCoin(0);
+
+  m_player.camera.position.z = 100.0f;
+  m_player.camera.look_at(BOARD_CENTER_MIDDLE);
 }
 
 Tutorial_State::~Tutorial_State() {
@@ -102,6 +105,10 @@ void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
 	Point3f newPos = oldPos + Point3f(0.0f, yMovement, zMovement);
 
 	// check for collisions between the board and the coin here
+	if ( newPos.z < 90.0f )
+	{
+		newPos.z = 90.0f;
+	}
 
 	getGameModel().getCurrentCoin()->setPosition(newPos);
 }
@@ -143,7 +150,7 @@ void Tutorial_State::perform_logic() {
 	m_player.camera.position.x = -BOARD_DIST_X*cos(transition_angle) + BOARD_DIST_X;
 	m_player.camera.position.y = -BOARD_DIST_X*sin(transition_angle);
 
-	m_player.camera.look_at(BOARD_CENTER);
+	m_player.camera.look_at(BOARD_CENTER_MIDDLE);
 
 	// it is the first player's turn, so stop at angle == 0 (or 2pi)
 	if ( current_turn == 0 )
@@ -155,7 +162,7 @@ void Tutorial_State::perform_logic() {
 
 		m_player.camera.position.x = 0.0f;
 		m_player.camera.position.y = 0.0f;
-		m_player.camera.look_at(BOARD_CENTER);
+		m_player.camera.look_at(BOARD_CENTER_MIDDLE);
 	  }
 	}
 	else // it is the second player's turn, so stop at angle pi
@@ -167,7 +174,7 @@ void Tutorial_State::perform_logic() {
 
 		m_player.camera.position.x = 200.0f;
 		m_player.camera.position.y = 0.0f;
-		m_player.camera.look_at(BOARD_CENTER);
+		m_player.camera.look_at(BOARD_CENTER_MIDDLE);
 	  }
 	}
   }
@@ -216,7 +223,7 @@ void Tutorial_State::render() {
 	Quadrilateral<Vertex3f_Texture> quad(p0, p1, p2, p3);
     quad.fax_Material(&material);
 
-	vr.render(quad);
+	//vr.render(quad);
 
 	// skybox
 	Vector3f v_f(1.0f, 0.0f, 0.0f);

@@ -26,9 +26,12 @@ Board::Board(int numRows_, int numCols_)
 	// change this when the model has been repositioned !!
 	Zeni::Model* board_model = new Zeni::Model("models/boardStandard.3DS");
 	
-	board_model->set_translate(BOARD_CENTER + Zeni::Point3f(0.0f,25.0f,0.0f));
-	board_model->set_rotate(-Zeni::pi/2.0f,Zeni::Vector3f(0.0f,0.0f,1.0f));
-	board_model->set_scale(Zeni::Vector3f(7.0f,7.0f,7.0f));
+	//board_model->set_translate(BOARD_CENTER + Zeni::Point3f(0.0f,25.0f,0.0f));
+	//board_model->set_rotate(-Zeni::pi/2.0f,Zeni::Vector3f(0.0f,0.0f,1.0f));
+	//board_model->set_scale(Zeni::Vector3f(7.0f,7.0f,7.0f));
+
+	board_model->set_translate(BOARD_CENTER);
+	board_model->set_scale(BOARD_SCALE);
 	
 	GameObject::setModel(board_model);
 

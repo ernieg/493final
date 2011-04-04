@@ -3,6 +3,8 @@
 
 #include "GameObject.h"
 
+const Zeni::Vector3f COIN_SCALE(7.0f,7.0f,7.0f);
+
 class Coin : public GameObject
 {
 public:
