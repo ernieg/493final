@@ -22,6 +22,105 @@ For each entry in Fonts:
 Only TrueType fonts are supported.
 -->
 <Fonts>
+  <system20>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>20</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system20>
+  
+  <system30>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>30</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system30>
+  
+  <system31>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>31</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system31>
+  
+  <system32>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>32</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system32>
+  
+  <system33>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>33</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system33>
+  
+  <system34>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>34</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system34>
+  
+  <system35>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>35</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system35>
+  
+  <system36>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>36</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system36>
+  
+  <system100>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>100</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system100>
+  
   <system_36_x600>
 <!--    <filepath>fonts/FORGOTTE.TTF</filepath> -->
     <filepath>fonts/TITLE.TTF</filepath>

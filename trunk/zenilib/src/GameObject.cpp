@@ -6,7 +6,7 @@ Zeni::Point3f GameObject::getPosition()
 	return position;
 }
 
-void GameObject::setPosition(Zeni::Point3f& position_)
+void GameObject::setPosition(Zeni::Point3f position_)
 {
 	position = position_;
 }

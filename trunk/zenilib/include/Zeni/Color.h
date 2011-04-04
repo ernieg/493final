@@ -45,6 +45,12 @@
 #ifndef ZENI_COLOR_H
 #define ZENI_COLOR_H
 
+#define BLACK Color(1.0f, 0.0f, 0.0f, 0.0f)
+#define WHITE Color(1.0f, 1.0f, 1.0f, 1.0f)
+#define OFFWHITE Color(1.0f, 0.976f, 0.976f, 0.976f)
+#define TRANSPARENT Color(0.0f, 0.0f, 0.0f, 0.0f)
+#define OFFYELLOW Color(1.0f, 1.0f, 0.976f, 0.384f) //#FFF962
+
 /* \cond */
 #include <SDL/SDL_stdinc.h>
 /* \endcond */

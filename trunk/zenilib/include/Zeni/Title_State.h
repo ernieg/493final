@@ -53,34 +53,67 @@ namespace Zeni {
     Title_State<PLAY_STATE, INSTRUCTIONS_STATE> & operator=(const Title_State<PLAY_STATE, INSTRUCTIONS_STATE> &);
 
   public:
-    class Title : public Text_Box {
-      Title(const Title &);
-      Title & operator=(const Title &);
-
+    class Play : public Text_Button {
+      Play(const Play &);
+      Play & operator=(const Play &);
+      
     public:
-      Title(const std::string &title_)
-        : Text_Box(Point2f(000.0f, 50.0f), Point2f(800.0f, 250.0f),
-                   "title", title_, get_Colors()["title_text"])
+      Play()
+      : Text_Button(Point2f(200.0f, 250.0f), Point2f(600.0f, 310.0f), "system_36_800x600", "Play"), timePassed(0.0f),
+      hovering(false), exhaling(false), text("Play"), col(Zeni::OFFWHITE), font("system30")
       {
-        give_BG_Renderer(new Widget_Renderer_Color(Color(0.0f, 0.0f, 0.0f, 0.0f)));
+        give_Renderer(new Widget_Renderer_Tricolor(TRANSPARENT, TRANSPARENT, TRANSPARENT,
+                                 OFFWHITE, OFFYELLOW, OFFYELLOW));
+        chrono.start();
       }
-    } title;
-
-    class Play_Button : public Text_Button {
-      Play_Button(const Play_Button &);
-      Play_Button & operator=(const Play_Button &);
-
-    public:
-      Play_Button()
-        : Text_Button(Point2f(200.0f, 250.0f), Point2f(600.0f, 310.0f),
-                      "system_36_800x600", "Play")
-      {
-      }
-
+      
       void on_accept() {
+        Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
         get_Game().push_state(new PLAY_STATE());
       }
-    } play_button;
+      
+      void on_hover() {
+        hovering = true;
+        col = Zeni::OFFYELLOW;
+      }
+      
+      void on_unhover() {
+        hovering = false;
+        exhaling = false;
+        font[7] = '0';
+        col = Zeni::OFFWHITE;
+      }
+      
+      void perform_logic() {
+        if(hovering) {
+          if(chrono.seconds() - timePassed > 0.03f) {
+            timePassed = chrono.seconds();
+            if(exhaling)
+              font[7]--;
+            else
+              font[7]++;
+            
+            exhaling = (font[7] == '6' && !exhaling) || (font[7] > '0' && exhaling);
+          }
+        }
+        else {
+          font[7] = '0';
+          exhaling = false;
+        }
+        
+        give_Renderer(new Widget_Renderer_Text(font, text, col));    
+      }
+      
+    private:
+      bool exhaling;
+      bool hovering;
+      std::string text;
+      std::string font;
+      Zeni::Color col;
+      Zeni::Chronometer<Zeni::Time> chrono;
+      float timePassed;
+    } playButton;
+
 
     class Instructions_Button : public Text_Button {
       Instructions_Button(const Instructions_Button &);
@@ -89,34 +122,131 @@ namespace Zeni {
     public:
       Instructions_Button()
         : Text_Button(Point2f(200.0f, 330.0f), Point2f(600.0f, 390.0f),
-                      "system_36_800x600", "Instructions")
+                      "system_36_800x600", "Instructions"), timePassed(0.0f),
+      hovering(false), exhaling(false), text("Instructions"), col(Zeni::OFFWHITE), font("system30")
       {
+        give_Renderer(new Widget_Renderer_Tricolor(TRANSPARENT, TRANSPARENT, TRANSPARENT,
+                                                   OFFWHITE, OFFYELLOW, OFFYELLOW));
+        chrono.start();
       }
-
+      
       void on_accept() {
+        Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
         get_Game().push_state(new INSTRUCTIONS_STATE());
       }
+      
+      void on_hover() {
+        hovering = true;
+        col = Zeni::OFFYELLOW;
+      }
+      
+      void on_unhover() {
+        hovering = false;
+        exhaling = false;
+        font[7] = '0';
+        col = Zeni::OFFWHITE;
+      }
+      
+      void perform_logic() {
+        if(hovering) {
+          if(chrono.seconds() - timePassed > 0.03f) {
+            timePassed = chrono.seconds();
+            if(exhaling)
+              font[7]--;
+            else
+              font[7]++;
+            
+            exhaling = (font[7] == '6' && !exhaling) || (font[7] > '0' && exhaling);
+          }
+        }
+        else {
+          font[7] = '0';
+          exhaling = false;
+        }
+        
+        give_Renderer(new Widget_Renderer_Text(font, text, col));    
+      }
+      
+    private:
+      bool exhaling;
+      bool hovering;
+      std::string text;
+      std::string font;
+      Zeni::Color col;
+      Zeni::Chronometer<Zeni::Time> chrono;
+      float timePassed;
     } instructions_button;
 
-    Popup_Menu_State::Configure_Video_Button configure_video_button;
-    Popup_Menu_State::Sound_Check_Box sound_check_box;
-    Popup_Menu_State::Quit_Button quit_button;
+    class Quit_Button : public Text_Button {
+      Quit_Button(const Quit_Button &);
+      Quit_Button & operator=(const Quit_Button &);
+      
+    public:
+      Quit_Button()
+      : Text_Button(Point2f(200.0f, 410.0f), Point2f(600.0f, 470.0f),
+                    "system_36_800x600", "Quit"), timePassed(0.0f),
+      hovering(false), exhaling(false), text("Quit"), col(Zeni::OFFWHITE), font("system30")
+      {
+        give_Renderer(new Widget_Renderer_Tricolor(TRANSPARENT, TRANSPARENT, TRANSPARENT,
+                                                   OFFWHITE, OFFYELLOW, OFFYELLOW));
+        chrono.start();
+      }
+      
+      void on_accept() {
+        Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
+        throw Quit_Event();
+      }
+      
+      void on_hover() {
+        hovering = true;
+        col = Zeni::OFFYELLOW;
+      }
+      
+      void on_unhover() {
+        hovering = false;
+        exhaling = false;
+        font[7] = '0';
+        col = Zeni::OFFWHITE;
+      }
+      
+      void perform_logic() {
+        if(hovering) {
+          if(chrono.seconds() - timePassed > 0.03f) {
+            timePassed = chrono.seconds();
+            if(exhaling)
+              font[7]--;
+            else
+              font[7]++;
+            
+            exhaling = (font[7] == '6' && !exhaling) || (font[7] > '0' && exhaling);
+          }
+        }
+        else {
+          font[7] = '0';
+          exhaling = false;
+        }
+        
+        give_Renderer(new Widget_Renderer_Text(font, text, col));    
+      }
+      
+    private:
+      bool exhaling;
+      bool hovering;
+      std::string text;
+      std::string font;
+      Zeni::Color col;
+      Zeni::Chronometer<Zeni::Time> chrono;
+      float timePassed;
+    } quit_button;
 
     Title_State(const std::string &title_)
       : Widget_Gamestate(std::make_pair(Point2f(0.0f, 0.0f), Point2f(800.0f, 600.0f))),
-      title(title_),
-      configure_video_button(Point2f(200.0f, 410.0f), Point2f(600.0f, 470.0f)),
-      sound_check_box(Point2f(200.0f, 490.0f), Point2f(260.0f, 550.0f)),
-      quit_button(Point2f(400.0f, 490.0f), Point2f(600.0f, 550.0f))
+      chip(Model("models/redChip.3DS")),
+      proj(Projector2D())
     {
-      m_widgets.lend_Widget(title);
-      m_widgets.lend_Widget(play_button);
+      m_widgets.lend_Widget(playButton);
       m_widgets.lend_Widget(instructions_button);
-      m_widgets.lend_Widget(configure_video_button);
-      m_widgets.lend_Widget(sound_check_box);
       m_widgets.lend_Widget(quit_button);
-
-      title.set_justify(ZENI_CENTER);
 
       get_Video().set_clear_color(get_Colors()["title_bg"]);
     }
@@ -132,12 +262,37 @@ namespace Zeni {
     void perform_logic() {
       Widget_Gamestate::perform_logic();
       get_Video().set_clear_color(get_Colors()["title_bg"]);
+      chip.set_translate(proj.unproject(Point3f(20.0f, 20.0f, 0.0f)));
+      chip.set_rotate(chip.get_rotate().second + pi/100, Vector3f(1.0f, 0.0f, 0.0f));
+      chip.set_scale(Vector3f(4.0f, 4.0f, 4.0f));
+      
+      if(rand() % 100 < 5 && glows.size() < 2) {
+        glows.push_back(Zeni::Point2f(rand()%800, 600));
+      }
+      for(int i = 0; i < glows.size(); i++) {
+        glows[i].y -= 30;
+        if(glows[i].y < -128) {
+          glows.erase(glows.begin() + i);
+          i--;
+        }
+      }
     }
 
     void render() {
-      sound_check_box.set_checked(!get_Sound().is_listener_muted());
+      //Video &vid = get_Video();
+      Zeni::render_image("TitleBG", Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(1024.0f, 1024.0f));
+      for(int i = 0; i < glows.size(); i++) 
+        Zeni::render_image("glow", Zeni::Point2f(glows[i].x, glows[i].y), Zeni::Point2f(glows[i].x + 64, glows[i].y + 128), false, Color((float)((float)glows[i].y/600.0f), 1.0f, 1.0f, 1.0f));
+      //vid.set_3d(Camera());
+      //chip.render();
+      //vid.set_2d();
       Widget_Gamestate::render();
     }
+    
+  private:
+    Zeni::Model chip;
+    Projector2D proj;
+    std::vector<Zeni::Point2f> glows;
 
   };
 

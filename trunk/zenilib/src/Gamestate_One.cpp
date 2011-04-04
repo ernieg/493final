@@ -7,24 +7,18 @@
 #include <zenilib.h>
 
 #include "Tutorial_State.h"
+#include "MenuState.h"
 
 using namespace std;
 using namespace Zeni;
 
 static vector<string> g_args;
 
-class Instructions_State : public Gamestate_Base {
-  Text_Box tb;
+class Instructions_State : public MenuState {
 
 public:
   Instructions_State()
-    : tb(Point2f(), Point2f(800.0f, 600.0f), "system_36_800x600",
-	"HOW TO PLAY:\n\n"
-	"The first player to line up four chips vertically, horizontally, or diagonally wins the game.\n\n"
-	"CONTROLS:\n\n"
-	"Move the Wiimote until your chip is in the correct column, then press the B button to drop it.\n", Color())
   {
-    tb.give_BG_Renderer(new Widget_Renderer_Color(get_Colors()["black"]));
   }
 
 private:
@@ -36,9 +30,24 @@ private:
   }
 
   void render() {
-    get_Video().set_2d(make_pair(Point2f(), Point2f(800.0f, 600.0f)), true);
-
-    tb.render();
+    MenuState::render();
+    
+    Zeni::Font &title = get_Fonts()["system100"];
+    
+    title.render_text("Instructions",
+                   Point2f(400.0f, 50.0f - 0.5f * title.get_text_height()),
+                   OFFWHITE,
+                   ZENI_CENTER);
+    
+    Zeni::Font &fr = get_Fonts()["system20"];
+    
+    fr.render_text("HOW TO PLAY:\n\n"
+                   "The first player to line up four chips vertically, \nhorizontally, or diagonally wins the game.\n\n"
+                   "CONTROLS:\n\n"
+                   "Move the Wiimote until your chip is in the correct \ncolumn, then press the B button to drop it.\n",
+                   Point2f(400.0f, 250.0f - 0.5f * fr.get_text_height()),
+                   OFFWHITE,
+                   ZENI_CENTER);
   }
 };
 
