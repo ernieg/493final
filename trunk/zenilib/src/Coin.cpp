@@ -18,7 +18,7 @@ Coin::Coin(int playerIndex_)
 	}
 
 	// put the coin in a default position
-	GameObject::setPosition(Zeni::Point3f(BOARD_DIST_X,50.0f,50.0f));
+	GameObject::setPosition(Zeni::Point3f(BOARD_DIST_X,50.0f,100.0f));
 }
 
 void Coin::render()
@@ -28,7 +28,7 @@ void Coin::render()
 
 	// move the model to the coin's current position
 	GameObject::getModel()->set_translate(GameObject::getPosition());
-	GameObject::getModel()->set_scale(Zeni::Vector3f(7.0f,7.0f,7.0f));
+	GameObject::getModel()->set_scale(COIN_SCALE);
 
 	GameObject::getModel()->render();
 }
