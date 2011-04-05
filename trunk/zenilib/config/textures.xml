@@ -50,8 +50,18 @@ The following things are unsupported:
     <filepath>textures/greenEdge.png</filepath>
     <tile>1</tile>
   </GREENEDG.PNG>
-  
-  
+  <TABLESID.PNG>
+    <filepath>textures/tableSide.png</filepath>
+    <tile>1</tile>
+  </TABLESID.PNG>
+  <TABLEBOT.PNG>
+    <filepath>textures/tableBottom.png</filepath>
+    <tile>1</tile>
+  </TABLEBOT.PNG>
+  <TABLETOP.PNG>
+    <filepath>textures/tableBottom.png</filepath>
+    <tile>1</tile>
+  </TABLETOP.PNG>
   <TitleBG>
     <filepath>textures/TitleBG.png</filepath>
     <tile>0</tile>

@@ -638,7 +638,9 @@
     <None Include="..\config\colors.xml" />
     <None Include="..\config\fonts.xml" />
     <None Include="..\config\sounds.xml" />
-    <None Include="..\config\textures.xml" />
+    <None Include="..\config\textures.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\config\zenilib.xml" />
   </ItemGroup>
   <ItemGroup>
