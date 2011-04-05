@@ -35,7 +35,21 @@ Board::Board(int numRows_, int numCols_)
 	
 	GameObject::setModel(board_model);
 
+	// set the collision planes for the columns
+	columnPlanes.resize(numCols);
 
+	// the center column is numCols/2 (3 in the general case)
+	for (int i = 0;  i < numCols; i++)
+	{
+		// y-coordinate of the center of each circle
+		Zeni::Point3f centerPoint(BOARD_DIST_X, static_cast<float>(i-numCols/2)*2.0f*BOARD_SCALE.y, BOARD_SCALE.z);
+		// this is an XZ plane, so the normal is a Y vector
+		Zeni::Vector3f normal(0.0f,1.0f,0.0f);
+
+		Zeni::Collision::Plane colPlane(centerPoint,normal);
+
+		columnPlanes[i] = colPlane;
+	}
 
 }
 
@@ -53,6 +67,14 @@ bool Board::putCoin(Coin* coin, int column)
 			numCoins++;
 			recentRow = i;
 			recentColumn = column;
+
+			// set the coin's position to be in the right slot
+			float yPos = static_cast<float>(column-numCols/2)*2.0f*BOARD_SCALE.y;
+			
+			float zPos = 2.0f * i * BOARD_SCALE.z;
+
+			coin->setPosition(Zeni::Point3f(BOARD_DIST_X, yPos, zPos));
+
 			return true;
 		}
 	}
@@ -126,6 +148,24 @@ int Board::checkWin()
 	}
 
 	// the game is still in progress
+	return -1;
+}
+
+int Board::checkCollide(Coin* coin)
+{
+	// make a temporary collision sphere for the coin
+	Zeni::Collision::Sphere coinSphere(coin->getPosition(),COIN_SCALE.x*2.0f);
+
+	// check if it collides with any columns
+	for (int i = 0; i < numCols; i++)
+	{
+		if ( coinSphere.intersects(columnPlanes[i]) )
+		{
+			return i;
+		}
+	}
+
+	// no collision
 	return -1;
 }
 
