@@ -24,7 +24,7 @@ transition_angle(0.0f),
 current_turn(0)
 {
   set_pausable(true);
-  getGameModel().makeNewCurrentCoin(0);
+  getGameModel().makeNewCurrentCoin(current_turn);
 
   m_player.camera.position.z = 100.0f;
   m_player.camera.look_at(BOARD_CENTER_MIDDLE);
@@ -42,6 +42,43 @@ void Tutorial_State::on_pop() {
   SDL_WM_GrabInput(SDL_GRAB_OFF);
   SDL_ShowCursor(1);
 }
+
+void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
+  
+  // 1 == left mouse button
+  // 3 == right mouse button
+
+  if ( static_cast<int>(event.button) == 1 && event.type == SDL_MOUSEBUTTONDOWN && !turn_transition )
+  {
+	  // debugging
+	  //cout << getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin()) << endl;
+
+	  int col = getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin());
+
+	  if ( col != -1 )
+	  {
+		  // put the coin in the board
+		  if ( getGameModel().getBoard()->putCoin(getGameModel().getCurrentCoin(),col) )
+		  {
+			  // increment the current turn
+			  current_turn = (current_turn+1) % 2;
+			  turn_transition = true;
+
+			  // get a new current coin
+			  getGameModel().makeNewCurrentCoin(current_turn);
+
+			  // check for win condition
+			  if ( getGameModel().getBoard()->checkWin() >= 0 )
+			  {
+				  // debugging
+				  cout << getGameModel().getBoard()->checkWin() << endl;
+		  
+				  //get_Game().pop_state();
+			  }
+		  }  
+	  }
+  }
+};
 
 void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 	switch(event.keysym.sym) {
