@@ -75,7 +75,7 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
 			  if ( getGameModel().getBoard()->checkWin() >= 0 )
 			  {
 				  // debugging
-				  //cout << getGameModel().getBoard()->checkWin() << endl;
+				  cout << "winner: " << getGameModel().getBoard()->checkWin() << endl;
 		  
 				  //get_Game().pop_state();
 			  }

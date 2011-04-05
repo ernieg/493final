@@ -15,6 +15,7 @@ class Board : public GameObject
 public:
 	bool putCoin(Coin* coin, int column); // returns false if the column is full, and true otherwise
 	int checkWin(); // returns which player index has won the game, -1 if there is no winner, and -2 if there is a draw
+	int simpleCheckWin();
 	int checkCollide(Coin* coin); // returns the column number of the column the coin is on top of, or -1 if there is no collision
 	void reset();
 	void render();
@@ -26,6 +27,7 @@ private:
 	// or -1 if the slot is empty
 	// or -2 if the slot is off the board
 	int ownerOfSlot(int row, int col);
+	bool allEqual(int a, int b, int c, int d);
 
 	std::vector< std::vector<Coin*> > board; // board[i][j] is null if the slot at row i, col j is empty
 										     // the bottom left corner is board[0][0]

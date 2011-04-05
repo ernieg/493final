@@ -82,7 +82,39 @@ bool Board::putCoin(Coin* coin, int column)
 	return false;
 }
 
-// no a simple checkWin() as well!
+int Board::simpleCheckWin()
+{
+	for (int i = 0; i < numRows; i++)
+	{
+		for (int j = 0; j < numCols; j++)
+		{
+			if ( ownerOfSlot(i,j) == 0 || ownerOfSlot(i,j) == 1 )
+			{
+				// not implemented yet -- normal checkWin() should be working!
+
+				// horizontal
+
+				// vertical
+
+				// diagonal (\)
+
+				// diagonal (/)
+			}
+		}
+	}
+}
+
+bool Board::allEqual(int a, int b, int c, int d)
+{
+	if ( (a == b) && (b == c) && (c == d) )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 int Board::checkWin()
 {
@@ -95,10 +127,10 @@ int Board::checkWin()
 	// check horizontal win cases
 	for (int k = 0; k < 4; k++)
 	{
-		if ( ownerOfSlot(recentRow,recentColumn-k)   == 
-			 ownerOfSlot(recentRow,recentColumn-k+1) ==
-			 ownerOfSlot(recentRow,recentColumn-k+2) ==
-			 ownerOfSlot(recentRow,recentColumn-k+3) )
+		if ( allEqual(ownerOfSlot(recentRow,recentColumn-k),
+					  ownerOfSlot(recentRow,recentColumn-k+1),
+					  ownerOfSlot(recentRow,recentColumn-k+2),
+					  ownerOfSlot(recentRow,recentColumn-k+3)) )
 		{
 			return ownerOfSlot(recentRow,recentColumn-k);
 		}
@@ -107,10 +139,10 @@ int Board::checkWin()
 	// check vertical win cases
 	for (int k = 0; k < 4; k++)
 	{
-		if ( ownerOfSlot(recentRow-k,recentColumn)   ==
-			 ownerOfSlot(recentRow-k+1,recentColumn) ==
-			 ownerOfSlot(recentRow-k+2,recentColumn) ==
-			 ownerOfSlot(recentRow-k+3,recentColumn) )
+		if ( allEqual(ownerOfSlot(recentRow-k,recentColumn),
+					  ownerOfSlot(recentRow-k+1,recentColumn),
+					  ownerOfSlot(recentRow-k+2,recentColumn),
+					  ownerOfSlot(recentRow-k+3,recentColumn)) )
 		{
 			return ownerOfSlot(recentRow-k,recentColumn);
 		}
@@ -119,10 +151,10 @@ int Board::checkWin()
 	// check diagonal (/) cases
 	for (int k = 0; k < 4; k++)
 	{
-		if ( ownerOfSlot(recentRow-k,recentColumn-k)     ==
-			 ownerOfSlot(recentRow-k+1,recentColumn-k+1) ==
-			 ownerOfSlot(recentRow-k+2,recentColumn-k+2) ==
-			 ownerOfSlot(recentRow-k+3,recentColumn-k+3) )
+		if ( allEqual(ownerOfSlot(recentRow-k,recentColumn-k),
+					  ownerOfSlot(recentRow-k+1,recentColumn-k+1),
+					  ownerOfSlot(recentRow-k+2,recentColumn-k+2),
+					  ownerOfSlot(recentRow-k+3,recentColumn-k+3)) )
 		{
 			return ownerOfSlot(recentRow-k,recentColumn-k);
 		}
@@ -131,10 +163,10 @@ int Board::checkWin()
 	// check diagonal (\) cases
 	for (int k = 0; k < 4; k++)
 	{
-		if ( ownerOfSlot(recentRow+k,recentColumn-k)     ==
-			 ownerOfSlot(recentRow+k-1,recentColumn-k+1) ==
-			 ownerOfSlot(recentRow+k-2,recentColumn-k+2) == 
-			 ownerOfSlot(recentRow+k-3,recentColumn-k+3) )
+		if ( allEqual(ownerOfSlot(recentRow+k,recentColumn-k),
+					  ownerOfSlot(recentRow+k-1,recentColumn-k+1),
+					  ownerOfSlot(recentRow+k-2,recentColumn-k+2), 
+					  ownerOfSlot(recentRow+k-3,recentColumn-k+3)) )
 		{
 			return ownerOfSlot(recentRow+k,recentColumn-k);
 		}
