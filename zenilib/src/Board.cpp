@@ -42,7 +42,7 @@ Board::Board(int numRows_, int numCols_)
 	for (int i = 0;  i < numCols; i++)
 	{
 		// y-coordinate of the center of each circle
-		Zeni::Point3f centerPoint(BOARD_DIST_X, static_cast<float>(i-numCols/2)*2.0f*BOARD_SCALE.y, BOARD_SCALE.z);
+		Zeni::Point3f centerPoint(BOARD_DIST_X, static_cast<float>(numCols/2-i)*2.0f*BOARD_SCALE.y, BOARD_SCALE.z);
 		// this is an XZ plane, so the normal is a Y vector
 		Zeni::Vector3f normal(0.0f,1.0f,0.0f);
 
@@ -69,12 +69,11 @@ bool Board::putCoin(Coin* coin, int column)
 			recentColumn = column;
 
 			// set the coin's position to be in the right slot
-			float yPos = static_cast<float>(column-numCols/2)*2.0f*BOARD_SCALE.y;
+			float yPos = static_cast<float>(numCols/2-column)*2.0f*BOARD_SCALE.y;
 			
 			float zPos = 2.0f * i * BOARD_SCALE.z;
 
 			coin->setPosition(Zeni::Point3f(BOARD_DIST_X, yPos, zPos));
-
 			return true;
 		}
 	}
