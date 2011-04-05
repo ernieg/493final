@@ -1,6 +1,9 @@
 #include <zenilib.h>
 #include "GameModel.h"
 
+#include "Board.h"
+#include "Coin.h"
+
 using namespace std;
 using namespace Zeni;
 

@@ -17,9 +17,6 @@
 
 // distance from the camera to the skybox
 const float SKYBOX_DIST = 1000.0f;
-
-
-
 const float ANGLE_EPSILON = .01f;
 
 #ifdef _MACOSX
@@ -27,20 +24,9 @@ class Tutorial_State : public Zeni::Gamestate_Base {
 #else
 class Tutorial_State : public Wiimote_Game_State{
 #endif
-  struct Space_Rectangle {
-    Space_Rectangle()
-      : position(BOARD_DIST_X, 40.0f, 20.0f), // top left point
-      vec0(0.0f, -80.0f, 0.0f), // top right
-      vec1(0.0f, 0.0f, -40.0f) // bottom left
-    {
-    }
+  
 
-    Zeni::Point3f position;
-    Zeni::Vector3f vec0;
-    Zeni::Vector3f vec1;
-  } m_rect;
-
-  struct Player {
+  /*struct Player {
     Player()
       : max_velocity(20.0f, 20.0f, 0.0f),
       mouse_scale(128.0f, 128.0f, 0.0f)
@@ -51,16 +37,7 @@ class Tutorial_State : public Wiimote_Game_State{
     Zeni::Camera camera;
     Zeni::Vector3f max_velocity;
     Zeni::Vector3f mouse_scale;
-  } m_player;
-
-  struct Controls {
-    Controls() : left(false), right(false), up(false), down(false) {}
-
-    bool left;
-    bool right;
-    bool up;
-    bool down;
-  } m_controls;
+  } m_player;*/
 
 public:
   Tutorial_State();
@@ -95,6 +72,7 @@ private:
   // note: when the camera is transitioning from the first player's side to the second player's side,
   //       current turn will already be 1 (not 0)
   int current_turn;
+  Zeni::Camera camera;
 };
 
 #endif

@@ -2,7 +2,8 @@
 #define GAMEMODEL_H
 
 #include <zenilib.h>
-#include "Board.h"
+class Board;
+class Coin;
 class Player;
 
 class GameModel {
