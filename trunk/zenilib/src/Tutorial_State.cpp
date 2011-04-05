@@ -51,7 +51,7 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
   if ( static_cast<int>(event.button) == 1 && event.type == SDL_MOUSEBUTTONDOWN && !turn_transition )
   {
 	  // debugging
-	  //cout << getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin()) << endl;
+	  cout << getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin()) << endl;
 
 	  int col = getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin());
 
@@ -71,7 +71,7 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
 			  if ( getGameModel().getBoard()->checkWin() >= 0 )
 			  {
 				  // debugging
-				  cout << getGameModel().getBoard()->checkWin() << endl;
+				  //cout << getGameModel().getBoard()->checkWin() << endl;
 		  
 				  //get_Game().pop_state();
 			  }
