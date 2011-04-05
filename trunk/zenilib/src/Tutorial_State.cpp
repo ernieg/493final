@@ -12,6 +12,10 @@
 #include <Zeni/Timer.hxx>
 #include <Zeni/Vertex2f.h>
 
+#include "GameModel.h"
+#include "Board.h"
+#include "Coin.h"
+
 using namespace std;
 using namespace Zeni;
 
@@ -26,8 +30,8 @@ current_turn(0)
   set_pausable(true);
   getGameModel().makeNewCurrentCoin(current_turn);
 
-  m_player.camera.position.z = 100.0f;
-  m_player.camera.look_at(BOARD_CENTER_MIDDLE);
+  camera.position.z = 60.0f;
+  camera.look_at(BOARD_CENTER_MIDDLE);
 }
 
 Tutorial_State::~Tutorial_State() {
@@ -83,19 +87,15 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
 void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 	switch(event.keysym.sym) {
 		case SDLK_w:
-			m_controls.up = event.type == SDL_KEYDOWN;
 			break;
 
 		case SDLK_a:
-			m_controls.left = event.type == SDL_KEYDOWN;
 			break;
 
-        case SDLK_s:
-			m_controls.down = event.type == SDL_KEYDOWN;
+    case SDLK_s:
 			break;
 
 		case SDLK_d:
-			m_controls.right = event.type == SDL_KEYDOWN;
 			break;
 
 		case SDLK_e:
@@ -184,10 +184,10 @@ void Tutorial_State::perform_logic() {
   {
 	transition_angle += m_time_passed * (-0.5f * cos(2.0f * transition_angle) + 0.6f) * 4.0f;
 
-	m_player.camera.position.x = -BOARD_DIST_X*cos(transition_angle) + BOARD_DIST_X;
-	m_player.camera.position.y = -BOARD_DIST_X*sin(transition_angle);
+	camera.position.x = -BOARD_DIST_X*cos(transition_angle) + BOARD_DIST_X;
+	camera.position.y = -BOARD_DIST_X*sin(transition_angle);
 
-	m_player.camera.look_at(BOARD_CENTER_MIDDLE);
+	camera.look_at(BOARD_CENTER_MIDDLE);
 
 	// it is the first player's turn, so stop at angle == 0 (or 2pi)
 	if ( current_turn == 0 )
@@ -197,9 +197,9 @@ void Tutorial_State::perform_logic() {
 	    transition_angle = 0.0f;
 		turn_transition = false;
 
-		m_player.camera.position.x = 0.0f;
-		m_player.camera.position.y = 0.0f;
-		m_player.camera.look_at(BOARD_CENTER_MIDDLE);
+		camera.position.x = 0.0f;
+		camera.position.y = 0.0f;
+		camera.look_at(BOARD_CENTER_MIDDLE);
 	  }
 	}
 	else // it is the second player's turn, so stop at angle pi
@@ -209,9 +209,9 @@ void Tutorial_State::perform_logic() {
 		transition_angle = pi;
 		turn_transition = false;
 
-		m_player.camera.position.x = 200.0f;
-		m_player.camera.position.y = 0.0f;
-		m_player.camera.look_at(BOARD_CENTER_MIDDLE);
+		camera.position.x = 200.0f;
+		camera.position.y = 0.0f;
+		camera.look_at(BOARD_CENTER_MIDDLE);
 	  }
 	}
   }
@@ -239,27 +239,24 @@ void Tutorial_State::perform_logic() {
 }
 
 void Tutorial_State::step(const float &time_step) {
-  m_player.camera.move_left_xy(m_player.max_velocity.i * time_step *
-                               (m_controls.left - m_controls.right));
-  m_player.camera.move_forward_xy(m_player.max_velocity.j * time_step *
-                                  (m_controls.up - m_controls.down));
+  
 }
 
 void Tutorial_State::render() {
   Video &vr = get_Video();
 
-  m_player.camera.far_clip = 2000.0f;
-  vr.set_3d(m_player.camera);
+  camera.far_clip = 2000.0f;
+  vr.set_3d(camera);
 
-  Vertex3f_Texture p0(m_rect.position,                             Point2f(0.0f, 0.0f));
+ /* Vertex3f_Texture p0(m_rect.position,                             Point2f(0.0f, 0.0f));
   Vertex3f_Texture p1(m_rect.position               + m_rect.vec1, Point2f(0.0f, 1.0f));
   Vertex3f_Texture p2(m_rect.position + m_rect.vec0 + m_rect.vec1, Point2f(1.0f, 1.0f)); 
   Vertex3f_Texture p3(m_rect.position + m_rect.vec0,               Point2f(1.0f, 0.0f));
   Material material("logo");
-
+  
 	Quadrilateral<Vertex3f_Texture> quad(p0, p1, p2, p3);
     quad.fax_Material(&material);
-
+ */
 	//vr.render(quad);
 
 	// skybox
@@ -272,14 +269,14 @@ void Tutorial_State::render() {
 	Point2f texture_c(1.0f, 1.0f);
 	Point2f texture_d(1.0f, 0.0f);
 
-	Point3f skybox_p0 = m_player.camera.position + SKYBOX_DIST*(v_f + v_u + v_l);
-	Point3f skybox_p1 = m_player.camera.position + SKYBOX_DIST*(v_f - v_u + v_l);
-	Point3f skybox_p2 = m_player.camera.position + SKYBOX_DIST*(v_f - v_u - v_l);
-	Point3f skybox_p3 = m_player.camera.position + SKYBOX_DIST*(v_f + v_u - v_l);
-	Point3f skybox_p4 = m_player.camera.position + SKYBOX_DIST*(-v_f - v_u + v_l);
-	Point3f skybox_p5 = m_player.camera.position + SKYBOX_DIST*(-v_f + v_u + v_l);
-	Point3f skybox_p6 = m_player.camera.position + SKYBOX_DIST*(-v_f - v_u - v_l);
-	Point3f skybox_p7 = m_player.camera.position + SKYBOX_DIST*(-v_f + v_u - v_l);
+	Point3f skybox_p0 = camera.position + SKYBOX_DIST*(v_f + v_u + v_l);
+	Point3f skybox_p1 = camera.position + SKYBOX_DIST*(v_f - v_u + v_l);
+	Point3f skybox_p2 = camera.position + SKYBOX_DIST*(v_f - v_u - v_l);
+	Point3f skybox_p3 = camera.position + SKYBOX_DIST*(v_f + v_u - v_l);
+	Point3f skybox_p4 = camera.position + SKYBOX_DIST*(-v_f - v_u + v_l);
+	Point3f skybox_p5 = camera.position + SKYBOX_DIST*(-v_f + v_u + v_l);
+	Point3f skybox_p6 = camera.position + SKYBOX_DIST*(-v_f - v_u - v_l);
+	Point3f skybox_p7 = camera.position + SKYBOX_DIST*(-v_f + v_u - v_l);
 
 	Vertex3f_Texture a_p0(skybox_p0, texture_a);
     Vertex3f_Texture a_p1(skybox_p1, texture_b);
