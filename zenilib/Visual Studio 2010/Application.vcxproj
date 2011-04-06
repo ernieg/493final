@@ -617,6 +617,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\src\MenuState.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Tutorial_State.cpp" />
     <ClCompile Include="..\src\wiimote_state.cpp" />
@@ -627,6 +628,7 @@
     <ClInclude Include="..\include\Coin.h" />
     <ClInclude Include="..\include\GameModel.h" />
     <ClInclude Include="..\include\GameObject.h" />
+    <ClInclude Include="..\include\MenuState.h" />
     <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Tutorial_State.h" />
     <ClInclude Include="..\include\wiimote_events.h" />

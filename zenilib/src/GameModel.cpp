@@ -23,6 +23,7 @@ GameModel::GameModel() {
 	tableModel->set_translate(Point3f(BOARD_DIST_X,0.0f,-3.0f*TABLE_SCALE.z));
 
 	currentCoin = NULL;
+	pointerScale = 50.0f;
 }
 
 Board* GameModel::getBoard()
@@ -63,4 +64,14 @@ void GameModel::reset()
 	{
 		delete currentCoin;
 	}
+}
+
+float GameModel::getPointerScale()
+{
+	return pointerScale;
+}
+
+void GameModel::setPointerScale(float pointerScale_)
+{
+	pointerScale = pointerScale_;
 }

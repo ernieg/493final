@@ -197,8 +197,8 @@ void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
 	if(camera.get_up().k < 0.0f && prev_up.k >= 0.0f)
     camera.orientation = prev_orientation;*/
 
-	float yMovement = event.xrel / 100.0f;
-	float zMovement = -event.yrel / 100.0f;
+	float yMovement = event.xrel / getGameModel().getPointerScale();
+	float zMovement = -event.yrel / getGameModel().getPointerScale();
 
 	yMovement *= (current_turn == 0 ) ? -1.0f : 1.0f;
 
