@@ -25,6 +25,8 @@ public:
 	void renderTable();
 	Zeni::Model* getPlayerZeroModel();
 	Zeni::Model* getPlayerOneModel();
+	float getPointerScale();
+	void setPointerScale(float pointerScale_);
 
 private:
 	std::vector<Player*> players;
@@ -33,6 +35,7 @@ private:
 	Zeni::Model* playerZeroModel; // the two coin models
 	Zeni::Model* playerOneModel;
 	Zeni::Model* tableModel;
+	float pointerScale; // scale factor for adjusting the mouse/Wiimote
 };
 
 GameModel & getGameModel();
