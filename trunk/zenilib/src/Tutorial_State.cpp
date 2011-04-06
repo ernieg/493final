@@ -40,6 +40,7 @@ private:
 
 	void render()
 	{
+    get_Video().set_2d();
 		MenuState::render();
     
 		Zeni::Font &title = get_Fonts()["system36"];

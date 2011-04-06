@@ -8,6 +8,7 @@
 
 #define MAX_WIIMOTES (4)
 #define JOYSTICK_THRESHOLD (0.05f)
+#define KEYBOARD_CONTROL (0)
 
 class Wiimote_Game_State : public Zeni::Gamestate_Base {
 public:
