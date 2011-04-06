@@ -84,7 +84,7 @@ public:
   
   void on_key(const SDL_KeyboardEvent &/*event*/);
   
-  void on_wiimote_button(const Wiimote_Button_Event &event);
+  //void on_wiimote_button(const Wiimote_Button_Event &event);
   
   void perform_logic();
   
@@ -97,7 +97,6 @@ public:
 private:
   std::vector<Zeni::Point2f> glows; //container for the background commotion
   float timePassed;
-  float backgroundTimePassed;
   Zeni::Chronometer<Zeni::Time> chrono;
   std::string background;
 };
