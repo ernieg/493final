@@ -57,49 +57,52 @@ private:
 #ifdef _MACOSX
 class MenuState : public Zeni::Gamestate_Base {
 #else
-class MenuState : public Wiimote_Game_State {
+  class MenuState : public Wiimote_Game_State {
 #endif
-  
-  MenuState& operator=(const MenuState &);
-  
-public:
-  //every menu comes with a back button
-  class BackButton : public MenuButton {
-    BackButton(const BackButton &);
-    BackButton & operator=(const BackButton &);
+    
+    MenuState& operator=(const MenuState &);
     
   public:
-    BackButton()
-    : MenuButton("Back", Zeni::Point2f(45.0f, Zeni::get_Video().get_screen_height() - 45.0f))
-    {
-    }
+    //every menu comes with a back button
+    class BackButton : public MenuButton {
+      BackButton(const BackButton &);
+      BackButton & operator=(const BackButton &);
+      
+    public:
+      BackButton()
+      : MenuButton("Back", Zeni::Point2f(45.0f, Zeni::get_Video().get_screen_height() - 45.0f))
+      {
+      }
+      
+      void onAccept() {
+        Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
+        Zeni::get_Game().pop_state();
+      }
+    };
     
-    void onAccept() {
-      Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
-      Zeni::get_Game().pop_state();
-    }
+    MenuState(std::string background_ = "MenuBG");
+    
+    void on_key(const SDL_KeyboardEvent &/*event*/);
+    
+#ifdef _MACOSX
+    void on_wiimote_button(const Wiimote_Button_Event &event);
+#endif
+    
+    void perform_logic();
+    
+    void render();
+    
+    int selectedButton;
+    
+    std::vector<MenuButton*> buttons;
+    
+  private:
+    std::vector<Zeni::Point2f> glows; //container for the background commotion
+    float timePassed;
+    float backgroundTimePassed;
+    Zeni::Chronometer<Zeni::Time> chrono;
+    std::string background;
   };
   
-  MenuState(std::string background_ = "MenuBG");
-  
-  void on_key(const SDL_KeyboardEvent &/*event*/);
-  
-  //void on_wiimote_button(const Wiimote_Button_Event &event);
-  
-  void perform_logic();
-  
-  void render();
-  
-  int selectedButton;
-  
-  std::vector<MenuButton*> buttons;
-  
-private:
-  std::vector<Zeni::Point2f> glows; //container for the background commotion
-  float timePassed;
-  Zeni::Chronometer<Zeni::Time> chrono;
-  std::string background;
-};
-
 #endif
-
+  
