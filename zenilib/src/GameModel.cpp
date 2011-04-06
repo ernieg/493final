@@ -17,6 +17,8 @@ GameModel::GameModel() {
 
 	playerZeroModel = new Model("models/redChip.3DS");
 	playerOneModel = new Model("models/greenChip.3DS");
+
+	currentCoin = NULL;
 }
 
 Board* GameModel::getBoard()
@@ -42,4 +44,14 @@ Model* GameModel::getPlayerZeroModel()
 Model* GameModel::getPlayerOneModel()
 {
 	return playerOneModel;
+}
+
+void GameModel::reset()
+{
+	board->reset();
+
+	if ( currentCoin != NULL )
+	{
+		delete currentCoin;
+	}
 }

@@ -19,6 +19,64 @@
 using namespace std;
 using namespace Zeni;
 
+class Postgame_State : public MenuState {
+
+public:
+	Postgame_State(int winningPlayerIndex_)
+		:winningPlayerIndex(winningPlayerIndex_)
+	{
+	}
+
+private:
+	int winningPlayerIndex; // 0 or 1, or -2 if a draw
+
+	void on_key(const SDL_KeyboardEvent &event) 
+	{
+		if(event.keysym.sym == SDLK_ESCAPE) {
+		  if(event.state == SDL_PRESSED)
+			get_Game().pop_state();
+		}
+    }
+
+	void render()
+	{
+		MenuState::render();
+    
+		Zeni::Font &title = get_Fonts()["system36"];
+    
+		string message;
+
+		if ( winningPlayerIndex == 0 )
+		{
+			message = "Player One Wins!";
+		}
+		else if ( winningPlayerIndex == 1 )
+		{
+			message = "Player Two Wins!";
+		}
+		else
+		{
+			message = "Draw!";
+		}
+
+		title.render_text(message,
+					   Point2f(400.0f, 50.0f - 0.5f * title.get_text_height()),
+					   OFFWHITE,
+					   ZENI_CENTER);
+    
+		/*Zeni::Font &fr = get_Fonts()["system20"];
+    
+		fr.render_text("HOW TO PLAY:\n\n"
+					   "The first player to line up four chips vertically, \nhorizontally, or diagonally wins the game.\n\n"
+					   "CONTROLS:\n\n"
+					   "Move the Wiimote until your chip is in the correct \ncolumn, then press the B button to drop it.\n",
+					   Point2f(400.0f, 250.0f - 0.5f * fr.get_text_height()),
+					   OFFWHITE,
+					   ZENI_CENTER);*/
+    }
+};
+
+
 Tutorial_State::Tutorial_State()
 : m_time_passed(0.0f),
 m_max_time_step(1.0f / 20.0f), // make the largest physics step 1/20 of a second
@@ -28,6 +86,9 @@ transition_angle(0.0f),
 current_turn(0)
 {
   set_pausable(true);
+  
+  getGameModel().reset();
+
   getGameModel().makeNewCurrentCoin(current_turn);
 
   camera.position.z = 60.0f;
@@ -71,14 +132,17 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
 			  // get a new current coin
 			  getGameModel().makeNewCurrentCoin(current_turn);
 
-			  // check for win condition
-			  if ( getGameModel().getBoard()->checkWin() >= 0 )
+			  // check for win condition (or draw)
+			  int winningIndex = getGameModel().getBoard()->checkWin();
+			  if ( winningIndex == 0 || winningIndex == 1 || winningIndex == -2 )
 			  {
 				  // debugging
-				  cout << "winner: " << getGameModel().getBoard()->checkWin() << endl;
+				  cout << "winner: " << winningIndex << endl;
 		  
-				  //get_Game().pop_state();
+				  get_Game().pop_state();
+				  get_Game().push_state(new Postgame_State(winningIndex));
 			  }
+			  
 		  }  
 	  }
   }
@@ -182,7 +246,7 @@ void Tutorial_State::perform_logic() {
   // move the camera from one side of the board to the other
   if ( turn_transition )
   {
-	transition_angle += m_time_passed * (-0.5f * cos(2.0f * transition_angle) + 0.6f) * 4.0f;
+	transition_angle += m_time_passed * (-0.5f * cos(2.0f * transition_angle) + 0.6f) * 8.0f;
 
 	camera.position.x = -BOARD_DIST_X*cos(transition_angle) + BOARD_DIST_X;
 	camera.position.y = -BOARD_DIST_X*sin(transition_angle);

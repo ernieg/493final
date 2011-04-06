@@ -202,7 +202,22 @@ int Board::checkCollide(Coin* coin)
 
 void Board::reset()
 {
+	recentRow = -1;
+	recentColumn = -1;
 
+	numCoins = 0;
+
+	for (int i = 0; i < numRows; i++)
+	{
+		for (int j = 0; j < numCols; j++)
+		{
+			if ( board[i][j] != NULL )
+			{
+				delete board[i][j];
+				board[i][j] = NULL;
+			}
+		}
+	}
 }
 
 void Board::render()
