@@ -6,6 +6,8 @@ class Board;
 class Coin;
 class Player;
 
+const Zeni::Vector3f TABLE_SCALE(7.0f,7.0f,7.0f);
+
 class GameModel {
     // Get reference to only instance;
     friend GameModel & getGameModel();
@@ -20,6 +22,7 @@ public:
 	Coin* getCurrentCoin();
 	void makeNewCurrentCoin(int playerIndex);
 	void reset();
+	void renderTable();
 	Zeni::Model* getPlayerZeroModel();
 	Zeni::Model* getPlayerOneModel();
 
@@ -29,6 +32,7 @@ private:
 	Coin* currentCoin; // the coin about to be put on the board
 	Zeni::Model* playerZeroModel; // the two coin models
 	Zeni::Model* playerOneModel;
+	Zeni::Model* tableModel;
 };
 
 GameModel & getGameModel();

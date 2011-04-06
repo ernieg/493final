@@ -18,6 +18,10 @@ GameModel::GameModel() {
 	playerZeroModel = new Model("models/redChip.3DS");
 	playerOneModel = new Model("models/greenChip.3DS");
 
+	tableModel = new Model("models/table.3DS");
+	tableModel->set_scale(TABLE_SCALE); // I just fudged these numbers. They might need tweaking
+	tableModel->set_translate(Point3f(BOARD_DIST_X,0.0f,-3.0f*TABLE_SCALE.z));
+
 	currentCoin = NULL;
 }
 
@@ -44,6 +48,11 @@ Model* GameModel::getPlayerZeroModel()
 Model* GameModel::getPlayerOneModel()
 {
 	return playerOneModel;
+}
+
+void GameModel::renderTable()
+{
+	tableModel->render();
 }
 
 void GameModel::reset()

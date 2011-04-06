@@ -394,6 +394,9 @@ void Tutorial_State::render() {
 	vr.render(quad_e);
 	vr.render(quad_f);
 
+	// render the table
+	getGameModel().renderTable();
+
 	// render the board (and all the coins in it)
 	getGameModel().getBoard()->render();
 
