@@ -45,255 +45,149 @@
 #include <Zeni/Sound_Source_Pool.h>
 #include <Zeni/Widget_Gamestate.h>
 
+#include "MenuState.h"
+
 namespace Zeni {
 
   template <typename PLAY_STATE, typename INSTRUCTIONS_STATE>
-  class Title_State : public Widget_Gamestate {
+  class Title_State : public MenuState {
     Title_State(const Title_State<PLAY_STATE, INSTRUCTIONS_STATE> &);
     Title_State<PLAY_STATE, INSTRUCTIONS_STATE> & operator=(const Title_State<PLAY_STATE, INSTRUCTIONS_STATE> &);
 
   public:
-    class Play : public Text_Button {
+    class Play : public MenuButton {
       Play(const Play &);
       Play & operator=(const Play &);
       
     public:
       Play()
-      : Text_Button(Point2f(200.0f, 250.0f), Point2f(600.0f, 310.0f), "system_36_800x600", "Play"), timePassed(0.0f),
-      hovering(false), exhaling(false), text("Play"), col(Zeni::OFFWHITE), font("system30")
+      : MenuButton("Play", Zeni::Point2f(Zeni::get_Video().get_screen_width()/2.0f, 300.0f))
       {
-        give_Renderer(new Widget_Renderer_Tricolor(TRANSPARENT, TRANSPARENT, TRANSPARENT,
-                                 OFFWHITE, OFFYELLOW, OFFYELLOW));
-        chrono.start();
       }
       
-      void on_accept() {
+      void onAccept() {
         Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
         get_Game().push_state(new PLAY_STATE());
       }
-      
-      void on_hover() {
-        hovering = true;
-        col = Zeni::OFFYELLOW;
-      }
-      
-      void on_unhover() {
-        hovering = false;
-        exhaling = false;
-        font[7] = '0';
-        col = Zeni::OFFWHITE;
-      }
-      
-      void perform_logic() {
-        if(hovering) {
-          if(chrono.seconds() - timePassed > 0.03f) {
-            timePassed = chrono.seconds();
-            if(exhaling)
-              font[7]--;
-            else
-              font[7]++;
-            
-            exhaling = (font[7] == '6' && !exhaling) || (font[7] > '0' && exhaling);
-          }
-        }
-        else {
-          font[7] = '0';
-          exhaling = false;
-        }
-        
-        give_Renderer(new Widget_Renderer_Text(font, text, col));    
-      }
-      
-    private:
-      bool exhaling;
-      bool hovering;
-      std::string text;
-      std::string font;
-      Zeni::Color col;
-      Zeni::Chronometer<Zeni::Time> chrono;
-      float timePassed;
-    } playButton;
+    };
 
-
-    class Instructions_Button : public Text_Button {
+    class Instructions_Button : public MenuButton {
       Instructions_Button(const Instructions_Button &);
       Instructions_Button & operator=(const Instructions_Button &);
 
     public:
       Instructions_Button()
-        : Text_Button(Point2f(200.0f, 330.0f), Point2f(600.0f, 390.0f),
-                      "system_36_800x600", "Instructions"), timePassed(0.0f),
-      hovering(false), exhaling(false), text("Instructions"), col(Zeni::OFFWHITE), font("system30")
+        : MenuButton("Instructions", Zeni::Point2f(Zeni::get_Video().get_screen_width()/2.0f, 350.0f))
       {
-        give_Renderer(new Widget_Renderer_Tricolor(TRANSPARENT, TRANSPARENT, TRANSPARENT,
-                                                   OFFWHITE, OFFYELLOW, OFFYELLOW));
-        chrono.start();
       }
       
-      void on_accept() {
+      void onAccept() {
         Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
         get_Game().push_state(new INSTRUCTIONS_STATE());
       }
-      
-      void on_hover() {
-        hovering = true;
-        col = Zeni::OFFYELLOW;
-      }
-      
-      void on_unhover() {
-        hovering = false;
-        exhaling = false;
-        font[7] = '0';
-        col = Zeni::OFFWHITE;
-      }
-      
-      void perform_logic() {
-        if(hovering) {
-          if(chrono.seconds() - timePassed > 0.03f) {
-            timePassed = chrono.seconds();
-            if(exhaling)
-              font[7]--;
-            else
-              font[7]++;
-            
-            exhaling = (font[7] == '6' && !exhaling) || (font[7] > '0' && exhaling);
-          }
-        }
-        else {
-          font[7] = '0';
-          exhaling = false;
-        }
-        
-        give_Renderer(new Widget_Renderer_Text(font, text, col));    
-      }
-      
-    private:
-      bool exhaling;
-      bool hovering;
-      std::string text;
-      std::string font;
-      Zeni::Color col;
-      Zeni::Chronometer<Zeni::Time> chrono;
-      float timePassed;
-    } instructions_button;
+    };
 
-    class Quit_Button : public Text_Button {
+    class Quit_Button : public MenuButton {
       Quit_Button(const Quit_Button &);
       Quit_Button & operator=(const Quit_Button &);
       
-    public:
-      Quit_Button()
-      : Text_Button(Point2f(200.0f, 410.0f), Point2f(600.0f, 470.0f),
-                    "system_36_800x600", "Quit"), timePassed(0.0f),
-      hovering(false), exhaling(false), text("Quit"), col(Zeni::OFFWHITE), font("system30")
-      {
-        give_Renderer(new Widget_Renderer_Tricolor(TRANSPARENT, TRANSPARENT, TRANSPARENT,
-                                                   OFFWHITE, OFFYELLOW, OFFYELLOW));
-        chrono.start();
-      }
-      
-      void on_accept() {
-        Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
-        throw Quit_Event();
-      }
-      
-      void on_hover() {
-        hovering = true;
-        col = Zeni::OFFYELLOW;
-      }
-      
-      void on_unhover() {
-        hovering = false;
-        exhaling = false;
-        font[7] = '0';
-        col = Zeni::OFFWHITE;
-      }
-      
-      void perform_logic() {
-        if(hovering) {
-          if(chrono.seconds() - timePassed > 0.03f) {
-            timePassed = chrono.seconds();
-            if(exhaling)
-              font[7]--;
-            else
-              font[7]++;
-            
-            exhaling = (font[7] == '6' && !exhaling) || (font[7] > '0' && exhaling);
-          }
+      public:
+        Quit_Button()
+        : MenuButton("Quit", Zeni::Point2f(Zeni::get_Video().get_screen_width()/2.0f, 400.0f))
+        {
         }
-        else {
-          font[7] = '0';
-          exhaling = false;
-        }
-        
-        give_Renderer(new Widget_Renderer_Text(font, text, col));    
-      }
       
-    private:
-      bool exhaling;
-      bool hovering;
-      std::string text;
-      std::string font;
-      Zeni::Color col;
-      Zeni::Chronometer<Zeni::Time> chrono;
-      float timePassed;
-    } quit_button;
+        void onAccept() {
+          Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
+          throw Quit_Event();
+        }
+    };
 
-    Title_State(const std::string &title_)
-      : Widget_Gamestate(std::make_pair(Point2f(0.0f, 0.0f), Point2f(800.0f, 600.0f))),
-      chip(Model("models/redChip.3DS")),
-      proj(Projector2D())
+    Title_State(const std::string background_)
+    : MenuState(background_)
     {
-      m_widgets.lend_Widget(playButton);
-      m_widgets.lend_Widget(instructions_button);
-      m_widgets.lend_Widget(quit_button);
-
-      get_Video().set_clear_color(get_Colors()["title_bg"]);
+      Play *playButton = new Play();
+      Instructions_Button *instructionsButton = new Instructions_Button();
+      Quit_Button *quitButton = new Quit_Button();
+      
+      buttons.push_back(playButton);
+      buttons.push_back(instructionsButton);
+      buttons.push_back(quitButton);
+      
+      buttons[selectedButton]->select(); /* set default selected */
     }
 
     ~Title_State() {
       get_Video().set_clear_color(Color(1.0f, 0.0f, 0.0f, 0.0f));
     }
+    
+    void on_wiimote_button(const Wiimote_Button_Event &event) {
+        switch(event.button) {
+          case BUTTON_A:
+            if(event.pressed)
+              buttons[selectedButton]->onAccept();
+            break;
+            
+          case BUTTON_UP:
+            if(event.pressed) {
+              if(selectedButton > 0) {
+                buttons[selectedButton]->deselect();
+                selectedButton--;
+                buttons[selectedButton]->select();
+              }
+            }
+            break;
+            
+          case BUTTON_DOWN:
+            if(event.pressed) {
+              if(selectedButton < 2) {
+                buttons[selectedButton]->deselect();
+                selectedButton++;
+                buttons[selectedButton]->select();
+              }
+            }
+            break;
+        }
+    }
 
-    void on_key(const SDL_KeyboardEvent &/*event*/)
-    {
+    void on_key(const SDL_KeyboardEvent &event) {
+      Wiimote_Button_Event fakeEvent;
+      switch(event.keysym.sym) {
+        case SDLK_UP:
+          if(event.state == SDL_PRESSED) {
+            fakeEvent.button = BUTTON_UP;
+          }
+          break;
+          
+        case SDLK_DOWN:
+          if(event.state == SDL_PRESSED){
+            fakeEvent.button = BUTTON_DOWN;
+          }
+          break;
+          
+        case SDLK_RETURN:
+          if(event.state == SDL_PRESSED) {
+            fakeEvent.button = BUTTON_A;
+          }
+          break;
+      }
+      
+      fakeEvent.pressed = event.type == SDL_KEYDOWN;
+      fakeEvent.wiimote = KEYBOARD_CONTROL;
+      on_wiimote_button(fakeEvent);
     }
 
     void perform_logic() {
-      Widget_Gamestate::perform_logic();
-      get_Video().set_clear_color(get_Colors()["title_bg"]);
-      chip.set_translate(proj.unproject(Point3f(20.0f, 20.0f, 0.0f)));
-      chip.set_rotate(chip.get_rotate().second + pi/100, Vector3f(1.0f, 0.0f, 0.0f));
-      chip.set_scale(Vector3f(4.0f, 4.0f, 4.0f));
+      MenuState::perform_logic();
       
-      if(rand() % 100 < 5 && glows.size() < 2) {
-        glows.push_back(Zeni::Point2f(rand()%800, 600));
-      }
-      for(int i = 0; i < glows.size(); i++) {
-        glows[i].y -= 30;
-        if(glows[i].y < -128) {
-          glows.erase(glows.begin() + i);
-          i--;
-        }
-      }
+      for(int i = 0; i < buttons.size(); i++)
+        buttons[i]->performLogic();
+      
     }
 
     void render() {
-      //Video &vid = get_Video();
-      Zeni::render_image("TitleBG", Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(1024.0f, 1024.0f));
-      for(int i = 0; i < glows.size(); i++) 
-        Zeni::render_image("glow", Zeni::Point2f(glows[i].x, glows[i].y), Zeni::Point2f(glows[i].x + 64, glows[i].y + 128), false, Color((float)((float)glows[i].y/600.0f), 1.0f, 1.0f, 1.0f));
-      //vid.set_3d(Camera());
-      //chip.render();
-      //vid.set_2d();
-      Widget_Gamestate::render();
+      MenuState::render();
     }
-    
-  private:
-    Zeni::Model chip;
-    Projector2D proj;
-    std::vector<Zeni::Point2f> glows;
-
   };
 
 }
