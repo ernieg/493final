@@ -25,20 +25,6 @@ class Tutorial_State : public Zeni::Gamestate_Base {
 #else
 class Tutorial_State : public Wiimote_Game_State{
 #endif
-  
-
-  /*struct Player {
-    Player()
-      : max_velocity(20.0f, 20.0f, 0.0f),
-      mouse_scale(128.0f, 128.0f, 0.0f)
-    {
-		
-    }
-
-    Zeni::Camera camera;
-    Zeni::Vector3f max_velocity;
-    Zeni::Vector3f mouse_scale;
-  } m_player;*/
 
 public:
   Tutorial_State();
@@ -52,12 +38,21 @@ public:
   void on_mouse_motion(const SDL_MouseMotionEvent &event);
   void on_mouse_button(const SDL_MouseButtonEvent &event);
 
+#ifndef _MACOSX
+  virtual void on_wiimote_button(const Wiimote_Button_Event &event);
+  virtual void on_wiimote_ir(const Wiimote_IR_Event &event);
+  virtual void on_wiimote_nunchuk(const Wiimote_Nunchuk_Event &event);
+#endif
+
   void perform_logic();
 
 private:
   void step(const float &time_step);
 
   void render();
+
+  void handleCursorEvents(float yMovement, float zMovement);
+  void endTurn();
 
   Zeni::Time m_current_time;
   float m_time_passed;
@@ -69,10 +64,6 @@ private:
   // how far we are in the transition. 0 (or 2pi) is the first player's position, pi is the second player's position
   float transition_angle;
 
-  // whose turn is it? 0 for the first player, 1 for the second player
-  // note: when the camera is transitioning from the first player's side to the second player's side,
-  //       current turn will already be 1 (not 0)
-  int current_turn;
   Zeni::Camera camera;
 };
 

@@ -74,4 +74,44 @@ The following things are unsupported:
     <filepath>textures/menuBG.png</filepath>
     <tile>0</tile>
   </MenuBG>
+  <handOpenRed>
+    <filepath>textures/handOpenRed.png</filepath>
+    <tile>0</tile>
+  </handOpenRed>
+  <handOpenPurple>
+    <filepath>textures/handOpenPurple.png</filepath>
+    <tile>0</tile>
+  </handOpenPurple>
+  <handOpenGreen>
+    <filepath>textures/handOpenGreen.png</filepath>
+    <tile>0</tile>
+  </handOpenGreen>
+  <handOpenBlue>
+    <filepath>textures/handOpenBlue.png</filepath>
+    <tile>0</tile>
+  </handOpenBlue>
+  <handOpenBlack>
+    <filepath>textures/handOpenBlack.png</filepath>
+    <tile>0</tile>
+  </handOpenBlack>
+  <handGrabRed>
+    <filepath>textures/handGrabRed.png</filepath>
+    <tile>0</tile>
+  </handGrabRed>
+  <handGrabPurple>
+    <filepath>textures/handGrabPurple.png</filepath>
+    <tile>0</tile>
+  </handGrabPurple>
+  <handGrabGreen>
+    <filepath>textures/handGrabGreen.png</filepath>
+    <tile>0</tile>
+  </handGrabGreen>
+  <handGrabBlue>
+    <filepath>textures/handGrabBlue.png</filepath>
+    <tile>0</tile>
+  </handGrabBlue>
+  <handGrabBlack>
+    <filepath>textures/handGrabBlack.png</filepath>
+    <tile>0</tile>
+  </handGrabBlack>
 </Textures>

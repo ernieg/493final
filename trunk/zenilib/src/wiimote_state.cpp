@@ -316,7 +316,7 @@ int wiimote_loop(void *host){
         wiiuse_motion_sensing(wiimotes[i], 0);
 
         wiiuse_set_aspect_ratio(wiimotes[i], WIIUSE_ASPECT_16_9);
-        wiiuse_set_ir_position(wiimotes[i], WIIUSE_IR_ABOVE);
+        wiiuse_set_ir_position(wiimotes[i], WIIUSE_IR_BELOW);
         wiiuse_set_ir_vres(wiimotes[i], get_Video().get_screen_width(), get_Video().get_screen_height());
     }
 

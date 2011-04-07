@@ -20,13 +20,19 @@ public:
 	Player* getPlayer(int playerIndex);
 	Board* getBoard();
 	Coin* getCurrentCoin();
-	void makeNewCurrentCoin(int playerIndex);
 	void reset();
 	void renderTable();
-	Zeni::Model* getPlayerZeroModel();
-	Zeni::Model* getPlayerOneModel();
+	Zeni::Model* getPlayerModel(int index);
 	float getPointerScale();
 	void setPointerScale(float pointerScale_);
+
+  void renderAll();
+
+  int getCurrentTurn() {
+    return currentTurn;
+  }
+
+  void advanceTurn();
 
 private:
 	std::vector<Player*> players;
@@ -36,6 +42,14 @@ private:
 	Zeni::Model* playerOneModel;
 	Zeni::Model* tableModel;
 	float pointerScale; // scale factor for adjusting the mouse/Wiimote
+  void setPlayerColors(std::string play1, std::string play2);
+  void makeNewCurrentCoin();
+
+  
+  // whose turn is it? 0 for the first player, 1 for the second player
+  // note: when the camera is transitioning from the first player's side to the second player's side,
+  //       current turn will already be 1 (not 0)
+  int currentTurn;
 };
 
 GameModel & getGameModel();

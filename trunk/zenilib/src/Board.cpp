@@ -102,6 +102,7 @@ int Board::simpleCheckWin()
 			}
 		}
 	}
+  return 0;
 }
 
 bool Board::allEqual(int a, int b, int c, int d)
