@@ -1,7 +1,8 @@
 #ifndef EASYAGENT_H
 #define EASYAGENT_H
 
-class EasyAgent : public Player::Player {
+
+class EasyAgent : public Player {
 
 public:
 	void perform_logic();
