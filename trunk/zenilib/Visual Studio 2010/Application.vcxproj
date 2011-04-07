@@ -579,6 +579,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Board.cpp" />
     <ClCompile Include="..\src\Coin.cpp" />
+    <ClCompile Include="..\src\EasyAgent.cpp" />
     <ClCompile Include="..\src\GameModel.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\Gamestate_One.cpp">
@@ -626,6 +627,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\Board.h" />
     <ClInclude Include="..\include\Coin.h" />
+    <ClInclude Include="..\include\EasyAgent.h" />
     <ClInclude Include="..\include\GameModel.h" />
     <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\MenuState.h" />
