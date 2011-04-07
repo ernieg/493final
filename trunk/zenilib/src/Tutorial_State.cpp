@@ -318,7 +318,8 @@ void Tutorial_State::perform_logic() {
 }
 
 void Tutorial_State::step(const float &time_step) {
-  
+    // make the current coin rotate
+	getGameModel().getCurrentCoin()->rotate(time_step);
 }
 
 void Tutorial_State::render() {

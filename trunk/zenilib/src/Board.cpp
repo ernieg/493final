@@ -74,6 +74,10 @@ bool Board::putCoin(Coin* coin, int column)
 			float zPos = 2.0f * i * BOARD_SCALE.z;
 
 			coin->setPosition(Zeni::Point3f(BOARD_DIST_X, yPos, zPos));
+
+			// also set the coin's rotation to be aligned with the board
+			coin->setOrientation(Zeni::Quaternion::Axis_Angle(Zeni::Vector3f(0.0f,0.0f,1.0f),0.0f));
+			
 			return true;
 		}
 	}
