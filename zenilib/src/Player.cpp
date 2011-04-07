@@ -32,6 +32,11 @@ void Player::handleWiiIREvent(const Wiimote_IR_Event &event){
   cursor.y = event.y;
 }
 
+void Player::handleMouseMotion(const SDL_MouseMotionEvent &event) {
+  cursor.x = event.x;
+  cursor.y = event.y;
+}
+
 void Player::handleWiiButtonEvent(const Wiimote_Button_Event &event){
 }
 
