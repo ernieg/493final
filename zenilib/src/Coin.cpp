@@ -3,7 +3,7 @@
 #include "GameModel.h"
 
 Coin::Coin(int playerIndex_)
-	:playerIndex(playerIndex_)
+	:playerIndex(playerIndex_), rotation(0.0f)
 {
   setModel(getGameModel().getPlayerModel(playerIndex));
 	assert(GameObject::getModel() != NULL);
@@ -18,6 +18,7 @@ void Coin::render()
 	assert(GameObject::getModel() != NULL);
 
 	// move the model to the coin's current position
+	getModel()->set_rotate(GameObject::getOrientation());
 	getModel()->set_translate(GameObject::getPosition());
 	getModel()->set_scale(COIN_SCALE);
 
@@ -27,4 +28,11 @@ void Coin::render()
 int Coin::getPlayerIndex()
 {
 	return playerIndex;
+}
+
+void Coin::rotate(float timeStep)
+{
+	rotation += timeStep * ROTATE_SCALE;
+
+	GameObject::setOrientation(Zeni::Quaternion::Axis_Angle(Zeni::Vector3f(0.0f,0.0f,1.0f),rotation));
 }
