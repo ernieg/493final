@@ -86,12 +86,13 @@ Tutorial_State::Tutorial_State()
 m_max_time_step(1.0f / 20.0f), // make the largest physics step 1/20 of a second
 m_max_time_steps(10.0f), // allow no more than 10 physics steps per frame
 turn_transition(false),
-transition_angle(0.0f)
+transition_angle(0.0f), 
+camera(getGameModel().getCamera())
 {
   set_pausable(true);
   
   getGameModel().reset();
-
+ // camera = getGameModel().getCamera();
   camera.position.z = 60.0f;
   camera.look_at(BOARD_CENTER_MIDDLE);
 }
@@ -113,8 +114,8 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
   
   // 1 == left mouse button
   // 3 == right mouse button
-
-  if ( static_cast<int>(event.button) == 1 && event.type == SDL_MOUSEBUTTONDOWN && !turn_transition )
+  getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleMouseButton(event);
+  if ( static_cast<int>(event.button) == 1 && event.type == SDL_MOUSEBUTTONUP && !turn_transition )
   {
     endTurn();
   }
@@ -181,7 +182,7 @@ void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
   getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleMouseMotion(event);
 	float yMovement = event.xrel/ getGameModel().getPointerScale();
 	float zMovement = -event.yrel / getGameModel().getPointerScale();
-  handleCursorEvents(yMovement, zMovement);
+  //handleCursorEvents(yMovement, zMovement);
 }
 
 void Tutorial_State::handleCursorEvents(float yMovement, float zMovement){

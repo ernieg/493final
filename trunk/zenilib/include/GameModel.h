@@ -37,6 +37,10 @@ public:
 
   void advanceTurn();
 
+  Zeni::Camera& getCamera() {
+    return camera;
+  }
+
 private:
 	std::vector<Player*> players;
 	Board* board;
@@ -52,6 +56,8 @@ private:
   // note: when the camera is transitioning from the first player's side to the second player's side,
   //       current turn will already be 1 (not 0)
   int currentTurn;
+
+  Zeni::Camera camera;
 };
 
 GameModel & getGameModel();

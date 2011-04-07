@@ -64,7 +64,7 @@ private:
   // how far we are in the transition. 0 (or 2pi) is the first player's position, pi is the second player's position
   float transition_angle;
 
-  Zeni::Camera camera;
+  Zeni::Camera &camera;
 };
 
 #endif

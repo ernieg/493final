@@ -10,6 +10,7 @@ public:
 	void handleWiiEvent();
 
   void handleMouseMotion(const SDL_MouseMotionEvent &event);
+  void handleMouseButton(const SDL_MouseButtonEvent &event);
   void handleWiiIREvent(const Wiimote_IR_Event &event);
   void handleWiiButtonEvent(const Wiimote_Button_Event &event);
 
@@ -33,7 +34,11 @@ private:
     float y;
   } cursor;
 
+  bool pressed;
+
   std::string color;
+
+  void moveCurrentCoin();
 };
 
 #endif
