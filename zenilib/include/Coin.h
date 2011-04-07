@@ -16,6 +16,7 @@ public:
 	int getPlayerIndex();
 	void rotate(float timeStep); // for rotating the current coin
 
+  void setMoveablePosition(Zeni::Point3f position_);
 	void setFinalPosition(Zeni::Point3f finalPosition);
 	Zeni::Point3f getFinalPosition();
 

@@ -65,7 +65,7 @@ void Player::moveCurrentCoin() {
 
   if(distance < GRABDIST) {
     Point3f newPos = projector.unproject(Point3f(cursor.x, cursor.y, point.z));
-    coin->setPosition(newPos);
+    coin->setMoveablePosition(newPos);
   }
 
 }

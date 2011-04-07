@@ -180,9 +180,6 @@ void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 
 void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
   getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleMouseMotion(event);
-	float yMovement = event.xrel/ getGameModel().getPointerScale();
-	float zMovement = -event.yrel / getGameModel().getPointerScale();
-  //handleCursorEvents(yMovement, zMovement);
 }
 
 void Tutorial_State::handleCursorEvents(float yMovement, float zMovement){
@@ -412,11 +409,11 @@ void Tutorial_State::render() {
 
 #ifndef _MACOSX
 void Tutorial_State::on_wiimote_button(const Wiimote_Button_Event &event){
-
+   getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleWiiButtonEvent(event);
    switch(event.button){
       case BUTTON_A:
       case BUTTON_B:
-        if (event.pressed) {
+        if (!event.pressed) {
           endTurn();
         }
         break;
@@ -435,10 +432,7 @@ void Tutorial_State::on_wiimote_button(const Wiimote_Button_Event &event){
 }
 
 void Tutorial_State::on_wiimote_ir(const Wiimote_IR_Event &event){
-  float x = event.x;
-  float y = event.y;
-  //handleCursorEvents((float)event.x, (float)event.y);
-  getGameModel().getPlayer(event.wiimote)->handleWiiIREvent(event);
+  getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleWiiIREvent(event);
 }
 
 void Tutorial_State::on_wiimote_nunchuk(const Wiimote_Nunchuk_Event &event){

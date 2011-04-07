@@ -2,6 +2,9 @@
 #include "Board.h"
 #include "GameModel.h"
 
+using namespace std;
+using namespace Zeni;
+
 Coin::Coin(int playerIndex_)
 	:playerIndex(playerIndex_), rotation(0.0f)
 {
@@ -35,6 +38,22 @@ void Coin::rotate(float timeStep)
 	rotation += timeStep * ROTATE_SCALE;
 
 	GameObject::setOrientation(Zeni::Quaternion::Axis_Angle(Zeni::Vector3f(0.0f,0.0f,1.0f),rotation));
+}
+
+void Coin::setMoveablePosition(Zeni::Point3f position_) {
+  Point3f newPos = position_;
+  if ( newPos.z < 90.0f )
+	{
+		newPos.z = 90.0f;
+  } else if ( newPos.z > 135.0f) {
+    newPos.z = 135;
+  }
+  if (newPos.y < -120) {
+    newPos.y = -120;
+  } else if (newPos.y > 120) {
+    newPos.y = 120;
+  }
+  GameObject::setPosition(newPos);
 }
 
 void Coin::setFinalPosition(Zeni::Point3f finalPosition_)
