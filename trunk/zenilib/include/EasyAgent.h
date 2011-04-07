@@ -9,6 +9,6 @@ public:
 	void handleWiiEvent();
 
 	EasyAgent(int playerIndex_);
-}
+};
 
 #endif

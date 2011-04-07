@@ -9,6 +9,7 @@ public:
 	void perform_logic();
 	void handleWiiEvent();
 
+  void handleMouseMotion(const SDL_MouseMotionEvent &event);
   void handleWiiIREvent(const Wiimote_IR_Event &event);
   void handleWiiButtonEvent(const Wiimote_Button_Event &event);
 

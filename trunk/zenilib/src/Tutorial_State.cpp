@@ -178,7 +178,7 @@ void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 }
 
 void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
-
+  getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleMouseMotion(event);
 	float yMovement = event.xrel/ getGameModel().getPointerScale();
 	float zMovement = -event.yrel / getGameModel().getPointerScale();
   handleCursorEvents(yMovement, zMovement);
