@@ -74,6 +74,42 @@ The following things are unsupported:
     <filepath>textures/menuBG.png</filepath>
     <tile>0</tile>
   </MenuBG>
+  <registerBox>
+    <filepath>textures/registerBox.png</filepath>
+    <tile>0</tile>
+  </registerBox>
+  <BLACKCHI.PNG>
+    <filepath>textures/blackChip.png</filepath>
+    <tile>1</tile>
+  </BLACKCHI.PNG>
+  <BLACKEDG.PNG>
+    <filepath>textures/blackEdge.png</filepath>
+    <tile>1</tile>
+  </BLACKEDG.PNG>
+  <WHITECHI.PNG>
+    <filepath>textures/whiteChip.png</filepath>
+    <tile>1</tile>
+  </WHITECHI.PNG>
+  <WHITEEDG.PNG>
+    <filepath>textures/whiteEdge.png</filepath>
+    <tile>1</tile>
+  </WHITEEDG.PNG>
+  <BLUECHIP.PNG>
+    <filepath>textures/blueChip.png</filepath>
+    <tile>1</tile>
+  </BLUECHIP.PNG>
+  <BLUEEDGE.PNG>
+    <filepath>textures/blueEdge.png</filepath>
+    <tile>1</tile>
+  </BLUEEDGE.PNG>
+  <PURPLECH.PNG>
+    <filepath>textures/purpleChip.png</filepath>
+    <tile>1</tile>
+  </PURPLECH.PNG>
+  <PURPLEED.PNG>
+    <filepath>textures/purpleEdge.png</filepath>
+    <tile>1</tile>
+  </PURPLEED.PNG>
   <handOpenRed>
     <filepath>textures/handOpenRed.png</filepath>
     <tile>0</tile>
@@ -114,4 +150,12 @@ The following things are unsupported:
     <filepath>textures/handGrabBlack.png</filepath>
     <tile>0</tile>
   </handGrabBlack>
+  <handOpenWhite>
+    <filepath>textures/handOpen.png</filepath>
+    <tile>0</tile>
+  </handOpenWhite>
+  <handGrabWhite>
+    <filepath>textures/handGrab.png</filepath>
+    <tile>0</tile>
+  </handGrabWhite>
 </Textures>

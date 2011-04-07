@@ -39,7 +39,7 @@ private:
 		  if(event.state == SDL_PRESSED)
 			get_Game().pop_state();
 		}
-    }
+  }
 
 	void render()
 	{
