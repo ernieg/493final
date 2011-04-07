@@ -5,20 +5,11 @@
 Coin::Coin(int playerIndex_)
 	:playerIndex(playerIndex_)
 {
-	// get the right 3D model
-	if ( playerIndex == 0 )
-	{
-		GameObject::setModel(getGameModel().getPlayerZeroModel());
-		assert(GameObject::getModel() != NULL);
-	}
-	else
-	{
-		GameObject::setModel(getGameModel().getPlayerOneModel());
-		assert(GameObject::getModel() != NULL);
-	}
+  setModel(getGameModel().getPlayerModel(playerIndex));
+	assert(GameObject::getModel() != NULL);
 
 	// put the coin in a default position
-	GameObject::setPosition(Zeni::Point3f(BOARD_DIST_X,50.0f,100.0f));
+	setPosition(Zeni::Point3f(BOARD_DIST_X,50.0f,100.0f));
 }
 
 void Coin::render()
@@ -27,10 +18,10 @@ void Coin::render()
 	assert(GameObject::getModel() != NULL);
 
 	// move the model to the coin's current position
-	GameObject::getModel()->set_translate(GameObject::getPosition());
-	GameObject::getModel()->set_scale(COIN_SCALE);
+	getModel()->set_translate(GameObject::getPosition());
+	getModel()->set_scale(COIN_SCALE);
 
-	GameObject::getModel()->render();
+	getModel()->render();
 }
 
 int Coin::getPlayerIndex()

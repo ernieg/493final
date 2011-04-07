@@ -15,9 +15,12 @@
 #include "GameModel.h"
 #include "Board.h"
 #include "Coin.h"
+#include "Player.h"
 
 using namespace std;
 using namespace Zeni;
+
+#define MOUSE_SPEED_ADJUST 70
 
 class Postgame_State : public MenuState {
 
@@ -83,14 +86,11 @@ Tutorial_State::Tutorial_State()
 m_max_time_step(1.0f / 20.0f), // make the largest physics step 1/20 of a second
 m_max_time_steps(10.0f), // allow no more than 10 physics steps per frame
 turn_transition(false),
-transition_angle(0.0f),
-current_turn(0)
+transition_angle(0.0f)
 {
   set_pausable(true);
   
   getGameModel().reset();
-
-  getGameModel().makeNewCurrentCoin(current_turn);
 
   camera.position.z = 60.0f;
   camera.look_at(BOARD_CENTER_MIDDLE);
@@ -116,22 +116,23 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
 
   if ( static_cast<int>(event.button) == 1 && event.type == SDL_MOUSEBUTTONDOWN && !turn_transition )
   {
-	  // debugging
-	  cout << getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin()) << endl;
+    endTurn();
+  }
+};
 
-	  int col = getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin());
+void Tutorial_State::endTurn() {
+  	  // debugging
+	  cout << getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin()) << endl;
+  	int col = getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin());
 
 	  if ( col != -1 )
 	  {
 		  // put the coin in the board
 		  if ( getGameModel().getBoard()->putCoin(getGameModel().getCurrentCoin(),col) )
 		  {
-			  // increment the current turn
-			  current_turn = (current_turn+1) % 2;
-			  turn_transition = true;
 
-			  // get a new current coin
-			  getGameModel().makeNewCurrentCoin(current_turn);
+			  turn_transition = true;
+        getGameModel().advanceTurn();
 
 			  // check for win condition (or draw)
 			  int winningIndex = getGameModel().getBoard()->checkWin();
@@ -146,8 +147,7 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
 			  
 		  }  
 	  }
-  }
-};
+}
 
 void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 	switch(event.keysym.sym) {
@@ -167,7 +167,7 @@ void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 			// debugging: (for testing out the board-turning animation)
 			if ( event.type == SDL_KEYDOWN )
 			{
-			  current_turn = (current_turn+1)%2;
+			  getGameModel().advanceTurn();
 			  turn_transition = true;
 			}
 			break;
@@ -178,15 +178,16 @@ void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 }
 
 void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
-  /*Camera &camera = m_player.camera;
 
-  camera.turn_left_xy(-event.xrel / m_player.mouse_scale.i);
-	
-  // Back up a couple vectors
-  const Quaternion prev_orientation = camera.orientation;
-	const Vector3f prev_up = camera.get_up();
+	float yMovement = event.xrel/ getGameModel().getPointerScale();
+	float zMovement = -event.yrel / getGameModel().getPointerScale();
+  handleCursorEvents(yMovement, zMovement);
+}
 
-	camera.adjust_pitch(event.yrel / m_player.mouse_scale.j);
+void Tutorial_State::handleCursorEvents(float yMovement, float zMovement){
+ // yMovement = yMovement/MOUSE_SPEED_ADJUST;
+ // zMovement = zMovement/MOUSE_SPEED_ADJUST;
+ // yMovement *= (getGameModel().getCurrentTurn() == 0 ) ? -1.0f : 1.0f;
 
   // Restore the backup vectors if flipped over
   // (if the up vector is pointing down)
@@ -194,13 +195,13 @@ void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
   // Note that we want to be sure not to freeze a player 
   // who is already flipped (for whatever reason).
    
-	if(camera.get_up().k < 0.0f && prev_up.k >= 0.0f)
-    camera.orientation = prev_orientation;*/
+	//if(camera.get_up().k < 0.0f && prev_up.k >= 0.0f)
+  //  camera.orientation = prev_orientation;
 
-	float yMovement = event.xrel / getGameModel().getPointerScale();
-	float zMovement = -event.yrel / getGameModel().getPointerScale();
+	//float yMovement = yMovement / getGameModel().getPointerScale();
+	//float zMovement = zMovement / getGameModel().getPointerScale();
 
-	yMovement *= (current_turn == 0 ) ? -1.0f : 1.0f;
+  yMovement *= (getGameModel().getCurrentTurn() == 0 ) ? -1.0f : 1.0f;
 
 	Point3f oldPos(getGameModel().getCurrentCoin()->getPosition());
 
@@ -210,12 +211,25 @@ void Tutorial_State::on_mouse_motion(const SDL_MouseMotionEvent &event) {
 	if ( newPos.z < 90.0f )
 	{
 		newPos.z = 90.0f;
-	}
+  } else if ( newPos.z > 135.0f) {
+    newPos.z = 135;
+  }
+  if (newPos.y < -120) {
+    newPos.y = -120;
+  } else if (newPos.y > 120) {
+    newPos.y = 120;
+  }
 
 	getGameModel().getCurrentCoin()->setPosition(newPos);
+
 }
 
 void Tutorial_State::perform_logic() {
+#ifndef _MACOSX
+        Wiimote_Game_State::perform_logic();
+#else
+        Gamestate_Base::perform_logic();
+#endif
   {// Update time_passed
     const Time temp_time = get_Timer().get_time();
     m_time_passed += temp_time.get_seconds_since(m_current_time);
@@ -255,7 +269,7 @@ void Tutorial_State::perform_logic() {
 	camera.look_at(BOARD_CENTER_MIDDLE);
 
 	// it is the first player's turn, so stop at angle == 0 (or 2pi)
-	if ( current_turn == 0 )
+  if ( getGameModel().getCurrentTurn() == 0 )
 	{
 	  if ( 2.0f*pi - transition_angle < ANGLE_EPSILON )
 	  {
@@ -313,15 +327,6 @@ void Tutorial_State::render() {
   camera.far_clip = 2000.0f;
   vr.set_3d(camera);
 
- /* Vertex3f_Texture p0(m_rect.position,                             Point2f(0.0f, 0.0f));
-  Vertex3f_Texture p1(m_rect.position               + m_rect.vec1, Point2f(0.0f, 1.0f));
-  Vertex3f_Texture p2(m_rect.position + m_rect.vec0 + m_rect.vec1, Point2f(1.0f, 1.0f)); 
-  Vertex3f_Texture p3(m_rect.position + m_rect.vec0,               Point2f(1.0f, 0.0f));
-  Material material("logo");
-  
-	Quadrilateral<Vertex3f_Texture> quad(p0, p1, p2, p3);
-    quad.fax_Material(&material);
- */
 	//vr.render(quad);
 
 	// skybox
@@ -396,11 +401,41 @@ void Tutorial_State::render() {
 	vr.render(quad_f);
 
 	// render the table
-	getGameModel().renderTable();
-
-	// render the board (and all the coins in it)
-	getGameModel().getBoard()->render();
-
-	// render the current coin (the one being moved around by the player)
-	getGameModel().getCurrentCoin()->render();
+	getGameModel().renderAll();
 }
+
+
+#ifndef _MACOSX
+void Tutorial_State::on_wiimote_button(const Wiimote_Button_Event &event){
+
+   switch(event.button){
+      case BUTTON_A:
+      case BUTTON_B:
+        if (event.pressed) {
+          endTurn();
+        }
+        break;
+      case BUTTON_C:
+        break;
+      case BUTTON_Z:
+        break;
+      case BUTTON_UP:
+          break;
+      case BUTTON_DOWN:
+          break;
+      default:
+          break;
+        
+    }
+}
+
+void Tutorial_State::on_wiimote_ir(const Wiimote_IR_Event &event){
+  float x = event.x;
+  float y = event.y;
+  //handleCursorEvents((float)event.x, (float)event.y);
+  getGameModel().getPlayer(event.wiimote)->handleWiiIREvent(event);
+}
+
+void Tutorial_State::on_wiimote_nunchuk(const Wiimote_Nunchuk_Event &event){
+}
+#endif

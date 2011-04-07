@@ -77,6 +77,11 @@ void MenuButton::performLogic() {
         i--;
       }
     }
+    #ifndef _MACOSX
+     Wiimote_Game_State::perform_logic();
+    #else
+     Gamestate_Base::perform_logic();
+    #endif
   }
   
   void MenuState::render() {
