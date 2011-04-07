@@ -50,6 +50,14 @@ The following things are unsupported:
     <filepath>textures/greenEdge.png</filepath>
     <tile>1</tile>
   </GREENEDG.PNG>
+  <PURPLECH.PNG>
+    <filepath>textures/purpleChip.png</filepath>
+    <tile>1</tile>
+  </PURPLECH.PNG>
+  <PURPLEED.PNG>
+    <filepath>textures/purpleEdge.png</filepath>
+    <tile>1</tile>
+  </PURPLEED.PNG>
   <TABLESID.PNG>
     <filepath>textures/tableSide.png</filepath>
     <tile>1</tile>
