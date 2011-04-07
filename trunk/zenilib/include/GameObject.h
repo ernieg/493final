@@ -10,7 +10,7 @@ public:
 	void render();
 
 	Zeni::Point3f getPosition();
-	void setPosition(Zeni::Point3f position_);
+	virtual void setPosition(Zeni::Point3f position_);
 
 	Zeni::Vector3f getSize();
 	void setSize(Zeni::Vector3f& size_);
