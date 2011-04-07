@@ -16,7 +16,7 @@ public:
 	void setSize(Zeni::Vector3f& size_);
 
 	Zeni::Quaternion getOrientation();
-	void setOrientation(Zeni::Quaternion& orientation_);
+	void setOrientation(Zeni::Quaternion orientation_);
 
 	Zeni::Vector3f getVelocity();
 	void setVelocity(Zeni::Vector3f velocity_);

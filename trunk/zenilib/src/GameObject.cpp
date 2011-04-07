@@ -26,7 +26,7 @@ Zeni::Quaternion GameObject::getOrientation()
 	return orientation;
 }
 
-void GameObject::setOrientation(Zeni::Quaternion& orientation_)
+void GameObject::setOrientation(Zeni::Quaternion orientation_)
 {
 	orientation = orientation_;
 }
