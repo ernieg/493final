@@ -19,6 +19,7 @@ public:
 	int checkCollide(Coin* coin); // returns the column number of the column the coin is on top of, or -1 if there is no collision
 	void reset();
 	void render();
+	void advanceMovingCoins(float timeStep);
 
 	Board(int numRows_ = 6, int numCols_ = 7);
 
@@ -40,6 +41,8 @@ private:
 
 	int recentRow; // the row that most recently had a coin put in it, or -1 for the start of the game
 	int recentColumn; // the column that most recently had a coin put in it, or -1 for the start of the game
+
+	std::vector<Coin*> movingCoins; // the coins currently falling down
 };
 
 #endif // BOARD_H
