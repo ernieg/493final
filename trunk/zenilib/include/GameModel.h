@@ -6,6 +6,8 @@ class Board;
 class Coin;
 class Player;
 
+#define NUMCOINS (5) // change this to 6 when the purple chip gets uploaded
+
 const Zeni::Vector3f TABLE_SCALE(7.0f,7.0f,7.0f);
 
 class GameModel {
@@ -25,6 +27,7 @@ public:
 	Zeni::Model* getPlayerModel(int index);
 	float getPointerScale();
 	void setPointerScale(float pointerScale_);
+  void setPlayerColors(std::string play1, std::string play2);
 
   void renderAll();
 
@@ -42,7 +45,6 @@ private:
 	Zeni::Model* playerOneModel;
 	Zeni::Model* tableModel;
 	float pointerScale; // scale factor for adjusting the mouse/Wiimote
-  void setPlayerColors(std::string play1, std::string play2);
   void makeNewCurrentCoin();
 
   

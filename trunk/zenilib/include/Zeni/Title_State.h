@@ -140,7 +140,7 @@ namespace Zeni {
             
           case BUTTON_DOWN:
             if(event.pressed) {
-              if(selectedButton < 2) {
+              if(selectedButton < buttons.size()-1) {
                 buttons[selectedButton]->deselect();
                 selectedButton++;
                 buttons[selectedButton]->select();
@@ -165,6 +165,7 @@ namespace Zeni {
           }
           break;
           
+        case SDLK_SPACE:
         case SDLK_RETURN:
           if(event.state == SDL_PRESSED) {
             fakeEvent.button = BUTTON_A;

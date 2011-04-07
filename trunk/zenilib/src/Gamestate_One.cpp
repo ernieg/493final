@@ -7,6 +7,7 @@
 #include <zenilib.h>
 
 #include "Tutorial_State.h"
+#include "RegisterState.h"
 
 
 using namespace std;
@@ -77,6 +78,7 @@ private:
         }
         break;
         
+      case SDLK_SPACE:
       case SDLK_RETURN:
         if(event.state == SDL_PRESSED) {
           fakeEvent.button = BUTTON_A;
@@ -132,7 +134,7 @@ namespace Zeni {
 	get_Sound().set_BGM("music/bg_music_1.ogg");
 	get_Sound().set_BGM_looping(true);
 	get_Sound().set_BGM_gain(0.5f);
-	//get_Sound().play_BGM();
+	get_Sound().play_BGM();
   }
 
   Gamestate_One::~Gamestate_One() {
@@ -143,7 +145,7 @@ namespace Zeni {
  
     Game &gr = get_Game();
     gr.pop_state();
-    gr.push_state(new Title_State<Tutorial_State, Instructions_State>("TitleBG"));
+    gr.push_state(new Title_State<RegisterState, Instructions_State>("TitleBG"));
   }
 
 }
