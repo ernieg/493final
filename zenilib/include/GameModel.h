@@ -6,7 +6,7 @@ class Board;
 class Coin;
 class Player;
 
-#define NUMCOINS (5) // change this to 6 when the purple chip gets uploaded
+#define NUMCOINS (6) // change this to 6 when the purple chip gets uploaded
 
 const Zeni::Vector3f TABLE_SCALE(7.0f,7.0f,7.0f);
 
