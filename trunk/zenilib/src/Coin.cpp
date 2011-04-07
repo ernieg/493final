@@ -36,3 +36,13 @@ void Coin::rotate(float timeStep)
 
 	GameObject::setOrientation(Zeni::Quaternion::Axis_Angle(Zeni::Vector3f(0.0f,0.0f,1.0f),rotation));
 }
+
+void Coin::setFinalPosition(Zeni::Point3f finalPosition_)
+{
+	finalPosition = finalPosition_;
+}
+
+Zeni::Point3f Coin::getFinalPosition()
+{
+	return finalPosition;
+}

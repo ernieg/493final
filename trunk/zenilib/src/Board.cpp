@@ -73,17 +73,47 @@ bool Board::putCoin(Coin* coin, int column)
 			
 			float zPos = 2.0f * i * BOARD_SCALE.z;
 
-			coin->setPosition(Zeni::Point3f(BOARD_DIST_X, yPos, zPos));
+			
+			coin->setFinalPosition(Zeni::Point3f(BOARD_DIST_X, yPos, zPos));
 
 			// also set the coin's rotation to be aligned with the board
 			coin->setOrientation(Zeni::Quaternion::Axis_Angle(Zeni::Vector3f(0.0f,0.0f,1.0f),0.0f));
 			
+			// make the coin fall from its current position to the board
+			movingCoins.push_back(coin);
+
 			return true;
 		}
 	}
 
 	// no empty slots in this column
 	return false;
+}
+
+void Board::advanceMovingCoins(float timeStep)
+{
+	// advance the falling coins
+	for (int i = 0; i < movingCoins.size(); i++)
+	{
+		Zeni::Vector3f moveVector = movingCoins[i]->getFinalPosition() - movingCoins[i]->getPosition();
+		moveVector.normalize();
+
+		movingCoins[i]->setPosition(movingCoins[i]->getPosition() + moveVector * FALL_SCALE * timeStep);
+	}
+
+	// set them in their exact final positions
+	for (int i = 0; i < movingCoins.size(); i++)
+	{
+		if ( (movingCoins[i]->getPosition() - movingCoins[i]->getFinalPosition()).magnitude() < BOARD_SCALE.z )
+		{
+			movingCoins[i]->setPosition(movingCoins[i]->getFinalPosition());
+			movingCoins.erase(movingCoins.begin()+i);
+			i--;
+
+			// play a sound to give the player more feedback
+			Zeni::play_sound("coin_drop_1");
+		}
+	}
 }
 
 int Board::simpleCheckWin()
