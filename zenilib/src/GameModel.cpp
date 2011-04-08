@@ -30,6 +30,7 @@ GameModel::GameModel() {
   setPlayerColors("Green", "Red");
 
   currentTurn = 0;
+  gameOver = false;
 }
 
 void GameModel::setPlayerColors(string play1, string play2) {
@@ -88,6 +89,8 @@ void GameModel::reset()
 {
 	board->reset();
 
+	gameOver = false;
+
 	if ( currentCoin != NULL )
 	{
 		delete currentCoin;
@@ -104,4 +107,14 @@ float GameModel::getPointerScale()
 void GameModel::setPointerScale(float pointerScale_)
 {
 	pointerScale = pointerScale_;
+}
+
+void GameModel::setGameOver(bool gameOver_)
+{
+	gameOver = gameOver_;
+}
+
+bool GameModel::getGameOver()
+{
+	return gameOver;
 }

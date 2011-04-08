@@ -58,6 +58,12 @@ bool Board::putCoin(Coin* coin, int column)
 	assert(coin != NULL);
 	assert(column >= 0 && column < numCols);
 
+	// if a player has already won, don't let the other player put coins on the board
+	if ( getGameModel().getGameOver() )
+	{
+		return false;
+	}
+
 	// check from lowest row to highest row for an empty slot
 	for (int i = 0; i < numRows; i++)
 	{
@@ -253,6 +259,8 @@ void Board::reset()
 			}
 		}
 	}
+
+	movingCoins.clear();
 }
 
 void Board::render()
@@ -290,4 +298,9 @@ int Board::ownerOfSlot(int row, int col)
 	{
 		return board[row][col]->getPlayerIndex();
 	}
+}
+
+int Board::numMovingCoins()
+{
+	return movingCoins.size();
 }

@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include "Coin.h"
+#include "GameModel.h"
 
 // distance from the game board to the camera.
 // the camera is at the origin initially (player 0)
@@ -20,6 +21,7 @@ public:
 	void reset();
 	void render();
 	void advanceMovingCoins(float timeStep);
+	int numMovingCoins();
 
 	Board(int numRows_ = 6, int numCols_ = 7);
 

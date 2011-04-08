@@ -41,6 +41,9 @@ public:
     return camera;
   }
 
+  void setGameOver(bool gameOver_);
+  bool getGameOver();
+
 private:
 	std::vector<Player*> players;
 	Board* board;
@@ -58,6 +61,9 @@ private:
   int currentTurn;
 
   Zeni::Camera camera;
+
+  // the game is over, but we may still be waiting for coins to fall
+  bool gameOver;
 };
 
 GameModel & getGameModel();
