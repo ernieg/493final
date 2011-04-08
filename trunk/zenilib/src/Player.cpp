@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "GameModel.h"
 #include "Coin.h"
+#include "Board.h"
 
 using namespace std;
 using namespace Zeni;
@@ -65,6 +66,7 @@ void Player::moveCurrentCoin() {
 
   if(distance < GRABDIST) {
     Point3f newPos = projector.unproject(Point3f(cursor.x, cursor.y, point.z));
+    newPos.x = BOARD_DIST_X;
     coin->setMoveablePosition(newPos);
   }
 
