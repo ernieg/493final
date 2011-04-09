@@ -2,13 +2,11 @@
 #define EASYAGENT_H
 
 
-class EasyAgent : public Player {
+class EasyAgent : public AgentBase {
 
 public:
-	void perform_logic();
-	void handleWiiEvent();
-
 	EasyAgent(int playerIndex_);
+	void getNewDestination();
 };
 
 #endif

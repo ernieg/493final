@@ -45,6 +45,7 @@ public:
 #endif
 
   void perform_logic();
+  void endTurn();
 
 private:
   void step(const float &time_step);
@@ -52,15 +53,12 @@ private:
   void render();
 
   void handleCursorEvents(float yMovement, float zMovement);
-  void endTurn();
 
   Zeni::Time m_current_time;
   float m_time_passed;
   float m_max_time_step;  //< Optional
   float m_max_time_steps; //< Optional
 
-  // whether or not we are doing the animation between turns
-  bool turn_transition;
   // how far we are in the transition. 0 (or 2pi) is the first player's position, pi is the second player's position
   float transition_angle;
 

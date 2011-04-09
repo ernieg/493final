@@ -35,7 +35,11 @@ public:
     return currentTurn;
   }
 
+  bool isTurning() { return turn_transition; }
+  void setTurning(bool turning) { turn_transition = turning; }
+
   void advanceTurn();
+  void endTurn();
 
   Zeni::Camera& getCamera() {
     return camera;
@@ -53,6 +57,7 @@ private:
 	Zeni::Model* tableModel;
 	float pointerScale; // scale factor for adjusting the mouse/Wiimote
   void makeNewCurrentCoin();
+  bool turn_transition;
 
   
   // whose turn is it? 0 for the first player, 1 for the second player

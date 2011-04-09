@@ -85,7 +85,6 @@ Tutorial_State::Tutorial_State()
 : m_time_passed(0.0f),
 m_max_time_step(1.0f / 20.0f), // make the largest physics step 1/20 of a second
 m_max_time_steps(10.0f), // allow no more than 10 physics steps per frame
-turn_transition(false),
 transition_angle(0.0f), 
 camera(getGameModel().getCamera())
 {
@@ -115,7 +114,7 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
   // 1 == left mouse button
   // 3 == right mouse button
   getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleMouseButton(event);
-  if ( static_cast<int>(event.button) == 1 && event.type == SDL_MOUSEBUTTONUP && !turn_transition )
+  if ( static_cast<int>(event.button) == 1 && event.type == SDL_MOUSEBUTTONUP && !getGameModel().isTurning() )
   {
     endTurn();
   }
@@ -141,7 +140,7 @@ void Tutorial_State::endTurn() {
 				  return;
 			  }
 
-			  turn_transition = true;
+			  getGameModel().setTurning(true);
               
 			  // debug
 			  //cout << getGameModel().getBoard()->numMovingCoins() << endl;
@@ -168,7 +167,7 @@ void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 			if ( event.type == SDL_KEYDOWN )
 			{
 			  getGameModel().advanceTurn();
-			  turn_transition = true;
+			  getGameModel().setTurning(true);
 			}
 			break;
 
@@ -263,7 +262,7 @@ void Tutorial_State::perform_logic() {
   }
 
   // move the camera from one side of the board to the other
-  if ( turn_transition )
+  if ( getGameModel().isTurning() )
   {
 	transition_angle += m_time_passed * (-0.5f * cos(2.0f * transition_angle) + 0.6f) * 8.0f;
 
@@ -278,7 +277,7 @@ void Tutorial_State::perform_logic() {
 	  if ( 2.0f*pi - transition_angle < ANGLE_EPSILON )
 	  {
 	    transition_angle = 0.0f;
-		turn_transition = false;
+		getGameModel().setTurning(false);
 
 		camera.position.x = 0.0f;
 		camera.position.y = 0.0f;
@@ -290,13 +289,17 @@ void Tutorial_State::perform_logic() {
 	  if ( pi - transition_angle < ANGLE_EPSILON )
 	  {
 		transition_angle = pi;
-		turn_transition = false;
+		getGameModel().setTurning(false);
 
 		camera.position.x = 200.0f;
 		camera.position.y = 0.0f;
 		camera.look_at(BOARD_CENTER_MIDDLE);
 	  }
 	}
+  } else {
+	  GameModel& model = getGameModel();
+	  Player *player = model.getPlayer(getGameModel().getCurrentTurn());
+	  player->perform_logic();
   }
 
 

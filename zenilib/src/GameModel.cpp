@@ -4,6 +4,8 @@
 #include "Board.h"
 #include "Coin.h"
 #include "Player.h"
+#include "AgentBase.h"
+#include "EasyAgent.h"
 
 using namespace std;
 using namespace Zeni;
@@ -24,13 +26,14 @@ GameModel::GameModel() {
 	pointerScale = 50.0f;
 
   Player* play1 = new Player(0);
-  Player* play2 = new Player(1);
+  EasyAgent* play2 = new EasyAgent(1);
   players.push_back(play1);
   players.push_back(play2);
   setPlayerColors("Green", "Red");
 
   currentTurn = 0;
   gameOver = false;
+  turn_transition = false;
 }
 
 void GameModel::setPlayerColors(string play1, string play2) {
@@ -53,6 +56,34 @@ Coin* GameModel::getCurrentCoin()
 void GameModel::makeNewCurrentCoin()
 {
 	currentCoin = new Coin(currentTurn);
+}
+
+void GameModel::endTurn() {
+	  	  // debugging
+	  //cout << getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin()) << endl;
+  	int col = getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin());
+
+	  if ( col != -1 )
+	  {
+		  // put the coin in the board
+		  if ( getGameModel().getBoard()->putCoin(getGameModel().getCurrentCoin(),col) )
+		  {
+			  getGameModel().advanceTurn();
+
+			  // check for win condition (or draw)
+			  int winningIndex = getGameModel().getBoard()->checkWin();
+			  if ( winningIndex == 0 || winningIndex == 1 || winningIndex == -2 )
+			  {
+				  getGameModel().setGameOver(true);
+				  return;
+			  }
+
+			  turn_transition = true;
+              
+			  // debug
+			  //cout << getGameModel().getBoard()->numMovingCoins() << endl;
+		  }  
+	  }
 }
 
 void GameModel::advanceTurn() {
