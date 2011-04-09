@@ -7,9 +7,10 @@
 #include "Board.h"
 #include "Tutorial_State.h"
 
+#define DELAY 1.0f
 
 AgentBase::AgentBase(int playerIndex_)
-	: Player(playerIndex_), locationFound(false), destination(0), moveDelay(2.0f)
+	: Player(playerIndex_), locationFound(false), destination(0), moveDelay(DELAY)
 {
 
 }
@@ -36,7 +37,7 @@ void AgentBase::moveChip(float &timeStep) {
 	coin->setMoveablePosition(coin->getPosition() + DIRECTION * timeStep);
 	if (board->checkCollide(coin) == destination) {
 		locationFound = false;
-		moveDelay = 2.0f;
+		moveDelay = DELAY;
 		getGameModel().endTurn();
 	}
 }

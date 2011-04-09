@@ -13,7 +13,7 @@ public:
 	void perform_logic(float &timeStep);
 
 	void handleWiiEvent() {}
-	void renderHand() {} // So hand isn't rendered when AI is playing
+	void renderHand() {}	// So hand isn't rendered when AI is playing
 
 protected:
 	void moveChip(float &timeStep);
