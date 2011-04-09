@@ -6,15 +6,15 @@
 class Player
 {
 public:
-	void perform_logic();
-	void handleWiiEvent();
+	virtual void perform_logic();
+	virtual void handleWiiEvent();
 
   void handleMouseMotion(const SDL_MouseMotionEvent &event);
   void handleMouseButton(const SDL_MouseButtonEvent &event);
   void handleWiiIREvent(const Wiimote_IR_Event &event);
   void handleWiiButtonEvent(const Wiimote_Button_Event &event);
 
-  void renderHand();
+  virtual void renderHand();
 
 	Player(int playerIndex_);
 
@@ -26,7 +26,7 @@ public:
     color = newColor;
   }
 
-private:
+protected:
 	int playerIndex; // zero-indexed
 
   struct Cursor {

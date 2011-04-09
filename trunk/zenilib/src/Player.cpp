@@ -36,6 +36,10 @@ void Player::perform_logic()
 
 }
 
+void Player::handleWiiEvent() {
+
+}
+
 void Player::handleWiiIREvent(const Wiimote_IR_Event &event){
   cursor.x = event.x;
   cursor.y = event.y;

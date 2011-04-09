@@ -577,6 +577,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\AgentBase.cpp" />
     <ClCompile Include="..\src\Board.cpp" />
     <ClCompile Include="..\src\Coin.cpp" />
     <ClCompile Include="..\src\EasyAgent.cpp" />
@@ -625,6 +626,7 @@
     <ClCompile Include="..\src\zenilib.cxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\AgentBase.h" />
     <ClInclude Include="..\include\Board.h" />
     <ClInclude Include="..\include\Coin.h" />
     <ClInclude Include="..\include\EasyAgent.h" />
