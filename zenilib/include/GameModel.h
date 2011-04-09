@@ -44,6 +44,18 @@ public:
   Zeni::Camera& getCamera() {
     return camera;
   }
+  
+  int getDifficulty() const {
+    return difficulty;
+  }
+  
+  void setDifficulty(int diff_) {
+    difficulty = diff_;
+  }
+  
+  std::vector<Player*>* getPlayersContainer() {
+    return &players;
+  }
 
   void setGameOver(bool gameOver_);
   bool getGameOver();
@@ -58,6 +70,7 @@ private:
 	float pointerScale; // scale factor for adjusting the mouse/Wiimote
   void makeNewCurrentCoin();
   bool turn_transition;
+  int difficulty; //0 - easy, 1 - medium, 2 - hard, etc..., defaults to easy
 
   
   // whose turn is it? 0 for the first player, 1 for the second player

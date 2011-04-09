@@ -1,6 +1,7 @@
 #ifndef EASYAGENT_H
 #define EASYAGENT_H
 
+#include "AgentBase.h" 
 
 class EasyAgent : public AgentBase {
 

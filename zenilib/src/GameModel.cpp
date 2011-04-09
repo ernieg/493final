@@ -26,7 +26,7 @@ GameModel::GameModel() {
 	pointerScale = 50.0f;
 
   Player* play1 = new Player(0);
-  EasyAgent* play2 = new EasyAgent(1);
+  Player* play2 = new Player(1);
   players.push_back(play1);
   players.push_back(play2);
   setPlayerColors("Green", "Red");
@@ -34,6 +34,7 @@ GameModel::GameModel() {
   currentTurn = 0;
   gameOver = false;
   turn_transition = false;
+  difficulty = 0; //default to easy
 }
 
 void GameModel::setPlayerColors(string play1, string play2) {

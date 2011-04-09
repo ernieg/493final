@@ -13,6 +13,7 @@
 #include "GameModel.h"
 #include "MenuState.h"
 #include "Tutorial_State.h"
+#include "EasyAgent.h"
 
 class RegisterState : public MenuState {
 public:
@@ -243,6 +244,19 @@ private:
                       } while (p2 == p1Coin);
                       getGameModel().setPlayerColors(colors[p1Coin], colors[p2]);
                       ////////// TODO: tell GameModel that player 2 is an AI player ///////////////
+                      getGameModel().getPlayersContainer()->pop_back();
+                      switch(getGameModel().getDifficulty()) {
+                        case 0: {
+                          EasyAgent* play2 = new EasyAgent(1);
+                          getGameModel().getPlayersContainer()->push_back(play2);
+                          break;
+                        }
+                        default: {
+                          EasyAgent* play2 = new EasyAgent(1);
+                          getGameModel().getPlayersContainer()->push_back(play2);
+                          break;
+                        }
+                      }
                     }
                     
                     /* carry on */
