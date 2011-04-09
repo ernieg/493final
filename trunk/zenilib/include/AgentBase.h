@@ -1,6 +1,8 @@
 #ifndef AGENTBASE_H
 #define AGENTBASE_H
 
+#include "Player.h"
+
 class AgentBase : public Player {
 
 public:
