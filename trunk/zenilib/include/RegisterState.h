@@ -243,7 +243,7 @@ private:
                         p2 = rand() % NUMCOINS;
                       } while (p2 == p1Coin);
                       getGameModel().setPlayerColors(colors[p1Coin], colors[p2]);
-                      ////////// TODO: tell GameModel that player 2 is an AI player ///////////////
+                      
                       getGameModel().getPlayersContainer()->pop_back();
                       switch(getGameModel().getDifficulty()) {
                         case 0: {
