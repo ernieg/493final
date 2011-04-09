@@ -260,8 +260,12 @@ private:
                     }
                     
                     /* carry on */
-                    else
+                    else {
+                      getGameModel().getPlayersContainer()->pop_back();
+                      Player* play2 = new Player(1);
+                      getGameModel().getPlayersContainer()->push_back(play2);
                       getGameModel().setPlayerColors(colors[p1Coin], colors[p2Coin]);
+                    }
                     
                     /* TIME TO PLAY! */
                     Zeni::get_Game().push_state(new Tutorial_State());
