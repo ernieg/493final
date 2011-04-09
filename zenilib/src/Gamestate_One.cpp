@@ -104,12 +104,12 @@ private:
     Zeni::Font &fr = get_Fonts()["system20"];
     
     fr.render_text("HOW TO PLAY:\n\n"
-                   "The first player to line up four chips vertically, \nhorizontally, or diagonally wins the game.\n\n"
-                   "CONTROLS:\n\n"
-                   "Move the Wiimote until your chip is in the correct \ncolumn, then press the B button to drop it.\n",
-                   Point2f(400.0f, 250.0f - 0.5f * fr.get_text_height()),
+                   "The first player to line up four chips vertically, \nhorizontally, or diagonally wins the game.\n\n",
+                   Point2f(400.0f, 150.0f - 0.5f * fr.get_text_height()),
                    OFFWHITE,
                    ZENI_CENTER);
+    
+    render_image("Instructions", Point2f(100.0f, 235.0f), Point2f(1124.0f, 747.0f));
   }
 };
 
