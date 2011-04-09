@@ -9,39 +9,37 @@
 
 
 AgentBase::AgentBase(int playerIndex_)
-	: Player(playerIndex_), locationFound(false), destination(0)
+	: Player(playerIndex_), locationFound(false), destination(0), moveDelay(2.0f)
 {
 
 }
 
-void AgentBase::perform_logic() {
+void AgentBase::perform_logic(float &timeStep) {
 	if (!locationFound) {
 		getNewDestination();
-		calculateDirection();
 		locationFound = true;
 	} else {
-		moveChip();
+		moveChip(timeStep);
 	}
 }
 
-void AgentBase::moveChip() {
+void AgentBase::moveChip(float &timeStep) {
+	moveDelay -= timeStep;
+	if (moveDelay >= 0.0f) {
+		return;
+	}
+	
 	GameModel& model = getGameModel();
 	Coin* coin = model.getCurrentCoin();
 	Board* board = model.getBoard();
 
-	coin->setMoveablePosition(coin->getPosition() + direction);
+	coin->setMoveablePosition(coin->getPosition() + DIRECTION * timeStep);
 	if (board->checkCollide(coin) == destination) {
 		locationFound = false;
+		moveDelay = 2.0f;
 		getGameModel().endTurn();
 	}
 }
 
-void AgentBase::calculateDirection() {
-	GameModel& model = getGameModel();
-	Coin* coin = model.getCurrentCoin();
-	direction.x = 0.0f;
-	direction.y = -1.0f;
-	direction.z = 0.0f;
-}
 
 

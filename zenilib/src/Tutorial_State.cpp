@@ -299,7 +299,7 @@ void Tutorial_State::perform_logic() {
   } else {
 	  GameModel& model = getGameModel();
 	  Player *player = model.getPlayer(getGameModel().getCurrentTurn());
-	  player->perform_logic();
+	  player->perform_logic(m_time_passed);
   }
 
 

@@ -6,7 +6,7 @@
 class Player
 {
 public:
-	virtual void perform_logic();
+	virtual void perform_logic(float &timeStep);
 	virtual void handleWiiEvent();
 
   void handleMouseMotion(const SDL_MouseMotionEvent &event);

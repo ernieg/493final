@@ -31,7 +31,7 @@ int Player::getPlayerIndex()
 	return playerIndex;
 }
 
-void Player::perform_logic()
+void Player::perform_logic(float &timeStep)
 {
 
 }
