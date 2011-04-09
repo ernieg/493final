@@ -110,6 +110,17 @@ Only TrueType fonts are supported.
     </virtual_screen>
   </system36>
   
+  <system80>
+  <filepath>fonts/TITLE.TTF</filepath>
+    <height>80</height>
+    <bold>0</bold>
+    <italics>0</italics>
+    <virtual_screen>
+      <width>800</width>
+      <height>600</height>
+    </virtual_screen>
+  </system80>
+  
   <system100>
   <filepath>fonts/TITLE.TTF</filepath>
     <height>100</height>

@@ -28,17 +28,122 @@ public:
 	Postgame_State(int winningPlayerIndex_)
 		:winningPlayerIndex(winningPlayerIndex_)
 	{
+    Rematch *rematch = new Rematch();
+    PlayerSelect *playerSelect = new PlayerSelect();
+    MainMenu *mainMenu = new MainMenu();
+    
+    buttons.push_back(rematch);
+    buttons.push_back(playerSelect);
+    buttons.push_back(mainMenu);
+    
+    buttons[selectedButton]->select();
 	}
+  
+  class Rematch : public MenuButton {
+    Rematch(const Rematch &);
+    Rematch & operator=(const Rematch &);
+    
+  public:
+    Rematch()
+    : MenuButton("Rematch", Zeni::Point2f(400.0f, 300.0f))
+    {
+    }
+    
+    void onAccept() {
+      get_Game().pop_state();
+      get_Game().push_state(new Tutorial_State());
+    }
+  };
+  
+  class PlayerSelect : public MenuButton {
+    PlayerSelect(const PlayerSelect &);
+    PlayerSelect & operator=(const PlayerSelect &);
+    
+  public:
+    PlayerSelect()
+    : MenuButton("Player Select", Zeni::Point2f(400.0f, 350.0f))
+    {
+    }
+    
+    void onAccept() {
+      get_Game().pop_state();
+    }
+  };
+  
+  class MainMenu : public MenuButton {
+    MainMenu(const MainMenu &);
+    MainMenu & operator=(const MainMenu &);
+    
+  public:
+    MainMenu()
+    : MenuButton("Main Menu", Zeni::Point2f(400.0f, 400.0f))
+    {
+    }
+    
+    void onAccept() {
+      get_Game().pop_state();
+      get_Game().pop_state();
+    }
+  };
 
 private:
 	int winningPlayerIndex; // 0 or 1, or -2 if a draw
 
-	void on_key(const SDL_KeyboardEvent &event) 
-	{
-		if(event.keysym.sym == SDLK_ESCAPE) {
-		  if(event.state == SDL_PRESSED)
-			get_Game().pop_state();
-		}
+	void on_wiimote_button(const Wiimote_Button_Event &event) {
+    switch(event.button) {
+      case BUTTON_A:
+        if(event.pressed)
+          buttons[selectedButton]->onAccept();
+        break;
+        
+      case BUTTON_UP:
+        if(event.pressed) {
+          if(selectedButton > 0) {
+            buttons[selectedButton]->deselect();
+            selectedButton--;
+            buttons[selectedButton]->select();
+          }
+        }
+        break;
+        
+      case BUTTON_DOWN:
+        if(event.pressed) {
+          if(selectedButton < buttons.size()-1) {
+            buttons[selectedButton]->deselect();
+            selectedButton++;
+            buttons[selectedButton]->select();
+          }
+        }
+        break;
+    }
+  }
+  
+  void on_key(const SDL_KeyboardEvent &event) {
+    Wiimote_Button_Event fakeEvent;
+    switch(event.keysym.sym) {
+      case SDLK_UP:
+        if(event.state == SDL_PRESSED) {
+          fakeEvent.button = BUTTON_UP;
+        }
+        break;
+        
+      case SDLK_DOWN:
+        if(event.state == SDL_PRESSED){
+          fakeEvent.button = BUTTON_DOWN;
+        }
+        break;
+        
+      case SDLK_SPACE:
+      case SDLK_RETURN:
+        if(event.state == SDL_PRESSED) {
+          fakeEvent.button = BUTTON_A;
+        }
+        break;
+    }
+    
+    fakeEvent.pressed = event.type == SDL_KEYDOWN;
+    fakeEvent.wiimote = KEYBOARD_CONTROL;
+    on_wiimote_button(fakeEvent);
   }
 
 	void render()
@@ -46,7 +151,7 @@ private:
     get_Video().set_2d();
 		MenuState::render();
     
-		Zeni::Font &title = get_Fonts()["system36"];
+		Zeni::Font &title = get_Fonts()["system80"];
     
 		string message;
 
