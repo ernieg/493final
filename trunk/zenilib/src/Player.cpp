@@ -14,7 +14,7 @@ using namespace Zeni;
 #define GRABDIST 30
 
 Player::Player(int playerIndex_)
-	:playerIndex(playerIndex_), pressed(0)
+	:playerIndex(playerIndex_), pressed(0), grabbed(0)
 {
   switch(playerIndex_) {
     case 0:
@@ -52,22 +52,27 @@ void Player::moveCurrentCoin() {
   if(!pressed) {
     return;
   }
+
   GameModel& model = getGameModel();
   Coin* coin = model.getCurrentCoin();
   Projector3D projector(model.getCamera(),
     std::make_pair(Point2i(0,0), get_Video().get_screen_size()));
   Point3f point = projector.project(coin->getPosition());
 
-  float xDist = point.x - cursor.x;
-  xDist *= xDist; // ^2
-  float yDist = point.y - cursor.y;
-  yDist *= yDist; //^2
-  float distance = sqrt(xDist + yDist); 
+  float distance;
+  if(!grabbed) {
+    float xDist = point.x - cursor.x;
+    xDist *= xDist; // ^2
+    float yDist = point.y - cursor.y;
+    yDist *= yDist; //^2
+    distance = sqrt(xDist + yDist); 
+  }
 
-  if(distance < GRABDIST) {
+  if(distance < GRABDIST || grabbed) {
     Point3f newPos = projector.unproject(Point3f(cursor.x, cursor.y, point.z));
     newPos.x = BOARD_DIST_X;
     coin->setMoveablePosition(newPos);
+    grabbed = true;
   }
 
 }
@@ -78,6 +83,9 @@ void Player::handleMouseButton(const SDL_MouseButtonEvent &event) {
 
   if ( static_cast<int>(event.button) == 1){
     pressed = event.type == SDL_MOUSEBUTTONDOWN;
+    if (event.type == SDL_MOUSEBUTTONUP) {
+      grabbed = false;
+    }
   }
 }
 
@@ -86,6 +94,9 @@ void Player::handleWiiButtonEvent(const Wiimote_Button_Event &event){
       case BUTTON_A:
       case BUTTON_B:
         pressed = event.pressed;
+        if(!pressed){
+          grabbed = false;
+        }
         break;
       case BUTTON_C:
         break;

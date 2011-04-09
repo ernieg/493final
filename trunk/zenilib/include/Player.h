@@ -35,6 +35,7 @@ private:
   } cursor;
 
   bool pressed;
+  bool grabbed;
 
   std::string color;
 
