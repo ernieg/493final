@@ -131,6 +131,15 @@ public:
   }
   
 private:
+  
+  void on_push() {
+    reset();
+  }
+  
+  void on_pop() {
+    reset();
+  }
+  
   /*  reset the state to the default start, keeping the previous chip
    *  values. This gets called after pushing the play state on so a 
    *  fresh version of this state will appear on_pop
@@ -353,6 +362,10 @@ private:
                   if(p1Coin == p2Coin)
                     p1Coin = p2Coin == 0 ? 1 : 0;
                   if(p1Done) {
+                    getGameModel().getPlayersContainer()->pop_back();
+                    Player* play2 = new Player(1);
+                    getGameModel().getPlayersContainer()->push_back(play2);
+                    
                     getGameModel().setPlayerColors(colors[p1Coin], colors[p2Coin]);
                     Zeni::get_Game().push_state(new Tutorial_State());
                     reset();
