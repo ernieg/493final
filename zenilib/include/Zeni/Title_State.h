@@ -46,6 +46,7 @@
 #include <Zeni/Widget_Gamestate.h>
 
 #include "MenuState.h"
+#include "OptionsState.h"
 
 namespace Zeni {
 
@@ -86,6 +87,22 @@ namespace Zeni {
         get_Game().push_state(new INSTRUCTIONS_STATE());
       }
     };
+    
+    class Options_Button : public MenuButton {
+      Options_Button(const Options_Button &);
+      Options_Button & operator=(const Options_Button &);
+      
+    public:
+      Options_Button()
+      : MenuButton("Options", Zeni::Point2f(Zeni::get_Video().get_screen_width()/2.0f, 400.0f))
+      {
+      }
+      
+      void onAccept() {
+        Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
+        get_Game().push_state(new OptionsState());
+      }
+    };
 
     class Quit_Button : public MenuButton {
       Quit_Button(const Quit_Button &);
@@ -93,7 +110,7 @@ namespace Zeni {
       
       public:
         Quit_Button()
-        : MenuButton("Quit", Zeni::Point2f(Zeni::get_Video().get_screen_width()/2.0f, 400.0f))
+        : MenuButton("Quit", Zeni::Point2f(Zeni::get_Video().get_screen_width()/2.0f, 450.0f))
         {
         }
       
@@ -108,10 +125,12 @@ namespace Zeni {
     {
       Play *playButton = new Play();
       Instructions_Button *instructionsButton = new Instructions_Button();
+      Options_Button *optionsButton = new Options_Button();
       Quit_Button *quitButton = new Quit_Button();
       
       buttons.push_back(playButton);
       buttons.push_back(instructionsButton);
+      buttons.push_back(optionsButton);
       buttons.push_back(quitButton);
       
       buttons[selectedButton]->select(); /* set default selected */
