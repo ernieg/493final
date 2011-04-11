@@ -260,6 +260,16 @@ private:
                           getGameModel().getPlayersContainer()->push_back(play2);
                           break;
                         }
+                        case 1: { //code for creating MediumAgent, uncomment when ready
+                          //MediumAgent* play2 = new MediumAgent(1);
+                          //getGameModel().getPlayersContainer()->push_back(play2);
+                          //break;
+                        }
+                        case 2: { //code for creating HardAgent, uncomment when ready
+                          //HardAgent* play2 = new HardAgent(1);
+                          //getGameModel().getPlayersContainer()->push_back(play2);
+                          //break;
+                        }
                         default: {
                           EasyAgent* play2 = new EasyAgent(1);
                           getGameModel().getPlayersContainer()->push_back(play2);
