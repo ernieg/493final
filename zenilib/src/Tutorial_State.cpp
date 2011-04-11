@@ -255,6 +255,9 @@ void Tutorial_State::endTurn() {
 
 void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
 	switch(event.keysym.sym) {
+    case SDLK_ESCAPE:
+      get_Game().push_state(new PauseState());
+      break;
 		case SDLK_w:
 			break;
 
@@ -525,6 +528,9 @@ void Tutorial_State::render() {
 void Tutorial_State::on_wiimote_button(const Wiimote_Button_Event &event){
    getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleWiiButtonEvent(event);
    switch(event.button){
+     case BUTTON_HOME:
+       get_Game().push_state(new PauseState());
+       break;
       case BUTTON_A:
       case BUTTON_B:
         if (!event.pressed) {

@@ -15,6 +15,7 @@
 #include <Zeni/Vector3f.h>
 #include "GameModel.h"
 #include "MenuState.h"
+#include "PauseState.h"
 
 // distance from the camera to the skybox
 const float SKYBOX_DIST = 1000.0f;
