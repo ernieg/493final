@@ -619,6 +619,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\src\HardAgent.cpp" />
     <ClCompile Include="..\src\MediumAgent.cpp" />
     <ClCompile Include="..\src\MenuState.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
@@ -633,9 +634,11 @@
     <ClInclude Include="..\include\EasyAgent.h" />
     <ClInclude Include="..\include\GameModel.h" />
     <ClInclude Include="..\include\GameObject.h" />
+    <ClInclude Include="..\include\HardAgent.h" />
     <ClInclude Include="..\include\MediumAgent.h" />
     <ClInclude Include="..\include\MenuState.h" />
     <ClInclude Include="..\include\Player.h" />
+    <ClInclude Include="..\include\RegisterState.h" />
     <ClInclude Include="..\include\Tutorial_State.h" />
     <ClInclude Include="..\include\wiimote_events.h" />
     <ClInclude Include="..\include\wiimote_state.h" />

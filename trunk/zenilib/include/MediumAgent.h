@@ -12,8 +12,8 @@ public:
 	MediumAgent(int playerIndex_);
 	void getNewDestination();
 
-private:
-	void getValue(int index);		// returns the values of the column at index i
+protected:
+	virtual void getValue(int index);		// returns the values of the column at index i
 	void resetValues();
 	int getRandomDestination();		// returns a random value in potentialDestinations
 	bool twoInRow(int index);		// This is mostly just to prevent early game wins

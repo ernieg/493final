@@ -361,6 +361,139 @@ bool Board::threeInARow(int col, int playerIndex) {
 	return false;
 }
 
+bool Board::threeInARow2(int col, int playerIndex) {
+	// If lesser function is true, then this is obviously true
+	if (threeInARow(col, playerIndex)) {
+		return true;
+	}
+
+	int emptyRow = getEmptyRow(col);
+	
+	// Check if inserting chip amongst other chips will win
+	
+	// Horizontal
+	if (ownerOfSlot(emptyRow, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow, col + 2) == playerIndex && 
+		ownerOfSlot(emptyRow, col - 1) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow, col - 2) == playerIndex && 
+		ownerOfSlot(emptyRow, col + 1) == playerIndex) {
+			return true;
+	}
+
+	// Below
+	// JK! Doesn't need to be done ^^
+
+	// Diagnol
+	if (ownerOfSlot(emptyRow - 1, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col - 2) == playerIndex && 
+		ownerOfSlot(emptyRow + 1, col + 1) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow + 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow + 2, col + 2) == playerIndex && 
+		ownerOfSlot(emptyRow - 1, col - 1) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow - 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col + 2) == playerIndex && 
+		ownerOfSlot(emptyRow + 1, col - 1) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow - 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow + 1, col - 1) == playerIndex && 
+		ownerOfSlot(emptyRow + 2, col - 2) == playerIndex) {
+			return true;
+	}
+	return false;
+}
+
+bool Board::lookAheadWin(int col, int playerIndex) {
+	int emptyRow = getEmptyRow(col);
+	emptyRow++;
+
+	// Check horizontal
+	if (ownerOfSlot(emptyRow, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow, col + 2) == playerIndex &&
+		ownerOfSlot(emptyRow, col + 3) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow, col - 2) == playerIndex &&
+		ownerOfSlot(emptyRow, col - 3) == playerIndex) {
+			return true;
+	}
+
+	// Check below
+	if (ownerOfSlot(emptyRow - 1, col) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col) == playerIndex &&
+		ownerOfSlot(emptyRow - 3, col) == playerIndex) {
+			return true;
+	}
+
+	// Check diagnols
+	if (ownerOfSlot(emptyRow - 1, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col - 2) == playerIndex &&
+		ownerOfSlot(emptyRow - 3, col - 3) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow - 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col + 2) == playerIndex &&
+		ownerOfSlot(emptyRow - 3, col + 3) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow + 1, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow + 2, col - 2) == playerIndex &&
+		ownerOfSlot(emptyRow + 3, col - 3) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow + 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow + 2, col + 2) == playerIndex &&
+		ownerOfSlot(emptyRow + 3, col + 3) == playerIndex) {
+			return true;
+	}
+
+	// Horizontal
+	if (ownerOfSlot(emptyRow, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow, col + 2) == playerIndex && 
+		ownerOfSlot(emptyRow, col - 1) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow, col - 2) == playerIndex && 
+		ownerOfSlot(emptyRow, col + 1) == playerIndex) {
+			return true;
+	}
+
+	// Below
+	// JK! Doesn't need to be done ^^
+
+	// Diagnol
+	if (ownerOfSlot(emptyRow - 1, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col - 2) == playerIndex && 
+		ownerOfSlot(emptyRow + 1, col + 1) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow + 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow + 2, col + 2) == playerIndex && 
+		ownerOfSlot(emptyRow - 1, col - 1) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow - 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col + 2) == playerIndex && 
+		ownerOfSlot(emptyRow + 1, col - 1) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow - 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow + 1, col - 1) == playerIndex && 
+		ownerOfSlot(emptyRow + 2, col - 2) == playerIndex) {
+			return true;
+	}
+	return false;
+}
+
 int Board::getNumCoins() {
 	return numCoins;
 }
