@@ -449,77 +449,175 @@ void Tutorial_State::render() {
   vr.set_3d(camera);
 
 	//vr.render(quad);
+  
+  float maxX = 300.0f;
+  float minX = -100.0f;
+  float maxY = 200.0f;
+  float minY = -200.0f;
+  float maxZ = 150.0f;
+  float minZ = -50.0f;
+  
+  Material brick("Brick");
+  Material floorTile("Floortile");
+  Material ceiling("Ceiling");
+  Material door("Door");
+  Material um("UM");
+  Material osu("OSU");
+  Material oly("Olympics");
+  
+  Vertex3f_Texture back1(Point3f(minX, maxY, maxZ), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture back2(Point3f(minX, maxY, minZ), Point2f(0.0f, 1.0f));
+	Vertex3f_Texture back3(Point3f(minX, minY, minZ), Point2f((maxY-minY)/50.0f, 1.0f));
+	Vertex3f_Texture back4(Point3f(minX, minY, maxZ), Point2f((maxY-minY)/50.0f, 0.0f));
+  
+  Vertex3f_Texture front1(Point3f(maxX, maxY, maxZ), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture front2(Point3f(maxX, maxY, minZ), Point2f(0.0f, 1.0f));
+	Vertex3f_Texture front3(Point3f(maxX, minY, minZ), Point2f((maxY-minY)/50.0f, 1.0f));
+	Vertex3f_Texture front4(Point3f(maxX, minY, maxZ), Point2f((maxY-minY)/50.0f, 0.0f));
+  
+  Vertex3f_Texture left1(Point3f(minX, maxY, maxZ), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture left2(Point3f(minX, maxY, minZ), Point2f(0.0f, 1.0f));
+	Vertex3f_Texture left3(Point3f(maxX, maxY, minZ), Point2f((maxX-minX)/50.0f, 1.0f));
+	Vertex3f_Texture left4(Point3f(maxX, maxY, maxZ), Point2f((maxX-minX)/50.0f, 0.0f));
+  
+  Vertex3f_Texture right1(Point3f(minX, minY, maxZ), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture right2(Point3f(minX, minY, minZ), Point2f(0.0f, 1.0f));
+	Vertex3f_Texture right3(Point3f(maxX, minY, minZ), Point2f((maxX-minX)/50.0f, 1.0f));
+	Vertex3f_Texture right4(Point3f(maxX, minY, maxZ), Point2f((maxX-minX)/50.0f, 0.0f));
+  
+  Vertex3f_Texture floor1(Point3f(maxX, maxY, minZ), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture floor2(Point3f(minX, maxY, minZ), Point2f(0.0f, (maxX-minX)/30.0f));
+	Vertex3f_Texture floor3(Point3f(minX, minY, minZ), Point2f((maxY-minY)/30.0f, (maxX-minX)/30.0f));
+	Vertex3f_Texture floor4(Point3f(maxX, minY, minZ), Point2f((maxY-minY)/30.0f, 0.0f));
+  
+  Vertex3f_Texture ceiling1(Point3f(maxX, maxY, maxZ), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture ceiling2(Point3f(minX, maxY, maxZ), Point2f(0.0f, (maxX-minX)/20.0f));
+	Vertex3f_Texture ceiling3(Point3f(minX, minY, maxZ), Point2f((maxY-minY)/50.0f, (maxX-minX)/20.0f));
+	Vertex3f_Texture ceiling4(Point3f(maxX, minY, maxZ), Point2f((maxY-minY)/50.0f, 0.0f));
+  
+  Vertex3f_Texture door1(Point3f((maxX+minX)/2.0f - 50.0f, minY+.1f, minZ + 160.0f), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture door2(Point3f((maxX+minX)/2.0f - 50.0f, minY+.1f, minZ), Point2f(0.0f, 1.0f));
+	Vertex3f_Texture door3(Point3f((maxX+minX)/2.0f + 50.0f, minY+.1f, minZ), Point2f(1.0f, 1.0f));
+	Vertex3f_Texture door4(Point3f((maxX+minX)/2.0f + 50.0f, minY+.1f, minZ + 160.0f), Point2f(1.0f, 0.0f));
+  
+  Vertex3f_Texture osu1(Point3f(maxX - 0.1f, 100.0f, maxZ - 20.0f), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture osu2(Point3f(maxX - 0.1f, 100.0f, maxZ - 120.0f), Point2f(0.0f, 1.0f));
+	Vertex3f_Texture osu3(Point3f(maxX - 0.1f, -100.0f, maxZ - 120.0f), Point2f(1.0f, 1.0f));
+	Vertex3f_Texture osu4(Point3f(maxX - 0.1f, -100.0f, maxZ - 20.0f), Point2f(1.0f, 0.0f));
+  
+  Vertex3f_Texture um1(Point3f(minX + 0.1f, -100.0f, maxZ - 20.0f), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture um2(Point3f(minX + 0.1f, -100.0f, maxZ - 120.0f), Point2f(0.0f, 1.0f));
+	Vertex3f_Texture um3(Point3f(minX + 0.1f, 100.0f, maxZ - 120.0f), Point2f(1.0f, 1.0f));
+	Vertex3f_Texture um4(Point3f(minX + 0.1f, 100.0f, maxZ - 20.0f), Point2f(1.0f, 0.0f));
+  
+  Vertex3f_Texture oly1(Point3f((maxX+minX)/2.0f - 100.0f, maxY-.1f, maxZ - 20.0f), Point2f(0.0f, 0.0f));
+	Vertex3f_Texture oly2(Point3f((maxX+minX)/2.0f - 100.0f, maxY-.1f, maxZ - 150.0f), Point2f(0.0f, 1.0f));
+	Vertex3f_Texture oly3(Point3f((maxX+minX)/2.0f + 100.0f, maxY-.1f, maxZ - 150.0f), Point2f(1.0f, 1.0f));
+	Vertex3f_Texture oly4(Point3f((maxX+minX)/2.0f + 100.0f, maxY-.1f, maxZ - 20.0f), Point2f(1.0f, 0.0f));
+  
+  Quadrilateral<Vertex3f_Texture> brickQuadBack(back1, back2, back3, back4);
+  Quadrilateral<Vertex3f_Texture> brickQuadFront(front1, front2, front3, front4);
+  Quadrilateral<Vertex3f_Texture> brickQuadLeft(left1, left2, left3, left4);
+  Quadrilateral<Vertex3f_Texture> brickQuadRight(right1, right2, right3, right4);
+  Quadrilateral<Vertex3f_Texture> floorQuad(floor1, floor2, floor3, floor4);
+  Quadrilateral<Vertex3f_Texture> ceilingQuad(ceiling1, ceiling2, ceiling3, ceiling4);
+  Quadrilateral<Vertex3f_Texture> doorQuad(door1, door2, door3, door4);
+  Quadrilateral<Vertex3f_Texture> umQuad(um1, um2, um3, um4);
+  Quadrilateral<Vertex3f_Texture> osuQuad(osu1, osu2, osu3, osu4);
+  Quadrilateral<Vertex3f_Texture> olyQuad(oly1, oly2, oly3, oly4);
+  
+  brickQuadBack.fax_Material(&brick);
+  brickQuadFront.fax_Material(&brick);
+  brickQuadLeft.fax_Material(&brick);
+  brickQuadRight.fax_Material(&brick);
+  floorQuad.fax_Material(&floorTile);
+  ceilingQuad.fax_Material(&ceiling);
+  doorQuad.fax_Material(&door);
+  umQuad.fax_Material(&um);
+  osuQuad.fax_Material(&osu);
+  olyQuad.fax_Material(&oly);
+  
+  vr.render(brickQuadBack);
+  vr.render(brickQuadFront);
+  vr.render(brickQuadLeft);
+  vr.render(brickQuadRight);
+  vr.render(floorQuad);
+  vr.render(ceilingQuad);
+  vr.render(doorQuad);
+  vr.render(umQuad);
+  vr.render(osuQuad);
+  vr.render(olyQuad);
 
 	// skybox
-	Vector3f v_f(1.0f, 0.0f, 0.0f);
-    Vector3f v_u(0.0f, 0.0f, 1.0f);
-    Vector3f v_l(0.0f, 1.0f, 0.0f);
-
-	Point2f texture_a(0.0f, 0.0f);
-	Point2f texture_b(0.0f, 1.0f);
-	Point2f texture_c(1.0f, 1.0f);
-	Point2f texture_d(1.0f, 0.0f);
-
-	Point3f skybox_p0 = camera.position + SKYBOX_DIST*(v_f + v_u + v_l);
-	Point3f skybox_p1 = camera.position + SKYBOX_DIST*(v_f - v_u + v_l);
-	Point3f skybox_p2 = camera.position + SKYBOX_DIST*(v_f - v_u - v_l);
-	Point3f skybox_p3 = camera.position + SKYBOX_DIST*(v_f + v_u - v_l);
-	Point3f skybox_p4 = camera.position + SKYBOX_DIST*(-v_f - v_u + v_l);
-	Point3f skybox_p5 = camera.position + SKYBOX_DIST*(-v_f + v_u + v_l);
-	Point3f skybox_p6 = camera.position + SKYBOX_DIST*(-v_f - v_u - v_l);
-	Point3f skybox_p7 = camera.position + SKYBOX_DIST*(-v_f + v_u - v_l);
-
-	Vertex3f_Texture a_p0(skybox_p0, texture_a);
-    Vertex3f_Texture a_p1(skybox_p1, texture_b);
-    Vertex3f_Texture a_p2(skybox_p2, texture_c); 
-    Vertex3f_Texture a_p3(skybox_p3, texture_d);
-
-	Vertex3f_Texture b_p5(skybox_p5, texture_a);
-	Vertex3f_Texture b_p4(skybox_p4, texture_b);
-	Vertex3f_Texture b_p1(skybox_p1, texture_c);
-	Vertex3f_Texture b_p0(skybox_p0, texture_d);
-
-	Vertex3f_Texture c_p7(skybox_p7, texture_a);
-	Vertex3f_Texture c_p6(skybox_p6, texture_b);
-	Vertex3f_Texture c_p4(skybox_p4, texture_c);
-	Vertex3f_Texture c_p5(skybox_p5, texture_d);
-	
-	Vertex3f_Texture d_p3(skybox_p3, texture_a);
-	Vertex3f_Texture d_p2(skybox_p2, texture_b);
-	Vertex3f_Texture d_p6(skybox_p6, texture_c);
-	Vertex3f_Texture d_p7(skybox_p7, texture_d);
-
-	Vertex3f_Texture e_p0(skybox_p0, texture_a);
-	Vertex3f_Texture e_p3(skybox_p3, texture_b);
-	Vertex3f_Texture e_p7(skybox_p7, texture_c);
-	Vertex3f_Texture e_p5(skybox_p5, texture_d);
-
-	Vertex3f_Texture f_p1(skybox_p1, texture_a);
-	Vertex3f_Texture f_p4(skybox_p4, texture_b);
-	Vertex3f_Texture f_p6(skybox_p6, texture_c);
-	Vertex3f_Texture f_p2(skybox_p2, texture_d);
-	
-    Material skybox_material("skybox");
-
-	Quadrilateral<Vertex3f_Texture> quad_a(a_p0, a_p1, a_p2, a_p3);
-	Quadrilateral<Vertex3f_Texture> quad_b(b_p5, b_p4, b_p1, b_p0);
-	Quadrilateral<Vertex3f_Texture> quad_c(c_p7, c_p6, c_p4, c_p5);
-	Quadrilateral<Vertex3f_Texture> quad_d(d_p3, d_p2, d_p6, d_p7);
-	Quadrilateral<Vertex3f_Texture> quad_e(e_p0, e_p3, e_p7, e_p5);
-	Quadrilateral<Vertex3f_Texture> quad_f(f_p1, f_p4, f_p6, f_p2);
-    quad_a.fax_Material(&skybox_material);
-	quad_b.fax_Material(&skybox_material);
-	quad_c.fax_Material(&skybox_material);
-	quad_d.fax_Material(&skybox_material);
-	quad_e.fax_Material(&skybox_material);
-	quad_f.fax_Material(&skybox_material);
-
-	vr.render(quad_a);
-	vr.render(quad_b);
-	vr.render(quad_c);
-	vr.render(quad_d);
-	vr.render(quad_e);
-	vr.render(quad_f);
+//	Vector3f v_f(1.0f, 0.0f, 0.0f);
+//    Vector3f v_u(0.0f, 0.0f, 1.0f);
+//    Vector3f v_l(0.0f, 1.0f, 0.0f);
+//
+//	Point2f texture_a(0.0f, 0.0f);
+//	Point2f texture_b(0.0f, 1.0f);
+//	Point2f texture_c(1.0f, 1.0f);
+//	Point2f texture_d(1.0f, 0.0f);
+//
+//	Point3f skybox_p0 = camera.position + SKYBOX_DIST*(v_f + v_u + v_l);
+//	Point3f skybox_p1 = camera.position + SKYBOX_DIST*(v_f - v_u + v_l);
+//	Point3f skybox_p2 = camera.position + SKYBOX_DIST*(v_f - v_u - v_l);
+//	Point3f skybox_p3 = camera.position + SKYBOX_DIST*(v_f + v_u - v_l);
+//	Point3f skybox_p4 = camera.position + SKYBOX_DIST*(-v_f - v_u + v_l);
+//	Point3f skybox_p5 = camera.position + SKYBOX_DIST*(-v_f + v_u + v_l);
+//	Point3f skybox_p6 = camera.position + SKYBOX_DIST*(-v_f - v_u - v_l);
+//	Point3f skybox_p7 = camera.position + SKYBOX_DIST*(-v_f + v_u - v_l);
+//
+//	Vertex3f_Texture a_p0(skybox_p0, texture_a);
+//    Vertex3f_Texture a_p1(skybox_p1, texture_b);
+//    Vertex3f_Texture a_p2(skybox_p2, texture_c); 
+//    Vertex3f_Texture a_p3(skybox_p3, texture_d);
+//
+//	Vertex3f_Texture b_p5(skybox_p5, texture_a);
+//	Vertex3f_Texture b_p4(skybox_p4, texture_b);
+//	Vertex3f_Texture b_p1(skybox_p1, texture_c);
+//	Vertex3f_Texture b_p0(skybox_p0, texture_d);
+//
+//	Vertex3f_Texture c_p7(skybox_p7, texture_a);
+//	Vertex3f_Texture c_p6(skybox_p6, texture_b);
+//	Vertex3f_Texture c_p4(skybox_p4, texture_c);
+//	Vertex3f_Texture c_p5(skybox_p5, texture_d);
+//	
+//	Vertex3f_Texture d_p3(skybox_p3, texture_a);
+//	Vertex3f_Texture d_p2(skybox_p2, texture_b);
+//	Vertex3f_Texture d_p6(skybox_p6, texture_c);
+//	Vertex3f_Texture d_p7(skybox_p7, texture_d);
+//
+//	Vertex3f_Texture e_p0(skybox_p0, texture_a);
+//	Vertex3f_Texture e_p3(skybox_p3, texture_b);
+//	Vertex3f_Texture e_p7(skybox_p7, texture_c);
+//	Vertex3f_Texture e_p5(skybox_p5, texture_d);
+//
+//	Vertex3f_Texture f_p1(skybox_p1, texture_a);
+//	Vertex3f_Texture f_p4(skybox_p4, texture_b);
+//	Vertex3f_Texture f_p6(skybox_p6, texture_c);
+//	Vertex3f_Texture f_p2(skybox_p2, texture_d);
+//	
+//    Material skybox_material("skybox");
+//
+//	Quadrilateral<Vertex3f_Texture> quad_a(a_p0, a_p1, a_p2, a_p3);
+//	Quadrilateral<Vertex3f_Texture> quad_b(b_p5, b_p4, b_p1, b_p0);
+//	Quadrilateral<Vertex3f_Texture> quad_c(c_p7, c_p6, c_p4, c_p5);
+//	Quadrilateral<Vertex3f_Texture> quad_d(d_p3, d_p2, d_p6, d_p7);
+//	Quadrilateral<Vertex3f_Texture> quad_e(e_p0, e_p3, e_p7, e_p5);
+//	Quadrilateral<Vertex3f_Texture> quad_f(f_p1, f_p4, f_p6, f_p2);
+//    quad_a.fax_Material(&skybox_material);
+//	quad_b.fax_Material(&skybox_material);
+//	quad_c.fax_Material(&skybox_material);
+//	quad_d.fax_Material(&skybox_material);
+//	quad_e.fax_Material(&skybox_material);
+//	quad_f.fax_Material(&skybox_material);
+//
+//	vr.render(quad_a);
+//	vr.render(quad_b);
+//	vr.render(quad_c);
+//	vr.render(quad_d);
+//	vr.render(quad_e);
+//	vr.render(quad_f);
 
 	// render the table
 	getGameModel().renderAll();
