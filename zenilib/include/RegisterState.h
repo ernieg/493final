@@ -15,6 +15,7 @@
 #include "Tutorial_State.h"
 #include "EasyAgent.h"
 #include "MediumAgent.h"
+#include "HardAgent.h"
 
 class RegisterState : public MenuState {
 public:
@@ -266,10 +267,10 @@ private:
                           getGameModel().getPlayersContainer()->push_back(play2);
                           break;
                         }
-                        case 2: { //code for creating HardAgent, uncomment when ready
-                          //HardAgent* play2 = new HardAgent(1);
-                          //getGameModel().getPlayersContainer()->push_back(play2);
-                          //break;
+                        case 2: {
+                          HardAgent* play2 = new HardAgent(1);
+                          getGameModel().getPlayersContainer()->push_back(play2);
+                          break;
                         }
                         default: {
                           MediumAgent* play2 = new MediumAgent(1);

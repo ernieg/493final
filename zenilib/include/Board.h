@@ -32,6 +32,10 @@ public:
 	bool threeInARow(int col, int playerIndex); // returns true if placing a coin in that column will win the game
 												// for playerIndex. also handles placing a coin in the middle of
 												// a row for a win
+	bool threeInARow2(int col, int playerIndex);// Confusing name I know, will think of something better later
+												// More demanding checks. Finds ALL cases where win is imminent
+	bool lookAheadWin(int col, int playerIndex);// returns true if action results in win for opponent
+												// poorly written.. could could use improvement
 
 	Board(int numRows_ = 6, int numCols_ = 7);
 
