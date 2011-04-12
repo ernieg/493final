@@ -24,6 +24,12 @@ public:
     buttons.push_back(quitButton);
     
     buttons[selectedButton]->select();
+    
+    grabbed = Zeni::get_Video().is_mouse_grabbed();
+    hidden = Zeni::get_Video().is_mouse_hidden();
+    
+    Zeni::get_Video().mouse_hide(false);
+    Zeni::get_Video().mouse_grab(false);
 	}
   
   class ContinueButton : public MenuButton {
@@ -61,6 +67,11 @@ public:
   };
   
 private:
+  
+  void on_pop() {
+    Zeni::get_Video().mouse_hide(hidden);
+    Zeni::get_Video().mouse_grab(grabbed);
+  }
   
 	void on_wiimote_button(const Wiimote_Button_Event &event) {
     switch(event.button) {
@@ -132,6 +143,8 @@ private:
                       Zeni::ZENI_CENTER);
     
   }
+  
+  bool hidden, grabbed;
 };
 
 #endif

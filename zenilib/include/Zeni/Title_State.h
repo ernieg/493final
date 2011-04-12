@@ -190,6 +190,10 @@ namespace Zeni {
             fakeEvent.button = BUTTON_A;
           }
           break;
+          
+        default:
+          Gamestate_Base::on_key(event);
+          break;
       }
       
       fakeEvent.pressed = event.type == SDL_KEYDOWN;
