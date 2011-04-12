@@ -257,14 +257,14 @@ private:
                       getGameModel().getPlayersContainer()->pop_back();
                       switch(getGameModel().getDifficulty()) {
                         case 0: {
-                          MediumAgent* play2 = new MediumAgent(1);
+                          EasyAgent* play2 = new EasyAgent(1);
                           getGameModel().getPlayersContainer()->push_back(play2);
                           break;
                         }
-                        case 1: { //code for creating MediumAgent, uncomment when ready
-                          //MediumAgent* play2 = new MediumAgent(1);
-                          //getGameModel().getPlayersContainer()->push_back(play2);
-                          //break;
+                        case 1: { 
+                          MediumAgent* play2 = new MediumAgent(1);
+                          getGameModel().getPlayersContainer()->push_back(play2);
+                          break;
                         }
                         case 2: { //code for creating HardAgent, uncomment when ready
                           //HardAgent* play2 = new HardAgent(1);
@@ -272,7 +272,7 @@ private:
                           //break;
                         }
                         default: {
-                          EasyAgent* play2 = new EasyAgent(1);
+                          MediumAgent* play2 = new MediumAgent(1);
                           getGameModel().getPlayersContainer()->push_back(play2);
                           break;
                         }
