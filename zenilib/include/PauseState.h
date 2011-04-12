@@ -54,7 +54,7 @@ public:
     
   public:
     QuitButton()
-    : MenuButton("Quit", Zeni::Point2f(400.0f, 400.0f))
+    : MenuButton("Main Menu", Zeni::Point2f(400.0f, 400.0f))
     {
     }
     
