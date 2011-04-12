@@ -22,14 +22,21 @@ public:
 	void render();
 	void advanceMovingCoins(float timeStep);
 	int numMovingCoins();
-
-	Board(int numRows_ = 6, int numCols_ = 7);
-
-private:
+	int getNumCoins(); // number of coins in board
 	// returns the player index of the coin in this slot
 	// or -1 if the slot is empty
 	// or -2 if the slot is off the board
 	int ownerOfSlot(int row, int col);
+	int getEmptyRow(int col);					// returns the first instance of an empty row or -1 if column full
+	bool columnFull(int col);
+	bool threeInARow(int col, int playerIndex); // returns true if placing a coin in that column will win the game
+												// for playerIndex. also handles placing a coin in the middle of
+												// a row for a win
+
+	Board(int numRows_ = 6, int numCols_ = 7);
+
+private:
+
 	bool allEqual(int a, int b, int c, int d);
 
 	std::vector< std::vector<Coin*> > board; // board[i][j] is null if the slot at row i, col j is empty

@@ -619,6 +619,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\src\MediumAgent.cpp" />
     <ClCompile Include="..\src\MenuState.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Tutorial_State.cpp" />
@@ -632,6 +633,7 @@
     <ClInclude Include="..\include\EasyAgent.h" />
     <ClInclude Include="..\include\GameModel.h" />
     <ClInclude Include="..\include\GameObject.h" />
+    <ClInclude Include="..\include\MediumAgent.h" />
     <ClInclude Include="..\include\MenuState.h" />
     <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Tutorial_State.h" />

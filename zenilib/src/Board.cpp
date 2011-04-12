@@ -304,3 +304,73 @@ int Board::numMovingCoins()
 {
 	return movingCoins.size();
 }
+
+bool Board::columnFull(int col) {
+	for (int i = 0; i < numCols; i++) {
+		if (ownerOfSlot(i, col) == -1) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool Board::threeInARow(int col, int playerIndex) {
+	int emptyRow = getEmptyRow(col);
+
+	// Check horizontal
+	if (ownerOfSlot(emptyRow, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow, col + 2) == playerIndex &&
+		ownerOfSlot(emptyRow, col + 3) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow, col - 2) == playerIndex &&
+		ownerOfSlot(emptyRow, col - 3) == playerIndex) {
+			return true;
+	}
+
+	// Check below
+	if (ownerOfSlot(emptyRow - 1, col) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col) == playerIndex &&
+		ownerOfSlot(emptyRow - 3, col) == playerIndex) {
+			return true;
+	}
+
+	// Check diagnols
+	if (ownerOfSlot(emptyRow - 1, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col - 2) == playerIndex &&
+		ownerOfSlot(emptyRow - 3, col - 3) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow - 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow - 2, col + 2) == playerIndex &&
+		ownerOfSlot(emptyRow - 3, col + 3) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow + 1, col - 1) == playerIndex &&
+		ownerOfSlot(emptyRow + 2, col - 2) == playerIndex &&
+		ownerOfSlot(emptyRow + 3, col - 3) == playerIndex) {
+			return true;
+	}
+	if (ownerOfSlot(emptyRow + 1, col + 1) == playerIndex &&
+		ownerOfSlot(emptyRow + 2, col + 2) == playerIndex &&
+		ownerOfSlot(emptyRow + 3, col + 3) == playerIndex) {
+			return true;
+	}
+
+	return false;
+}
+
+int Board::getNumCoins() {
+	return numCoins;
+}
+
+int Board::getEmptyRow(int col) {
+	// Get first row value that isn't taken
+	for (int emptyRow = 0; emptyRow < numRows; emptyRow++) {
+		if (ownerOfSlot(emptyRow, col) == -1) {
+			return emptyRow;
+		}
+	}
+	return -1;
+}
