@@ -197,6 +197,8 @@ camera(getGameModel().getCamera())
   
   getGameModel().reset();
  // camera = getGameModel().getCamera();
+  camera.position.x = 0.0f; // make sure the camera is always at the first player's position when the game starts
+  camera.position.y = 0.0f;
   camera.position.z = 60.0f;
   camera.look_at(BOARD_CENTER_MIDDLE);
 }
