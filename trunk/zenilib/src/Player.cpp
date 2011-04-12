@@ -63,7 +63,7 @@ void Player::moveCurrentCoin() {
     std::make_pair(Point2i(0,0), get_Video().get_screen_size()));
   Point3f point = projector.project(coin->getPosition());
 
-  float distance;
+  float distance = 0.0f;
   if(!grabbed) {
     float xDist = point.x - cursor.x;
     xDist *= xDist; // ^2

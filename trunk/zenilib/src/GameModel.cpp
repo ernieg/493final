@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "AgentBase.h"
 #include "EasyAgent.h"
+#include "MediumAgent.h"
 
 using namespace std;
 using namespace Zeni;
