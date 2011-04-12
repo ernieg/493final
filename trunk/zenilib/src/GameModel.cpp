@@ -35,7 +35,22 @@ GameModel::GameModel() {
   currentTurn = 0;
   gameOver = false;
   turn_transition = false;
-  difficulty = 0; //default to easy
+  
+  //read in difficulty from file, keeps user from having
+  //to set this everytime they boot the game
+  std::ifstream infile;
+  infile.open("difficulty.txt");
+  
+  if(infile.fail())
+    difficulty = 1; //default to medium
+  else {
+    int temp;
+    infile >> temp;
+    if(temp > 2 || temp < 0)
+      difficulty = 0;
+    else
+      difficulty = temp;
+    }
 }
 
 void GameModel::setPlayerColors(string play1, string play2) {

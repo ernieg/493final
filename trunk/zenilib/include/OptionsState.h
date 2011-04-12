@@ -20,19 +20,7 @@ public:
 	OptionsState()
 	{
     soundOn = !Zeni::get_Sound().is_listener_muted();
-    std::ifstream infile;
-    infile.open("difficulty.txt");
-    
-    if(infile.fail())
-      difficulty = 0; //default to easy
-    else {
-      int temp;
-      infile >> temp;
-      if(temp > 2 || temp < 0)
-        difficulty = 0;
-      else
-        difficulty = temp;
-    }
+    difficulty = getGameModel().getDifficulty();
     
     DifficultyButton *difficultyButton = new DifficultyButton();
     SoundButtonOn *soundButtonOn = new SoundButtonOn();
@@ -247,7 +235,7 @@ private:
         difficulty_s = "Hard";
         break;
       default:
-        difficulty_s = "Easy";
+        difficulty_s = "Medium";
         break;
     }
     text.render_text(difficulty_s,
