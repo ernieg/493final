@@ -600,6 +600,33 @@ void Tutorial_State::render() {
 
 	// render the table
 	getGameModel().renderAll();
+  
+  //render HUD
+  vr.set_2d();
+  Zeni::Font &text = Zeni::get_Fonts()["system20"];
+  
+  text.render_text("Player 1",
+                    Zeni::Point2f(0.0f, 0.0f),
+                    Zeni::OFFWHITE,
+                    Zeni::ZENI_LEFT);
+  text.render_text("Player 2",
+                    Zeni::Point2f(800.0f, 0.0f),
+                    Zeni::OFFWHITE,
+                    Zeni::ZENI_RIGHT);
+  
+  string p1Coin = getGameModel().getPlayer(0)->getPlayerColor() + "CHIP";
+  string p2Coin = getGameModel().getPlayer(1)->getPlayerColor() + "CHIP";
+  
+  for(int i = 0; i < p1Coin.size(); i++)
+    p1Coin[i] = toupper(p1Coin[i]);
+  for(int i = 0; i < p2Coin.size(); i++)
+    p2Coin[i] = toupper(p2Coin[i]);
+  
+  p1Coin = p1Coin.substr(0, 8) + ".PNG";
+  p2Coin = p2Coin.substr(0, 8) + ".PNG";
+  
+  render_image(p1Coin, Point2f(85.0f, 5.0f), Point2f(105.0f, 25.0f));
+  render_image(p2Coin, Point2f(695.0f, 5.0f), Point2f(715.0f, 25.0f));
 }
 
 
