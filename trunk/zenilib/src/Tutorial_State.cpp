@@ -228,31 +228,7 @@ void Tutorial_State::on_mouse_button(const SDL_MouseButtonEvent &event) {
 };
 
 void Tutorial_State::endTurn() {
-  	  // debugging
-	  //cout << getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin()) << endl;
-  	int col = getGameModel().getBoard()->checkCollide(getGameModel().getCurrentCoin());
-
-	  if ( col != -1 )
-	  {
-		  // put the coin in the board
-		  if ( getGameModel().getBoard()->putCoin(getGameModel().getCurrentCoin(),col) )
-		  {
-			  getGameModel().advanceTurn();
-
-			  // check for win condition (or draw)
-			  int winningIndex = getGameModel().getBoard()->checkWin();
-			  if ( winningIndex == 0 || winningIndex == 1 || winningIndex == -2 )
-			  {
-				  getGameModel().setGameOver(true);
-				  return;
-			  }
-
-			  getGameModel().setTurning(true);
-              
-			  // debug
-			  //cout << getGameModel().getBoard()->numMovingCoins() << endl;
-		  }  
-	  }
+    getGameModel().endTurn();
 }
 
 void Tutorial_State::on_key(const SDL_KeyboardEvent &event) {
@@ -342,9 +318,12 @@ void Tutorial_State::perform_logic() {
     m_current_time = temp_time;
   }
 
+  //cout << getGameModel().getEndGameTimer().seconds() << endl;
+
     // if someone has won and all the coins have finished falling
-	if ( getGameModel().getGameOver() && (getGameModel().getBoard()->numMovingCoins() == 0) )
-	{
+  if ( getGameModel().getGameOver() && (getGameModel().getBoard()->numMovingCoins() == 0) && (getGameModel().getEndGameTimer().seconds() >= END_GAME_DELAY) )
+  //if ( getGameModel().getGameOver() && (getGameModel().getEndGameTimer().seconds() >= END_GAME_DELAY) )
+    {
 		get_Game().pop_state();
 		get_Game().push_state(new Postgame_State(getGameModel().getBoard()->checkWin()));
 	}

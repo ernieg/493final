@@ -51,6 +51,9 @@ GameModel::GameModel() {
     else
       difficulty = temp;
     }
+
+  endGameTimer.stop();
+  endGameTimer.reset();
 }
 
 void GameModel::setPlayerColors(string play1, string play2) {
@@ -92,6 +95,9 @@ void GameModel::endTurn() {
 			  if ( winningIndex == 0 || winningIndex == 1 || winningIndex == -2 )
 			  {
 				  getGameModel().setGameOver(true);
+				  getGameModel().getEndGameTimer().reset();
+				  getGameModel().getEndGameTimer().start();
+				  cout << "Timer started" << endl;
 				  return;
 			  }
 
@@ -145,6 +151,9 @@ void GameModel::reset()
 	}
   currentTurn = 0;
   makeNewCurrentCoin();
+
+  endGameTimer.stop();
+  endGameTimer.reset();
 }
 
 float GameModel::getPointerScale()

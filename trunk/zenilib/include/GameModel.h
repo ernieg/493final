@@ -60,6 +60,11 @@ public:
   void setGameOver(bool gameOver_);
   bool getGameOver();
 
+  Zeni::Chronometer<Zeni::Time> & getEndGameTimer()
+  {
+	  return endGameTimer;
+  }
+
 private:
 	std::vector<Player*> players;
 	Board* board;
@@ -82,6 +87,8 @@ private:
 
   // the game is over, but we may still be waiting for coins to fall
   bool gameOver;
+
+  Zeni::Chronometer<Zeni::Time> endGameTimer;
 };
 
 GameModel & getGameModel();

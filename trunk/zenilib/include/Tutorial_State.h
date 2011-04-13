@@ -20,6 +20,7 @@
 // distance from the camera to the skybox
 const float SKYBOX_DIST = 1000.0f;
 const float ANGLE_EPSILON = .01f;
+const float END_GAME_DELAY = 4.0f;
 
 #ifdef _MACOSX
 class Tutorial_State : public Zeni::Gamestate_Base {
