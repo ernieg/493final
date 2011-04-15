@@ -51,6 +51,9 @@ Board::Board(int numRows_, int numCols_)
 		columnPlanes[i] = colPlane;
 	}
 
+	// for spinning the winning coins
+	winningCoins.resize(4);
+	winningCoins[0] = winningCoins[1] = winningCoins[2] = winningCoins[3] = NULL;
 }
 
 bool Board::putCoin(Coin* coin, int column)
@@ -173,6 +176,11 @@ int Board::checkWin()
 					  ownerOfSlot(recentRow,recentColumn-k+2),
 					  ownerOfSlot(recentRow,recentColumn-k+3)) )
 		{
+			for (int w = 0; w < 4; w++)
+			{
+				winningCoins[w] = board[recentRow][recentColumn-k+w];
+			}
+		
 			return ownerOfSlot(recentRow,recentColumn-k);
 		}
 	}
@@ -185,6 +193,11 @@ int Board::checkWin()
 					  ownerOfSlot(recentRow-k+2,recentColumn),
 					  ownerOfSlot(recentRow-k+3,recentColumn)) )
 		{
+			for (int w = 0; w < 4; w++)
+			{
+				winningCoins[w] = board[recentRow-k+w][recentColumn];
+			}
+
 			return ownerOfSlot(recentRow-k,recentColumn);
 		}
 	}
@@ -197,6 +210,11 @@ int Board::checkWin()
 					  ownerOfSlot(recentRow-k+2,recentColumn-k+2),
 					  ownerOfSlot(recentRow-k+3,recentColumn-k+3)) )
 		{
+			for (int w = 0; w < 4; w++)
+			{
+				winningCoins[w] = board[recentRow-k+w][recentColumn-k+w];
+			}
+
 			return ownerOfSlot(recentRow-k,recentColumn-k);
 		}
 	}
@@ -209,6 +227,11 @@ int Board::checkWin()
 					  ownerOfSlot(recentRow+k-2,recentColumn-k+2), 
 					  ownerOfSlot(recentRow+k-3,recentColumn-k+3)) )
 		{
+			for (int w = 0; w < 4; w++)
+			{
+				winningCoins[w] = board[recentRow+k-w][recentColumn-k+w];
+			}
+
 			return ownerOfSlot(recentRow+k,recentColumn-k);
 		}
 	}
@@ -261,6 +284,8 @@ void Board::reset()
 	}
 
 	movingCoins.clear();
+
+	winningCoins[0] = winningCoins[1] = winningCoins[2] = winningCoins[3] = NULL;
 }
 
 void Board::render()
