@@ -39,6 +39,11 @@ public:
 
 	Board(int numRows_ = 6, int numCols_ = 7);
 
+	std::vector<Coin*> & getWinningCoins()
+	{
+		return winningCoins;
+	}
+
 private:
 
 	bool allEqual(int a, int b, int c, int d);
@@ -56,6 +61,7 @@ private:
 	int recentColumn; // the column that most recently had a coin put in it, or -1 for the start of the game
 
 	std::vector<Coin*> movingCoins; // the coins currently falling down
+	std::vector<Coin*> winningCoins; // for making the winning coins rotate
 };
 
 #endif // BOARD_H

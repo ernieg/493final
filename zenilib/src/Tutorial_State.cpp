@@ -419,6 +419,15 @@ void Tutorial_State::step(const float &time_step) {
 
 	// advance any coins falling down
 	getGameModel().getBoard()->advanceMovingCoins(time_step);
+
+	// rotate the winning coins (if there are any)
+	for (int i = 0; i < 4; i++)
+	{
+		if ( getGameModel().getBoard()->getWinningCoins()[i] != NULL )
+		{
+			getGameModel().getBoard()->getWinningCoins()[i]->rotate(time_step);
+		}
+	}
 }
 
 void Tutorial_State::render() {
