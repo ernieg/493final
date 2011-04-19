@@ -644,6 +644,8 @@ void Tutorial_State::on_wiimote_button(const Wiimote_Button_Event &event){
    getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleWiiButtonEvent(event);
    switch(event.button){
      case BUTTON_HOME:
+     case BUTTON_MINUS:
+     case BUTTON_PLUS :
        get_Game().push_state(new PauseState());
        break;
       case BUTTON_A:
