@@ -641,7 +641,10 @@ void Tutorial_State::render() {
 
 #ifndef _MACOSX
 void Tutorial_State::on_wiimote_button(const Wiimote_Button_Event &event){
-   getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleWiiButtonEvent(event);
+   if(getGameModel().getCurrentTurn() != event.wiimote) {
+    return;
+   }
+   getGameModel().getPlayer(event.wiimote)->handleWiiButtonEvent(event);
    switch(event.button){
      case BUTTON_HOME:
      case BUTTON_MINUS:
@@ -669,7 +672,9 @@ void Tutorial_State::on_wiimote_button(const Wiimote_Button_Event &event){
 }
 
 void Tutorial_State::on_wiimote_ir(const Wiimote_IR_Event &event){
-  getGameModel().getPlayer(getGameModel().getCurrentTurn())->handleWiiIREvent(event);
+  if(getGameModel().getCurrentTurn() == event.wiimote) {
+    getGameModel().getPlayer(event.wiimote)->handleWiiIREvent(event);
+  }
 }
 
 void Tutorial_State::on_wiimote_nunchuk(const Wiimote_Nunchuk_Event &event){
