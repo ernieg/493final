@@ -380,7 +380,7 @@ void Tutorial_State::perform_logic() {
 		transition_angle = pi;
 		getGameModel().setTurning(false);
 
-		camera.position.x = 200.0f;
+		camera.position.x = BOARD_DIST_X*2;
 		camera.position.y = 0.0f;
 		camera.look_at(BOARD_CENTER_MIDDLE);
 	  }
