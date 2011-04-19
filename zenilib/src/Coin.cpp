@@ -12,7 +12,7 @@ Coin::Coin(int playerIndex_)
 	assert(GameObject::getModel() != NULL);
 
 	// put the coin in a default position
-	setPosition(Zeni::Point3f(BOARD_DIST_X,75.0f,100.0f));
+	setPosition(Zeni::Point3f(BOARD_DIST_X,65.0f,100.0f));
 }
 
 void Coin::render()

@@ -6,7 +6,7 @@
 
 // distance from the game board to the camera.
 // the camera is at the origin initially (player 0)
-const float BOARD_DIST_X = 100.0f;
+const float BOARD_DIST_X = 70.0f;
 const Zeni::Point3f BOARD_CENTER(BOARD_DIST_X,0.0f,0.0f); // the bottom-center
 const Zeni::Point3f BOARD_CENTER_MIDDLE(BOARD_DIST_X,0.0f,50.0f); // the rough center of the board
 const Zeni::Vector3f BOARD_SCALE(7.0f,7.0f,7.0f);
