@@ -94,6 +94,12 @@ private:
   
 	void on_wiimote_button(const Wiimote_Button_Event &event) {
     switch(event.button) {
+      case BUTTON_B:
+        if(event.pressed) {
+          Zeni::get_Game().pop_state();
+        }
+        break;
+        
       case BUTTON_A:
         if(event.pressed) {
           buttons[selectedButton]->onAccept();
@@ -167,6 +173,11 @@ private:
   void on_key(const SDL_KeyboardEvent &event) {
     Wiimote_Button_Event fakeEvent;
     switch(event.keysym.sym) {
+      case SDLK_BACKSPACE:
+        if(event.state == SDL_PRESSED) {
+          fakeEvent.button = BUTTON_B;
+        }
+        break;
       case SDLK_UP:
         if(event.state == SDL_PRESSED) {
           fakeEvent.button = BUTTON_UP;

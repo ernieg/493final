@@ -403,6 +403,7 @@ private:
     switch(event.keysym.sym) {
       case SDLK_q:
         fakeEvent.wiimote = 1;
+      case SDLK_BACKSPACE:
       case SDLK_ESCAPE:
         if(event.state == SDL_PRESSED)
           fakeEvent.button = BUTTON_B;
