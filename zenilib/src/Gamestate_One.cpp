@@ -17,12 +17,44 @@ static vector<string> g_args;
 
 
 class Instructions_State : public MenuState {
+  
+  class ToKeyInst : public MenuButton {
+    ToKeyInst(const ToKeyInst &);
+    ToKeyInst & operator=(const ToKeyInst &);
+    
+  public:
+    ToKeyInst()
+    : MenuButton("Keyboard >", Zeni::Point2f(695.0f, Zeni::get_Video().get_screen_height() - 45.0f))
+    {
+    }
+    
+    void onAccept() {
+      Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
+    }
+  };
 
+  class ToWiiInst : public MenuButton {
+    ToWiiInst(const ToWiiInst &);
+    ToWiiInst & operator=(const ToWiiInst &);
+    
+  public:
+    ToWiiInst()
+    : MenuButton("< Wii Instructions", Zeni::Point2f(218.0f, 295.0f))
+    {
+    }
+    
+    void onAccept() {
+      Zeni::get_Sound_Source_Pool().play_and_destroy(new Zeni::Sound_Source(Zeni::get_Sounds()["beep"]));
+    }
+  };
+  
 public:
   Instructions_State()
-  : MenuState()
+  : MenuState(), wii(true)
   {
+    ToKeyInst *toKeyInst = new ToKeyInst();
     BackButton *backButton = new BackButton();
+    buttons.push_back(toKeyInst);
     buttons.push_back(backButton);
     buttons[0]->select();
   }
@@ -37,21 +69,32 @@ private:
         
       case BUTTON_UP:
         if(event.pressed) {
-          if(selectedButton > 0)
+          if(selectedButton > 0) {
+            buttons[selectedButton]->deselect();
             selectedButton--;
+            buttons[selectedButton]->select();
+          }
         }
         break;
         
       case BUTTON_DOWN:
         if(event.pressed) {
-          if(selectedButton < 0)
+          if(selectedButton < buttons.size()-1) {
+            buttons[selectedButton]->deselect();
             selectedButton++;
+            buttons[selectedButton]->select();
+          }
         }
         break;
         
       case BUTTON_A:
         if(event.pressed) {
           buttons[selectedButton]->onAccept();
+          if(buttons.size() > 1 && selectedButton == 0) {
+            buttons.erase(buttons.begin());
+            buttons[selectedButton]->select();
+            wii = false;
+          }
         }
         break;
     }
@@ -61,17 +104,20 @@ private:
     Wiimote_Button_Event fakeEvent;
     
     switch(event.keysym.sym) {
+      case SDLK_BACKSPACE:
       case SDLK_ESCAPE:
         if(event.state == SDL_PRESSED)
           fakeEvent.button = BUTTON_B;
         break;
         
+      case SDLK_RIGHT:
       case SDLK_UP:
         if(event.state == SDL_PRESSED) {
           fakeEvent.button = BUTTON_UP;
         }
         break;
         
+      case SDLK_LEFT:
       case SDLK_DOWN:
         if(event.state == SDL_PRESSED) {
           fakeEvent.button = BUTTON_DOWN;
@@ -101,6 +147,7 @@ private:
                    OFFWHITE,
                    ZENI_CENTER);
     
+    if(wii) {
     Zeni::Font &fr = get_Fonts()["system20"];
     
     fr.render_text("HOW TO PLAY:\n\n"
@@ -110,7 +157,13 @@ private:
                    ZENI_CENTER);
     
     render_image("Instructions", Point2f(100.0f, 235.0f), Point2f(1124.0f, 747.0f));
+    }
+    else {
+      render_image("KeyInst", Point2f(0.0f, 0.0f), Point2f(1024.0f, 1024.0f));
+    }
   }
+  
+  bool wii;
 };
 
 namespace Zeni {
